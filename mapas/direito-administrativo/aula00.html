@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Mental Interativo - Direito Administrativo: Aula 00 (Regime Jurídico e Princípios)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f1f5f9;
+    }
+    #mindmap {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    }
+    .header-bar {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      padding: 12px 22px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 480px;
+    }
+    .header-bar h1 {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+    .header-bar p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .controls-hint {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .controls-hint span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>⚖️ Aula 00: Regime Jurídico e Princípios <span class="badge">Cebraspe / FGV</span></h1>
+    <p>Mapa Mental Interativo de Alto Rendimento • Direto ao Ponto com Mnemônicos e Precedentes</p>
+  </div>
+
+  <div class="controls-hint">
+    <span>🖱️ <b>Scroll:</b> Zoom</span>
+    <span>🖐️ <b>Arrastar:</b> Pan</span>
+    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <script>
+    const markdown = `# ⚖️ Direito Administrativo: Aula 00
+## 🏛️ Eixo 0: Fundamentos Ontológicos
+### 1. Bipé do Regime Jurídico-Administrativo (Celso Antônio Bandeira de Mello)
+- **Supremacia do Interesse Público sobre o Particular**
+  - Vertente de **Prerrogativas** e privilégios estatais
+  - Presunção de Legitimidade e Veracidade
+  - Autoexecutoriedade dos atos administrativos
+  - Posição de verticalidade (Estado > Particular)
+- **Indisponibilidade do Interesse Público pela Administração**
+  - Vertente de **Sujeições**, limitações e deveres
+  - O administrador é mero gestor do bem público (não é proprietário)
+  - Veda renúncia arbitrária de direitos e receitas
+  - Exige concurso público, licitação, motivação e prestação de contas
+
+### 2. Sentidos de Administração Pública
+- **Sentido Subjetivo / Formal / Orgânico**
+  - **Quem executa**: Conjunto de órgãos, agentes e pessoas jurídicas estatais
+  - Critério adotado pelo Brasil: Só integra a Adm. Pública quem a lei formal define
+- **Sentido Objetivo / Material / Funcional**
+  - **O que é executado**: A própria atividade administrativa (4 pilares)
+  - *Serviço Público* (prestação direta aos cidadãos)
+  - *Polícia Administrativa* (restrição de liberdades e direitos individuais)
+  - *Fomento* (incentivo à iniciativa privada de interesse social)
+  - *Intervenção* (atuação direta ou regulatória na ordem econômica)
+
+### 3. Interesse Público Primário vs. Secundário
+- **Primário (Genuíno)**
+  - Interesse direto da **coletividade** (justiça, saúde, segurança, bem-estar)
+  - Prevalece SEMPRE sobre interesses particulares
+- **Secundário (Patrimonial)**
+  - Interesse do Estado como **pessoa jurídica de direito patrimonial** (arrecadar mais, gastar menos)
+  - Só é legítimo quando coincide estritamente com o interesse primário!
+  - Vedado sobrepor o interesse secundário aos direitos fundamentais
+
+---
+
+## 📜 Eixo 1: Princípios Constitucionais Expressos (CF, Art. 37 - LIMPE)
+### 1. Legalidade
+- **Particular (Art. 5º, II)**: Autonomia da vontade (faz tudo que a lei não proíbe)
+- **Administração Pública**: Vinculação positiva estrita (só pode agir onde, quando e como a lei autoriza)
+- *Princípio da Juridicidade*: Submissão à lei formal + a todo o bloco de constitucionalidade e princípios
+
+### 2. Impessoalidade (Quádrupla Dimensão)
+- **Finalidade Pública**: O ato deve visar o interesse geral; vedado favorecer amigos ou perseguir desafetos
+- **Igualdade / Isonomia**: Tratamento uniforme e sem privilégios (base dos concursos e licitações)
+- **Vedação à Promoção Pessoal (Art. 37, §1º)**: Proibido constar nomes, símbolos ou imagens que caracterizem promoção pessoal de autoridades em obras e publicidades públicas
+- **Teoria da Imputação Volitiva (Otto Mayer)**: Os atos praticados pelos agentes são imputados ao órgão/Estado, e não à pessoa física do servidor
+
+### 3. Moralidade
+- **Probidade, Honestidade, Lealdade e Boa-Fé Objetiva**
+- **Autonomia da Moralidade**: O ato pode ser formalmente legal, mas NULO por violar a moralidade administrativa
+- **Súmula Vinculante 13 (Nepotismo)**:
+  - Proíbe nomeação de cônjuge, companheiro ou parente até 3º grau para cargos comissionados/funções de confiança
+  - Abrange a Administração Direta e Indireta de todos os Poderes da União, Estados e Municípios
+  - Veda o *Nepotismo Cruzado* (designações recíprocas entre órgãos)
+  - *Exceção Canônica*: Cargos de natureza política (Ministros de Estado e Secretários), salvo comprovada inaptidão técnica ou dolo manifesto
+
+### 4. Publicidade
+- **Regra Geral de Eficácia**: A publicação oficial é requisito para que o ato produza **efeitos externos** (não é requisito de validade intrínseca!)
+- **Transparência Ativa** (publicação de ofício na internet) vs. **Passiva** (resposta sob demanda — LAI)
+- **Exceções Estritas de Sigilo**:
+  - Segurança da Sociedade e do Estado (defesa nacional, relações internacionais)
+  - Defesa da Intimidade, Vida Privada, Honra e Imagem (Art. 5º, X da CF)
+
+### 5. Eficiência (EC nº 19/1998)
+- **Reforma Gerencial**: Superação do modelo burocrático rígido
+- **Pilares**: Produtividade, economicidade, rendimento funcional e celeridade
+- **Instrumentos Práticos**:
+  - Avaliação Periódica de Desempenho (possibilidade de perda de cargo do servidor estável — Art. 41, §1º, III)
+  - Contratos de Gestão com fixação de metas e ampliação de autonomia
+
+---
+
+## ⚖️ Eixo 2: Princípios Constitucionais Implícitos / Reconhecidos
+### 1. Autotutela (Poder-Dever de Correção)
+- **Súmula 346/STF**: A Administração pode declarar a nulidade de seus próprios atos
+- **Súmula 473/STF**:
+  - **Anulação**: Incide sobre atos *ilegais* • Efeitos *ex tunc* (retroativos) • Vinculada
+  - **Revogação**: Incide sobre atos *legais*, mas *inconvenientes/inoportunos* • Efeitos *ex nunc* (prospectivos) • Juízo de mérito discricionário
+- **Prazo Decadencial de 5 Anos (Art. 54 da Lei 9.784/99)**:
+  - Salvo comprovada má-fé, decai em 5 anos o direito da Administração de anular atos que gerem efeitos favoráveis aos destinatários
+
+### 2. Razoabilidade e Proporcionalidade
+- **Razoabilidade**: Bom senso, congruência lógica entre motivos e decisão, proibição de excessos
+- **Proporcionalidade (Tríplice Teste Alemão)**:
+  - *Adequação*: O meio escolhido é apto a alcançar o fim visado?
+  - *Necessidade (Exigibilidade)*: É o meio menos gravoso disponível?
+  - *Proporcionalidade em Sentido Estrito*: As vantagens superam os encargos impostos?
+
+### 3. Continuidade dos Serviços Públicos
+- Os serviços públicos essenciais não podem sofrer interrupção arbitrária
+- **Corte por Inadimplemento do Usuário (Lei 8.987/95, Art. 6º, §3º)**:
+  - É lícito após **aviso prévio formal**
+  - Não pode ser feito em sextas-feiras, vésperas de feriados ou fins de semana
+  - Inaplicável a unidades de saúde essenciais (UTIs, hospitais públicos)
+
+### 4. Segurança Jurídica e Proteção da Confiança Legítima
+- **Vertente Objetiva**: Estabilidade das relações jurídicas, irretroatividade das leis e proteção do direito adquirido
+- **Vertente Subjetiva (Confiança Legítima)**: Proteção do cidadão de boa-fé diante de atos contraditórios do Estado
+- **Art. 2º, Parágrafo Único, XIII da Lei 9.784/99**:
+  - Proibição absoluta de aplicação retroativa de nova interpretação jurídica pela Administração!
+
+### 5. Motivação e Teoria dos Motivos Determinantes
+- **Dever de Motivar**: Explicitação formal dos pressupostos de fato e fundamentos de direito
+- **Teoria dos Motivos Determinantes**:
+  - A validade do ato fica indissociavelmente vinculada à veracidade dos motivos declarados
+  - Se o motivo declarado for falso ou inexistente, o ato é **NULO**, mesmo que se trate de ato originalmente discricionário (ex: exoneração de cargo em comissão)
+
+---
+
+## 📑 Eixo 3: Princípios Infraconstitucionais Expressos
+### 1. Nova Lei de Licitações (Lei nº 14.133/2021, Art. 5º)
+- **22 Princípios Expressos**: Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência, Interesse Público, Probidade, Igualdade, Planejamento, Transparência, Eficácia, Segregação de Funções, Motivação, Vinculação ao Edital, Julgamento Objetivo, Segurança Jurídica, Razoabilidade, Competitividade, Proporcionalidade, Celeridade, Economicidade e Desenvolvimento Nacional Sustentável
+- **Segregação de Funções**: Veda que o mesmo agente exerça fases críticas sucessivas (planejar edital, licitar, fiscalizar e atestar pagamento)
+- **Planejamento Obrigatório**: Alinhamento das compras com o Plano de Contratações Anual (PCA)
+
+### 2. Lei do Processo Administrativo Federal (Lei nº 9.784/1999, Art. 2º)
+- **11 Princípios Expressos**: Legalidade, Finalidade, Motivação, Razoabilidade, Proporcionalidade, Moralidade, Ampla Defesa, Contraditório, Segurança Jurídica, Interesse Público e Eficiência
+- *Pegadinha*: Ampla Defesa e Contraditório são **expressos** na Lei 9.784/99, mas **implícitos** no Art. 37, caput da CF!
+
+---
+
+## ⚖️ Eixo 4: Jurisprudência Vinculante e Temática
+### 1. Súmulas Vinculantes do STF
+- **SV nº 5**: A falta de defesa técnica por advogado no PAD não ofende a Constituição
+- **SV nº 13**: Vedação do nepotismo até o 3º grau (não se aplica a cargos políticos, salvo desvio comprovado)
+- **SV nº 21**: É inconstitucional exigir depósito ou arrolamento prévio de dinheiro/bens para recurso administrativo
+- **SV nº 44**: Só por LEI FORMAL em sentido estrito pode-se exigir exame psicotécnico em concurso público
+
+### 2. Súmulas Relevantes do STJ
+- **Súmula 611/STJ**: O PAD pode ser instaurado com base em denúncia anônima motivada por prévia investigação
+- **Súmula 633/STJ**: A Lei 9.784/99 aplica-se subsidiariamente aos Estados e Municípios sem lei própria
+
+---
+
+## 🎯 Eixo 5: Radar de Pegadinhas Cebraspe / FGV
+### 1. Distinções Binárias Decisivas
+- **Publicidade vs. Validade**: Publicidade gera EFICÁCIA (efeito externo); não interfere na validade intrínseca do ato
+- **Revogação vs. Anulação**:
+  - Judiciário **JAMAIS** revoga ato administrativo de outro Poder (revogação é privativa da Administração autora)
+  - Judiciário apenas **ANULA** atos ilegais!
+- **Supremacia vs. Indisponibilidade**:
+  - Supremacia confere **Poderes e Prerrogativas**
+  - Indisponibilidade impõe **Restrições, Deveres e Sujeições**
+- **Moralidade vs. Legalidade**: Moralidade é autônoma; ato estritamente legal pode ser nulo por imoralidade
+`;
+
+    window.onload = () => {
+      const { Markmap, loadCSS, loadJS } = window.markmap;
+      const transformer = new window.markmap.Transformer();
+      const { root, features } = transformer.transform(markdown);
+      const { styles, scripts } = transformer.getUsedAssets(features);
+      if (styles) loadCSS(styles);
+      if (scripts) loadJS(scripts);
+      Markmap.create('#mindmap', {
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingVertical: 8,
+        spacingHorizontal: 80,
+        paddingX: 16,
+        autoFit: true
+      }, root);
+    };
+  </script>
+</body>
+</html>
