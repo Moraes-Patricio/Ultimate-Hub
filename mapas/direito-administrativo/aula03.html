@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Mental Interativo - Direito Administrativo: Aula 03 (Terceiro Setor e Paraestatais)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120; color: #f1f5f9;
+    }
+    #mindmap {
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    }
+    .header-bar {
+      position: absolute; top: 16px; left: 20px; z-index: 100;
+      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(12px);
+      padding: 12px 22px; border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex; flex-direction: column; gap: 4px; max-width: 520px;
+    }
+    .header-bar h1 {
+      margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.05rem;
+      font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 8px;
+    }
+    .header-bar p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+    .controls-hint {
+      position: absolute; bottom: 20px; right: 20px; z-index: 100;
+      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
+      padding: 8px 16px; border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08); color: #94a3b8;
+      font-size: 0.75rem; display: flex; gap: 12px; align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .controls-hint span { display: flex; align-items: center; gap: 4px; }
+    .badge {
+      display: inline-block; padding: 1px 6px; font-size: 0.7rem; font-weight: 600;
+      border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>⚖️ Aula 03: Terceiro Setor e Paraestatais <span class="badge">Cebraspe / FGV</span></h1>
+    <p>Serviços Sociais Autônomos (Sistema S) • OS • OSCIP • MROSC • Entidades de Apoio</p>
+  </div>
+  <div class="controls-hint">
+    <span>🖱️ <b>Scroll:</b> Zoom</span>
+    <span>🖐️ <b>Arrastar:</b> Pan</span>
+    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
+  </div>
+  <svg id="mindmap"></svg>
+  <script>
+    const markdown = "# ⚖️ Direito Administrativo: Aula 03\n## 🏛️ Eixo 0: Fundamentos do Terceiro Setor e Conceito de Paraestatais\n### 1. A Divisão Tripartite dos Setores da Sociedade\n- **Primeiro Setor (O Estado)**:\n  - Administração Pública Direta e Indireta (Poder Público, imperium e serviços estatais)\n- **Segundo Setor (O Mercado)**:\n  - Iniciativa privada com fins lucrativos (empresas privadas regidas pela livre concorrência)\n- **Terceiro Setor (A Sociedade Civil Organizada)**:\n  - Pessoas jurídicas de direito privado, sem fins lucrativos, que atuam em atividades de interesse público e social em regime de cooperação e fomento com o Estado\n\n### 2. Conceito Dogmático de Entidades Paraestatais\n- **Atuação 'Ao Lado do Estado' (Para-estatais)**:\n  - **NÃO INTEGRAM A ADMINISTRAÇÃO PÚBLICA** (nem a Direta, nem a Indireta!)\n  - Não exercem atividades exclusivas de Estado (não exercem poder de polícia repressivo sancionador, nem atividades legislativas/jurisdicionais)\n- **Reforma Gerencial de 1995 (Plano Diretor da Reforma do Aparelho do Estado - MARE)**:\n  - *Núcleo Estratégico*: Estado puro (Poderes, Forças Armadas, Polícia, Tributação)\n  - *Serviços Não Exclusivos*: Atividades sociais (saúde, educação, cultura, pesquisa, assistência) -> Idealmente executadas pelo Terceiro Setor mediante parcerias de fomento estatal\n\n---\n\n## 🏢 Eixo 1: Serviços Sociais Autônomos (O 'Sistema S')\n### 1. Natureza Jurídica e Criação\n- **Natureza Jurídica**: Pessoas jurídicas de direito privado, sem fins lucrativos, criadas por autorização de LEI e instituídas por confederações patronais e sindicais de grau superior\n- **Exemplos Canônicos**: SESI, SENAI (Indústria); SESC, SENAC (Comércio); SEST, SENAT (Transporte); SENAR (Rural); SESCOOP (Cooperativismo); SEBRAE, APEX-Brasil e ABDI\n- **Atividade Principal**: Fomento e qualificação profissional, aprendizagem, assistência social e recreação para trabalhadores de categorias específicas\n\n### 2. Regime Jurídico Próprio\n- **Financiamento por Recursos Parafiscais**:\n  - Arrecadação compulsória de contribuições sociais gerais sobre a folha de salários (CF, art. 240)\n  - Recursos possuem natureza pública de destinação vinculada\n- **Regime Licitatório**:\n  - **NÃO UTILIZAM a Lei nº 14.133/2021** (Nova Lei de Licitações)!\n  - Possuem Regulamentos Próprios de Licitações e Contratos, devendo respeitar apenas os princípios constitucionais gerais do art. 37, caput (jurisprudência consolidada do TCU e STF)\n- **Regime de Pessoal**:\n  - Empregados celetistas comuns (CLT). **NÃO HÁ exigência de concurso público rígido**\n  - Exige-se apenas processo seletivo público com critérios impessoais e objetivos\n- **Controle Externo**:\n  - **Submetem-se obrigatoriamente à prestação de contas perante o Tribunal de Contas da União (TCU)** (STF - RE 789.874)\n\n---\n\n## 📜 Eixo 2: Organizações Sociais (OS — Lei nº 9.637/1998)\n### 1. Conceito e Qualificação Jurídica\n- **O que são**: Pessoas jurídicas de direito privado, sem fins lucrativos, que recebem a outorga de um TÍTULO/QUALIFICAÇÃO concedida pelo Poder Executivo\n- **Áreas Taxativas de Atuação**:\n  - Ensino, pesquisa científica, desenvolvimento tecnológico, proteção e preservação do meio ambiente, cultura e saúde\n- **Ato de Qualificação**:\n  - Ato **DISCRICIONÁRIO** do Ministro de Estado ou Secretário competente\n  - A entidade privada não tem direito subjetivo à qualificação, dependendo da conveniência e oportunidade estatal\n\n### 2. Vínculo Formal e Governança\n- **Vínculo**: Celebrado exclusivamente mediante **CONTRATO DE GESTÃO**\n- **Conselho de Administração Obrigatório**:\n  - Deve contar com participação obrigatória de representantes do Poder Público (20% a 40%) e da sociedade civil organizada\n\n### 3. Decisões Históricas da ADI 1.923/DF (STF)\n- **Constitucionalidade Plena**: A transferência de serviços sociais não exclusivos a OS é plenamente compatível com a CF/88\n- **Cessão Especial de Servidores Públicos**: É lícita a cessão de servidores públicos civis com ônus para o órgão de origem\n- **Dispensa de Licitação Válida**:\n  - Dispensa de licitação permitida para celebração de contrato de gestão com a OS (Lei 14.133/2021, art. 75, XV)\n  - Dispensa permitida para cessão e permissão de uso de bens públicos móveis/imóveis e repasse de verbas orçamentárias\n- **Seleção Pública Prévia Obrigatória**: O Poder Público deve realizar processo seletivo público impessoal e objetivo para escolher a OS parceira\n- **Regulamento Próprio de Compras**: A OS não segue a Lei 14.133/21 para suas contratações; edita regulamento próprio simplificado\n- **Contratação de Pessoal**: Empregados celetistas sem concurso público (regras de direito privado)\n- **Fiscalização**: Controle rigoroso e prestação de contas ao Tribunal de Contas\n\n---\n\n## ⚖️ Eixo 3: Organizações da Sociedade Civil de Interesse Público (OSCIP — Lei nº 9.790/1999)\n### 1. Conceito e Ato de Qualificação\n- **O que são**: Pessoas jurídicas de direito privado, sem fins lucrativos, que obtêm qualificação jurídica perante o Ministério da Justiça\n- **Ato de Qualificação**:\n  - Ato **VINCULADO** do Ministério da Justiça!\n  - Preenchidos os requisitos documentais e estatutários exigidos por lei, o Poder Público é **obrigado** a conceder o título de OSCIP\n- **Vínculo Formal**: Celebrado mediante **TERMO DE PARCERIA**\n- **Remuneração de Dirigentes**:\n  - A Lei 9.790/99 expressamente autoriza a remuneração dos dirigentes da OSCIP que atuem efetivamente na gestão executiva (desde que compatível com valores de mercado)\n\n### 2. Proibições Legais de Qualificação (Quem NÃO Pode Ser OSCIP)\n- Sindicatos, associações de classe ou de representação de categoria profissional\n- Partidos políticos e suas fundações\n- Entidades religiosas ou filosóficas\n- Instituições privadas de ensino e hospitais privados que prestem serviços exclusivamente cobrados / comercializados\n- Cooperativas (salvo cooperativas sociais de vulneráveis)\n- Entidades de previdência complementar e instituições financeiras\n\n---\n\n## 🤝 Eixo 4: O Marco Regulatório das OSC (MROSC — Lei nº 13.019/2014)\n### 1. Abrangência e Conceito Geral de OSC\n- Lei de abrangência nacional (aplica-se a todos os entes: União, Estados, DF e Municípios)\n- **Conceito de Organização da Sociedade Civil (OSC)**: Entidades privadas sem fins lucrativos, cooperativas sociais ou organizações religiosas com projetos sociais\n\n### 2. Os Três Instrumentos Canônicos de Parceria\n- **1. Termo de Colaboração**:\n  - Proposto pela **Administração Pública**\n  - **COM** repasse de recursos financeiros\n- **2. Termo de Fomento**:\n  - Proposto pela própria **Organização da Sociedade Civil (OSC)**\n  - **COM** repasse de recursos financeiros\n- **3. Acordo de Cooperação**:\n  - Pode ser proposto pela Administração ou pela OSC\n  - **SEM REPASSE DE RECURSOS FINANCEIROS** (envolve cessão de uso, compartilhamento de infraestrutura ou cooperação mútua)\n\n### 3. Chamamento Público e Manifestação de Interesse Social\n- **Regra Geral**: Seleção das OSC mediante **Chamamento Público** competitivo e impessoal\n- **Procedimento de Manifestação de Interesse Social (PMIS)**:\n  - Cidadãos e organizações podem formalmente provocar o Estado para abertura de editais de parceria em áreas desassistidas\n\n---\n\n## 🏥 Eixo 5: Entidades de Apoio\n### 1. Natureza e Funcionamento\n- Pessoas jurídicas de direito privado (fundações, associações ou cooperativas) criadas por servidores e docentes de universidades federais e hospitais de ensino\n- Vínculo com o Estado: Celebrado mediante **CONVÊNIO** administrativo\n- Objetivo: Proporcionar apoio operacional, logístico e financeiro na execução de projetos de pesquisa, ensino, extensão e inovação científica\n\n---\n\n## 🎯 Eixo 7: Radar de Pegadinhas Cebraspe & FGV\n### 1. Decodificação de Oposições Binárias Frequentes\n- **OS vs. OSCIP**:\n  - OS = Ato DISCRICIONÁRIO + Contrato de Gestão + Conselho com Poder Público\n  - OSCIP = Ato VINCULADO + Termo de Parceria + Remuneração de dirigentes\n- **Termo de Colaboração vs. Termo de Fomento vs. Acordo de Cooperação**:\n  - Colaboração = Iniciativa do Estado + COM repasse de dinheiro\n  - Fomento = Iniciativa da OSC + COM repasse de dinheiro\n  - Acordo de Cooperação = SEM repasse de dinheiro\n- **Pertencimento à Administração Indireta**:\n  - NENHUMA entidade do Terceiro Setor pertence à Administração Pública Direta ou Indireta!\n- **Licitações**:\n  - Entidades do Terceiro Setor NÃO aplicam a Lei nº 14.133/2021 para suas compras privadas; adotam regulamentos próprios com base nos princípios do art. 37\n- **Concurso Público**:\n  - Terceiro Setor contrata por processo seletivo simplificado via CLT (sem concurso público rígido de cargos públicos)\n";
+    window.onload = () => {
+      const { Markmap, loadCSS, loadJS } = window.markmap;
+      const transformer = new window.markmap.Transformer();
+      const { root, features } = transformer.transform(markdown);
+      const { styles, scripts } = transformer.getUsedAssets(features);
+      if (styles) loadCSS(styles);
+      if (scripts) loadJS(scripts);
+      Markmap.create('#mindmap', {
+        duration: 300, nodeMinHeight: 20, spacingVertical: 8,
+        spacingHorizontal: 80, paddingX: 16, autoFit: true
+      }, root);
+    };
+  </script>
+</body>
+</html>
