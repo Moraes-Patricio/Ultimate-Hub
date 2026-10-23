@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 18: Licitações Lei 14.133/2021 - Parte 2 - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 18</span>
+      <h1>Licitações Lei 14.133/2021 - Parte 2</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 18 - Licitações Lei 14.133/2021: Parte 2
+
+## 🚪 Eixo 1: Contratação Direta: Inexigibilidade vs. Dispensa de Licitação
+### 1. Dicotomia Ontológica Fundamental
+- **Inexigibilidade de Licitação (Art. 74)**:
+  - **Inviabilidade de competição** (impossível estabelecer julgamento objetivo)
+  - Rol **EXEMPLIFICATIVO** (*numerus apertus*)
+- **Dispensa de Licitação (Art. 75)**:
+  - A competição é viável e possível, mas a lei autoriza ou determina a não realização da licitação por razões de interesse público
+  - Rol **TAXATIVO** (*numerus clausus*)
+
+### 2. As Cinco Hipóteses Exemplificativas de Inexigibilidade (Art. 74)
+- **I - Fornecedor Exclusivo**: Aquisição de material, equipamento ou gênero que só possa ser fornecido por produtor, empresa ou representante comercial exclusivo (comprovado por atestado de exclusividade)
+- **II - Profissional Artístico Consagrado**: Contratação de profissional do setor artístico diretamente ou por empresário exclusivo, desde que consagrado pela crítica especializada ou pela opinião pública
+- **III - Serviços Técnicos Especializados de Natureza Predominantemente Intelectual**:
+  - Prestados por profissionais ou empresas de **notória especialização**
+  - Hipóteses: Pareceres, perícias, projetos de engenharia, defesa judicial, auditorias e treinamento de pessoal
+  - 🚨 **Revolução da Lei 14.133/21**: **NÃO SE EXIGE MAIS A SINGULARIDADE DO SERVIÇO** (basta natureza intelectual e notória especialização)! *Vedada inexigibilidade para serviços de publicidade e divulgação*!
+- **IV - Credenciamento**: Contratação mediante processo prévio de credenciamento
+- **V - Aquisição ou Locação de Imóvel**: Imóvel cujas características de instalação e localização tornem sua escolha necessária
+
+### 3. As Principais Hipóteses de Dispensa de Licitação (Art. 75)
+- **Dispensa em Razão do Valor (Pequeno Valor - Incisos I e II)**:
+  - *Inciso I*: Obras e serviços de engenharia ou manutenção de veículos até **R$ 100.000,00** (valores atualizados por decreto anual)
+  - *Inciso II*: Outros serviços e compras até **R$ 50.000,00** (valores atualizados anualmente)
+  - *Limite em Dobro*: Valores duplicados para consórcios públicos e agências executivas!
+- **Dispensa em Razão de Situação Emergencial (Inciso VIII)**:
+  - Casos de emergência ou calamidade pública
+  - Contratação restrita aos bens necessários para atendimento imediato da emergência
+  - Prazo máximo improrrogável do contrato emergencial: **1 (um) ano** (na Lei 8.666 eram 180 dias)!
+  - Vedada a prorrogação de contrato emergencial e a recontratação da mesma empresa pelo mesmo motivo!
+- **Licitação Deserta vs. Fracassada (Inciso III)**:
+  - *Deserta*: Nenhum interessado acode à licitação -> Pode dispensar se mantidas as condições do edital e houver prejuízo na repetição
+  - *Fracassada*: Todos os licitantes são desclassificados ou inabilitados -> Concede prazo de 8 dias para saneamento ou dispensa fundamentada
+
+---
+
+## 🏷️ Eixo 2: Alienação de Bens Públicos: Regras para Imóveis e Móveis (Arts. 76 e 77)
+### 1. Alienação de Imóveis (Art. 76, I)
+- Requisitos: Interesse público justificado + Avaliação prévia + **Autorização legislativa** + Licitação na modalidade **LEILÃO**
+- *Casos de Licitação Dispensada*: Dação em pagamento, Doação a outro órgão público, Permuta, Investidura, Regularização fundiária de interesse social (REURB-S)
+
+### 2. Alienação de Móveis (Art. 76, II)
+- Requisitos: Interesse público + Avaliação prévia + Licitação por **LEILÃO** (dispensada autorização legislativa)
+
+---
+
+## 🔄 Eixo 3: As Fases do Processo Licitatório e a Inversão de Fases
+### 1. Sequência Legal Ordinária das Fases (Art. 17)
+- 1ª Fase: **Preparatória (Planejamento)** - Estudo Técnico Preliminar (ETP), Termo de Referência (TR), Edital e Minuta do Contrato
+- 2ª Fase: **Divulgação do Edital de Licitação**
+- 3ª Fase: **Apresentação de Propostas e Lances**
+- 4ª Fase: **Julgamento das Propostas**
+- 5ª Fase: **Habilitação** (Apenas do licitante vencedor classificado em 1º lugar!)
+- 6ª Fase: **Recursal (Fase Única)**
+- 7ª Fase: **Homologação** pela autoridade superior
+
+### 2. A Regra Geral da Inversão de Fases
+- Na Lei 14.133/2021, o julgamento das propostas **ANTECEDE** a fase de habilitação (Regra da Inversão de Fases universalizada)!
+- Somente se analisa a documentação de habilitação do licitante que venceu a etapa de julgamento (economia processual)
+- *Exceção*: A habilitação poderá anteceder o julgamento desde que expressamente previsto no edital e motivado
+
+---
+
+## 📑 Eixo 4: Habilitação dos Licitantes: Documentação e Requisitos (Arts. 62 a 70)
+### 1. Documentação Exigível Exclusiva
+- **Habilitação Jurídica**: Existência legal da pessoa jurídica (registro comercial, ato constitutivo, estatuto)
+- **Qualificação Técnico-Profissional e Técnico-Operacional**:
+  - Técnico-Profissional: Existência de profissional com anotação de responsabilidade técnica (ART/RRT)
+  - Técnico-Operacional: Atestado em nome da própria empresa licitante (vedado exigir atestado com quantitativo superior a 50% da parcela de maior relevância!)
+- **Habilitação Fiscal, Social e Trabalhista**: Regularidade perante a Receita Federal, Fazendas Estadual e Municipal, FGTS, CNDT (Certidão Negativa de Débitos Trabalhistas) e cumprimento do art. 7º, XXXIII da CF (proibição de trabalho noturno/perigoso a menores de 18 e qualquer trabalho a menores de 16, salvo aprendiz aos 14)
+- **Qualificação Econômico-Financeira**: Balanço patrimonial, índices de liquidez usuais e certidão negativa de falência
+
+---
+
+## 🛠️ Eixo 5: Os Cinco Procedimentos Auxiliares das Licitações (Arts. 78 a 88)
+### 1. Rol dos Procedimentos Auxiliares (Art. 78)
+- 1. **Credenciamento**
+- 2. **Pré-qualificação**
+- 3. **Procedimento de Manifestação de Interesse (PMI)**
+- 4. **Sistema de Registro de Preços (SRP)**
+- 5. **Registro Cadastral**
+
+### 2. Credenciamento (Art. 79)
+- Processo de chamamento público no qual a Administração convoca todos os interessados que preencham os requisitos para prestar serviços tabelados
+- Hipóteses: Contratação paralela e simultânea (ex: credenciamento de médicos do SUS, clínicas de trânsito)
+
+### 3. Sistema de Registro de Preços - SRP (Arts. 82 a 86)
+- Procedimento para registro formal de preços relativos a prestação de serviços e aquisição de bens para contratações futuras
+- Realizado mediante **Pregão** ou **Concorrência**
+- Validade da Ata de Registro de Preços: **1 (um) ano**, prorrogável por igual período até o máximo de **2 anos**
+- **Regras de Carona (Órgão Não Participante)**:
+  - Adesão de órgão não participante limitada a **50%** dos quantitativos da ata original por órgão carona
+  - O somatório de todas as adesões de caronas não pode exceder o **dobro (2x)** do quantitativo original registrado!
+
+---
+
+## 🚨 Eixo 6: Síntese de Armadilhas, Prazos e Confrontação FGV / Cebraspe
+### 1. Serviços Técnicos e a "Singularidade"
+- 🚨 **Pegadinha Clássica**: Dizer que para inexigibilidade de serviços técnicos especializados ainda se exige a singularidade do serviço.
+- ✅ **Regra**: A Lei 14.133 eliminou o requisito da "singularidade"! Exige-se natureza predominantemente intelectual e notória especialização.
+
+### 2. Prazo do Contrato Emergencial
+- 🚨 **Pegadinha Clássica**: Afirmar que a contratação direta por emergência tem prazo máximo de 180 dias.
+- ✅ **Regra**: Na Lei 14.133/21 o prazo máximo do contrato emergencial foi ampliado para **até 1 (um) ano**!
+
+### 3. Limite de Carona no SRP
+- 🚨 **Pegadinha Clássica**: Permitir que órgãos caronas contratem até 5 vezes o quantitativo da ata.
+- ✅ **Regra**: Individualmente até 50%; globalmente o total de adesões de caronas não pode exceder o dobro (2x) do lote registrado!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
