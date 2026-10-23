@@ -3,77 +3,314 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapa Mental Interativo - Direito Administrativo: Aula 04 (Poderes Administrativos)</title>
+  <title>Aula 04: Poderes Administrativos e Uso/Abuso de Poder - Mapa Mental Interativo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body, html {
-      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #0b1120; color: #f1f5f9;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    #mindmap {
-      width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
     }
-    .header-bar {
-      position: absolute; top: 16px; left: 20px; z-index: 100;
-      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(12px);
-      padding: 12px 22px; border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      display: flex; flex-direction: column; gap: 4px; max-width: 520px;
-    }
-    .header-bar h1 {
-      margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.05rem;
-      font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 8px;
-    }
-    .header-bar p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
-    .controls-hint {
-      position: absolute; bottom: 20px; right: 20px; z-index: 100;
-      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
-      padding: 8px 16px; border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.08); color: #94a3b8;
-      font-size: 0.75rem; display: flex; gap: 12px; align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .controls-hint span { display: flex; align-items: center; gap: 4px; }
+    .title-box { display: flex; align-items: center; gap: 12px; }
     .badge {
-      display: inline-block; padding: 1px 6px; font-size: 0.7rem; font-weight: 600;
-      border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
 </head>
 <body>
-  <div class="header-bar">
-    <h1>⚖️ Aula 04: Poderes Administrativos <span class="badge">Cebraspe / FGV</span></h1>
-    <p>Hierárquico • Disciplinar • Regulamentar • Poder de Polícia • Abuso de Poder • Tema 532 STF</p>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 04</span>
+      <h1>Poderes Administrativos e Uso/Abuso de Poder</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
   </div>
-  <div class="controls-hint">
-    <span>🖱️ <b>Scroll:</b> Zoom</span>
-    <span>🖐️ <b>Arrastar:</b> Pan</span>
-    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
-  </div>
-  <svg id="mindmap"></svg>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 04 - Poderes Administrativos e Uso/Abuso de Poder
+## 🏛️ Eixo 1: Deveres e Poderes Administrativos
+### 1. O Poder-Dever de Agir
+- Os poderes administrativos são instrumentais e irrenunciáveis (são prerrogativas de autoridade vinculadas a um dever de agir em prol do interesse público)
+- **Vedação à Inércia**: A omissão injustificada do agente público configura ilícito funcional e responsabilidade civil do Estado por falta do serviço (faute du service)
+
+### 2. Os Três Deveres Fundamentais do Administrador
+- **Dever de Eficiência**: Atuação célere, com rendimento funcional e economicidade (EC nº 19/1998)
+- **Dever de Probidade**: Atuação honesta, leal e de boa-fé subjetiva e objetiva
+- **Dever de Prestar Contas**: Princípio republicano basilar (CF, art. 70, parágrafo único); abrange qualquer pessoa que gerencie recursos públicos
+
+---
+
+## ⚖️ Eixo 2: Poder Vinculado e Poder Discricionário
+### 1. Poder Vinculado (Regrado)
+- A lei define previamente e de modo taxativo o único comportamento possível diante da situação fática
+- Ausência total de margem de escolha ou subjetivismo do agente público
+- Exemplo: Concessão de aposentadoria a servidor que cumpriu todos os requisitos legais; emissão de licença para construir
+
+### 2. Poder Discricionário (Mérito Administrativo)
+- A lei confere expressa ou implicitamente uma margem legítima de liberdade de escolha para o administrador
+- **Núcleo do Mérito Administrativo**: Juízo de **Conveniência e Oportunidade** dentro dos limites legais
+- Exemplos: Autorização para uso privativo de bem público; escolha do local para instalação de uma praça pública
+- **Controle Judicial do Ato Discricionário**:
+  - O Poder Judiciário **NÃO PODE** substituir o mérito administrativo da decisão discricionária
+  - O Judiciário **PODE E DEVE** anular atos discricionários que desbordem os limites da lei, violem a moralidade ou infrinjam a razoabilidade e a proporcionalidade
+
+---
+
+## 🏢 Eixo 3: Poder Hierárquico
+### 1. Conceito e Prerrogativas Decorrentes
+- Vínculo interno e vertical de subordinação existente entre órgãos e agentes de uma mesma pessoa jurídica
+- **Prerrogativas Canônicas**: Dar ordens (comando), fiscalizar a atuação, avocar competências, delegar atribuições e anular/revogar atos de subordinados
+
+### 2. Vedações Absolutas à Delegação (Lei 9.784/1999, Art. 13 — Mnemônico CE-NO-RA)
+- **CE**: Edição de atos de competência exclusiva
+- **NO**: Edição de atos de caráter normativo
+- **RA**: Decisão de recursos administrativos
+
+### 3. Onde NÃO Existe Poder Hierárquico (Pegadinhas Frequentes)
+- **Entre a Administração Direta e a Indireta**: Há apenas tutela / supervisão ministerial (vinculação finalística)
+- **Entre os Três Poderes da República**: Há independência e harmonia constitucional
+- **Nas Funções Típicas Jurisdicionais e Legislativas**: Magistrados e parlamentares não sofrem subordinação funcional
+- **Sobre Particulares Comuns**: A relação é de polícia administrativa, sem qualquer hierarquia
+
+---
+
+## 🔨 Eixo 4: Poder Disciplinar
+### 1. Conceito e Âmbito de Incidência
+- Prerrogativa do Estado de apurar infrações funcionais e aplicar sanções disciplinares a quem possui **VÍNCULO JURÍDICO ESPECÍFICO** com o Poder Público
+- **Destinatários Exclusivos**:
+  - Servidores e agentes públicos civis e militares
+  - Particulares com vínculo jurídico negocial ou institucional específico (ex: empresas concessionárias, contratados pela Lei 14.133, estudantes de escolas públicas)
+
+### 2. Poder Disciplinar vs. Poder de Polícia
+- **Poder Disciplinar**: Sanção baseada em vínculo jurídico **ESPECÍFICO** (ex: demissão de servidor; multa a concessionária de transporte)
+- **Poder de Polícia**: Sanção baseada em vínculo de sujeição **GERAL** a toda a coletividade (ex: multa de trânsito a motorista; interdição de restaurante pela vigilância sanitária)
+
+---
+
+## 📜 Eixo 5: Poder Regulamentar ou Normativo
+### 1. Poder Normativo (Gênero) vs. Regulamentar (Espécie)
+- **Poder Normativo**: Atribuição geral da Administração de editar atos com efeitos gerais e abstratos (resoluções, portarias, instruções normativas)
+- **Poder Regulamentar**: Prerrogativa **privativa do Chefe do Poder Executivo** (Presidente, Governador, Prefeito) de editar decretos e regulamentos para a fiel execução da lei (CF, art. 84, IV)
+
+### 2. Decretos Autônomos (CF, Art. 84, VI — EC nº 32/2001)
+- Atos primários do Chefe do Executivo que inovam na ordem jurídica sem lei prévia, estritamente limitados a duas hipóteses:
+  - **Alínea 'a'**: Organização e funcionamento da administração federal, quando **não implicar aumento de despesa** nem **criação ou extinção de órgãos públicos**
+  - **Alínea 'b'**: Extinção de funções ou cargos públicos, **quando vagos**
+
+### 3. Controle do Poder Regulamentar
+- **Controle pelo Congresso Nacional (CF, art. 49, V)**: Competência exclusiva do Legislativo para sustar os atos normativos do Executivo que exorbitem do poder regulamentar
+- **Controle Judicial**: Controle concentrado de constitucionalidade perante o STF (ADI) se o decreto autônomo violar a CF, ou anulação por vício de legalidade em decreto regulamentar
+
+---
+
+## 🚔 Eixo 6: Teoria Geral do Poder de Polícia
+### 1. Conceito Legal (CTN, Art. 78)
+- Atividade da administração pública que, limitando ou disciplinando direito, interesse ou liberdade, regula a prática de ato ou abstenção de fato em razão de interesse público
+- **Polícia Administrativa vs. Polícia Judiciária**:
+  - *Polícia Administrativa*: Natureza eminentemente **preventiva**, incide sobre **bens, direitos e atividades**, exercida por órgãos administrativos variados
+  - *Polícia Judiciária*: Natureza predominantemente **repressiva**, incide sobre **pessoas** (infratores penais), exercida privativamente por corporações policiais (Polícia Civil e Federal)
+
+### 2. Atributos do Poder de Polícia (Mnemônico DAC)
+- **Discricionariedade**: Margem de escolha quanto à oportunidade e conveniência (ressalvada a emissão de licença vinculada)
+- **Autoexecutoriedade**: Capacidade de executar diretamente suas decisões sem prévia intervenção judicial
+  - *Exigibilidade*: A obrigação é exigível imediatamente (ex: imposição de multa)
+  - *Executoriedade*: O Estado pratica diretamente o ato material coercitivo (ex: apreensão de mercadoria estragada, interdição de fábrica)
+  - *Atenção*: A cobrança forçada de multa de trânsito **NÃO é autoexecutória** (exige execução fiscal na Justiça!)
+- **Coercibilidade**: Uso legítimo da força pública para compelir o particular ao cumprimento da determinação
+
+### 3. As Quatro Fases do Ciclo de Polícia
+- **1. Ordem / Legislação de Polícia**: Norma abstrata que estabelece as restrições e condicionamentos
+- **2. Consentimento de Polícia**: Anuência formal estatal prévia (Licença vinculada ou Autorização discricionária)
+- **3. Fiscalização de Polícia**: Vistoria, inspeção e verificação material do cumprimento das normas
+- **4. Sanção de Polícia**: Aplicação da penalidade decorrente da infração (multa, interdição, apreensão)
+
+---
+
+## ⚖️ Eixo 7: Delegação do Poder de Polícia (Tema 532 do STF)
+### 1. A Tese do STF no RE 633.782 (Caso BHTrans / 2020)
+- É **CONSTITUCIONAL** a delegação das fases de **consentimento, fiscalização E SANÇÃO de trânsito** a empresas públicas e sociedades de economia mista da Administração Indireta!
+- **Requisitos Cumulativos Obrigatórios**:
+  - A entidade estatal deve prestar serviço público em regime **NÃO CONCORRENCIAL** (monopólio público)
+  - Deve ser pessoa jurídica de direito privado com capital social majoritariamente público
+  - A delegação deve ser outorgada por lei específica formal
+- **A única fase JAMAIS delegável**: A fase de **Ordem/Legislação de Polícia** (privativa de entes federativos)
+
+---
+
+## ⚠️ Eixo 8: O Uso e Abuso de Poder
+### 1. Espécies de Abuso de Poder
+- **Abuso de Poder (Gênero)**: Prática de ato em desconformidade com o ordenamento jurídico
+- **Excesso de Poder (Vício de Competência)**:
+  - O agente público vai além das suas atribuições legais
+  - Atua onde a lei não lhe conferiu poderes (ex: autoridade sem poder de demitir aplica demissão a servidor)
+- **Desvio de Finalidade / Desvio de Poder (Vício de Finalidade)**:
+  - O agente público é competente, mas pratica o ato visando fim diverso daquele fixado pela lei ou fim privado
+  - Exemplo clássico: Remoção punitiva de servidor para localidade distante por desavença pessoal
+
+---
+
+## ⚖️ Eixo 9: Síntese Jurisprudencial (STF & STJ)
+- **Súmula Vinculante 5 (STF)**: A falta de defesa técnica por advogado no processo administrativo disciplinar não ofende a Constituição
+- **Súmula Vinculante 13 (STF)**: Nepotismo configura desvio de finalidade e violação direta da impessoalidade e moralidade
+- **Súmula 19 (STF)**: A exoneração de servidor em estágio probatório exige processo administrativo com ampla defesa
+- **Súmula 650 (STJ)**: A autoridade julgadora não está vinculada às conclusões da comissão processante do PAD, podendo divergir mediante motivação explícita fundamentada nos autos
+
+---
+
+## 🎯 Eixo 10: Radar de Pegadinhas Cebraspe & FGV
+- **Excesso de Poder vs. Desvio de Finalidade**: Vício de competência vs. Vício de finalidade
+- **Decreto Autônomo**: Só pode extinguir cargos vagos; se ocupados, exige LEI
+- **Autoexecutoriedade da Multa**: A aplicação da multa é autoexecutória; a cobrança financeira forçada exige ação de execução fiscal judicial!
+- **Hierarquia vs. Tutela**: Entre Ministério e Autarquia NÃO HÁ hierarquia, apenas tutela finalística
+- **Delegação a Particulares Puros**: O poder sancionatório de polícia NUNCA pode ser delegado a empresas privadas comuns
+
+  </script>
+
   <script>
-    const markdown = "# ⚖️ Direito Administrativo: Aula 04\n## 🏛️ Eixo 0: Deveres e Poderes Administrativos\n### 1. O Poder-Dever de Agir\n- Os poderes administrativos são instrumentais e irrenunciáveis (são prerrogativas de autoridade vinculadas a um dever de agir em prol do interesse público)\n- **Vedação à Inércia**: A omissão injustificada do agente público configura ilícito funcional e responsabilidade civil do Estado por falta do serviço (faute du service)\n\n### 2. Os Três Deveres Fundamentais do Administrador\n- **Dever de Eficiência**: Atuação célere, com rendimento funcional e economicidade (EC nº 19/1998)\n- **Dever de Probidade**: Atuação honesta, leal e de boa-fé subjetiva e objetiva\n- **Dever de Prestar Contas**: Princípio republicano basilar (CF, art. 70, parágrafo único); abrange qualquer pessoa que gerencie recursos públicos\n\n---\n\n## ⚖️ Eixo 1: Poder Vinculado e Poder Discricionário\n### 1. Poder Vinculado (Regrado)\n- A lei define previamente e de modo taxativo o único comportamento possível diante da situação fática\n- Ausência total de margem de escolha ou subjetivismo do agente público\n- Exemplo: Concessão de aposentadoria a servidor que cumpriu todos os requisitos legais; emissão de licença para construir\n\n### 2. Poder Discricionário (Mérito Administrativo)\n- A lei confere expressa ou implicitamente uma margem legítima de liberdade de escolha para o administrador\n- **Núcleo do Mérito Administrativo**: Juízo de **Conveniência e Oportunidade** dentro dos limites legais\n- Exemplos: Autorização para uso privativo de bem público; escolha do local para instalação de uma praça pública\n- **Controle Judicial do Ato Discricionário**:\n  - O Poder Judiciário **NÃO PODE** substituir o mérito administrativo da decisão discricionária\n  - O Judiciário **PODE E DEVE** anular atos discricionários que desbordem os limites da lei, violem a moralidade ou infrinjam a razoabilidade e a proporcionalidade\n\n---\n\n## 🏢 Eixo 2: Poder Hierárquico\n### 1. Conceito e Prerrogativas Decorrentes\n- Vínculo interno e vertical de subordinação existente entre órgãos e agentes de uma mesma pessoa jurídica\n- **Prerrogativas Canônicas**: Dar ordens (comando), fiscalizar a atuação, avocar competências, delegar atribuições e anular/revogar atos de subordinados\n\n### 2. Vedações Absolutas à Delegação (Lei 9.784/1999, Art. 13 — Mnemônico CE-NO-RA)\n- **CE**: Edição de atos de competência exclusiva\n- **NO**: Edição de atos de caráter normativo\n- **RA**: Decisão de recursos administrativos\n\n### 3. Onde NÃO Existe Poder Hierárquico (Pegadinhas Frequentes)\n- **Entre a Administração Direta e a Indireta**: Há apenas tutela / supervisão ministerial (vinculação finalística)\n- **Entre os Três Poderes da República**: Há independência e harmonia constitucional\n- **Nas Funções Típicas Jurisdicionais e Legislativas**: Magistrados e parlamentares não sofrem subordinação funcional\n- **Sobre Particulares Comuns**: A relação é de polícia administrativa, sem qualquer hierarquia\n\n---\n\n## 🔨 Eixo 3: Poder Disciplinar\n### 1. Conceito e Âmbito de Incidência\n- Prerrogativa do Estado de apurar infrações funcionais e aplicar sanções disciplinares a quem possui **VÍNCULO JURÍDICO ESPECÍFICO** com o Poder Público\n- **Destinatários Exclusivos**:\n  - Servidores e agentes públicos civis e militares\n  - Particulares com vínculo jurídico negocial ou institucional específico (ex: empresas concessionárias, contratados pela Lei 14.133, estudantes de escolas públicas)\n\n### 2. Poder Disciplinar vs. Poder de Polícia\n- **Poder Disciplinar**: Sanção baseada em vínculo jurídico **ESPECÍFICO** (ex: demissão de servidor; multa a concessionária de transporte)\n- **Poder de Polícia**: Sanção baseada em vínculo de sujeição **GERAL** a toda a coletividade (ex: multa de trânsito a motorista; interdição de restaurante pela vigilância sanitária)\n\n---\n\n## 📜 Eixo 4: Poder Regulamentar ou Normativo\n### 1. Poder Normativo (Gênero) vs. Regulamentar (Espécie)\n- **Poder Normativo**: Atribuição geral da Administração de editar atos com efeitos gerais e abstratos (resoluções, portarias, instruções normativas)\n- **Poder Regulamentar**: Prerrogativa **privativa do Chefe do Poder Executivo** (Presidente, Governador, Prefeito) de editar decretos e regulamentos para a fiel execução da lei (CF, art. 84, IV)\n\n### 2. Decretos Autônomos (CF, Art. 84, VI — EC nº 32/2001)\n- Atos primários do Chefe do Executivo que inovam na ordem jurídica sem lei prévia, estritamente limitados a duas hipóteses:\n  - **Alínea 'a'**: Organização e funcionamento da administração federal, quando **não implicar aumento de despesa** nem **criação ou extinção de órgãos públicos**\n  - **Alínea 'b'**: Extinção de funções ou cargos públicos, **quando vagos**\n\n### 3. Controle do Poder Regulamentar\n- **Controle pelo Congresso Nacional (CF, art. 49, V)**: Competência exclusiva do Legislativo para sustar os atos normativos do Executivo que exorbitem do poder regulamentar\n- **Controle Judicial**: Controle concentrado de constitucionalidade perante o STF (ADI) se o decreto autônomo violar a CF, ou anulação por vício de legalidade em decreto regulamentar\n\n---\n\n## 🚔 Eixo 5: Teoria Geral do Poder de Polícia\n### 1. Conceito Legal (CTN, Art. 78)\n- Atividade da administração pública que, limitando ou disciplinando direito, interesse ou liberdade, regula a prática de ato ou abstenção de fato em razão de interesse público\n- **Polícia Administrativa vs. Polícia Judiciária**:\n  - *Polícia Administrativa*: Natureza eminentemente **preventiva**, incide sobre **bens, direitos e atividades**, exercida por órgãos administrativos variados\n  - *Polícia Judiciária*: Natureza predominantemente **repressiva**, incide sobre **pessoas** (infratores penais), exercida privativamente por corporações policiais (Polícia Civil e Federal)\n\n### 2. Atributos do Poder de Polícia (Mnemônico DAC)\n- **Discricionariedade**: Margem de escolha quanto à oportunidade e conveniência (ressalvada a emissão de licença vinculada)\n- **Autoexecutoriedade**: Capacidade de executar diretamente suas decisões sem prévia intervenção judicial\n  - *Exigibilidade*: A obrigação é exigível imediatamente (ex: imposição de multa)\n  - *Executoriedade*: O Estado pratica diretamente o ato material coercitivo (ex: apreensão de mercadoria estragada, interdição de fábrica)\n  - *Atenção*: A cobrança forçada de multa de trânsito **NÃO é autoexecutória** (exige execução fiscal na Justiça!)\n- **Coercibilidade**: Uso legítimo da força pública para compelir o particular ao cumprimento da determinação\n\n### 3. As Quatro Fases do Ciclo de Polícia\n- **1. Ordem / Legislação de Polícia**: Norma abstrata que estabelece as restrições e condicionamentos\n- **2. Consentimento de Polícia**: Anuência formal estatal prévia (Licença vinculada ou Autorização discricionária)\n- **3. Fiscalização de Polícia**: Vistoria, inspeção e verificação material do cumprimento das normas\n- **4. Sanção de Polícia**: Aplicação da penalidade decorrente da infração (multa, interdição, apreensão)\n\n---\n\n## ⚖️ Eixo 6: Delegação do Poder de Polícia (Tema 532 do STF)\n### 1. A Tese do STF no RE 633.782 (Caso BHTrans / 2020)\n- É **CONSTITUCIONAL** a delegação das fases de **consentimento, fiscalização E SANÇÃO de trânsito** a empresas públicas e sociedades de economia mista da Administração Indireta!\n- **Requisitos Cumulativos Obrigatórios**:\n  - A entidade estatal deve prestar serviço público em regime **NÃO CONCORRENCIAL** (monopólio público)\n  - Deve ser pessoa jurídica de direito privado com capital social majoritariamente público\n  - A delegação deve ser outorgada por lei específica formal\n- **A única fase JAMAIS delegável**: A fase de **Ordem/Legislação de Polícia** (privativa de entes federativos)\n\n---\n\n## ⚠️ Eixo 7: O Uso e Abuso de Poder\n### 1. Espécies de Abuso de Poder\n- **Abuso de Poder (Gênero)**: Prática de ato em desconformidade com o ordenamento jurídico\n- **Excesso de Poder (Vício de Competência)**:\n  - O agente público vai além das suas atribuições legais\n  - Atua onde a lei não lhe conferiu poderes (ex: autoridade sem poder de demitir aplica demissão a servidor)\n- **Desvio de Finalidade / Desvio de Poder (Vício de Finalidade)**:\n  - O agente público é competente, mas pratica o ato visando fim diverso daquele fixado pela lei ou fim privado\n  - Exemplo clássico: Remoção punitiva de servidor para localidade distante por desavença pessoal\n\n---\n\n## ⚖️ Eixo 8: Síntese Jurisprudencial (STF & STJ)\n- **Súmula Vinculante 5 (STF)**: A falta de defesa técnica por advogado no processo administrativo disciplinar não ofende a Constituição\n- **Súmula Vinculante 13 (STF)**: Nepotismo configura desvio de finalidade e violação direta da impessoalidade e moralidade\n- **Súmula 19 (STF)**: A exoneração de servidor em estágio probatório exige processo administrativo com ampla defesa\n- **Súmula 650 (STJ)**: A autoridade julgadora não está vinculada às conclusões da comissão processante do PAD, podendo divergir mediante motivação explícita fundamentada nos autos\n\n---\n\n## 🎯 Eixo 9: Radar de Pegadinhas Cebraspe & FGV\n- **Excesso de Poder vs. Desvio de Finalidade**: Vício de competência vs. Vício de finalidade\n- **Decreto Autônomo**: Só pode extinguir cargos vagos; se ocupados, exige LEI\n- **Autoexecutoriedade da Multa**: A aplicação da multa é autoexecutória; a cobrança financeira forçada exige ação de execução fiscal judicial!\n- **Hierarquia vs. Tutela**: Entre Ministério e Autarquia NÃO HÁ hierarquia, apenas tutela finalística\n- **Delegação a Particulares Puros**: O poder sancionatório de polícia NUNCA pode ser delegado a empresas privadas comuns\n";
-    window.onload = () => {
-      const { Markmap, loadCSS, loadJS } = window.markmap;
-      const transformer = new window.markmap.Transformer();
-      const { root, features } = transformer.transform(markdown);
-      const { styles, scripts } = transformer.getUsedAssets(features);
-      if (styles) loadCSS(styles);
-      if (scripts) loadJS(scripts);
-      Markmap.create('#mindmap', {
-        duration: 300, nodeMinHeight: 20, spacingVertical: 8,
-        spacingHorizontal: 80, paddingX: 16, autoFit: true
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
       }, root);
-    };
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
   </script>
 </body>
 </html>
