@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 19: Contratos Administrativos (Lei 14.133/2021) - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 19</span>
+      <h1>Contratos Administrativos (Lei 14.133/2021)</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 19 - Contratos Administrativos (Lei 14.133/2021)
+
+## 📜 Eixo 1: Teoria Geral, Características e Formalização Contratual
+### 1. Conceito e Regime Jurídico de Direito Público
+- Ajuste entre a Administração Pública e particulares com prevalência do interesse público
+- **Características**: Natureza de direito público, comutatividade, bilateralidade, onerosidade, formalismo e consensualismo
+- **Regra da Forma Escrita**: Os contratos administrativos devem ser formalizados por escrito; nulo e sem eficácia o contrato verbal, **salvo pequenas compras de pronto pagamento de até R$ 10.000,00** em regime de adiantamento!
+
+### 2. Instrumento de Contrato e Substituição
+- O Instrumento de Contrato é **obrigatório** em contratações de valor elevado
+- Pode ser substituído por instrumento simplificado (carta-contrato, nota de empenho, ordem de fornecimento):
+  - Em compras com valor até os limites de dispensa de licitação
+  - Em compras com entrega imediata e integral sem obrigações futuras
+
+---
+
+## 🛡️ Eixo 2: Garantias Contratuais e o Seguro-Garantia com Cláusula de Retomada
+### 1. Modalidades de Garantia Ordinária (Art. 96)
+- Discricionariedade da Administração de exigir; cabe ao contratado escolher entre:
+  - 1. **Caução em dinheiro ou títulos da dívida pública**
+  - 2. **Fiança bancária** emitida por banco
+  - 3. **Seguro-garantia** emitido por seguradora
+- **Limites Percentuais Ordinários (Art. 98)**:
+  - Regra geral: Garantia de **até 5%** do valor inicial do contrato
+  - Obras, serviços e fornecimentos de grande vulto ou alta complexidade: **Até 10%** do valor contratual
+
+### 2. A Revolução do Seguro-Garantia com Cláusula de Retomada (Art. 99)
+- Em obras e serviços de engenharia de grande vulto, o edital pode exigir **Seguro-Garantia de até 30%** com cláusula de retomada (*Step-in Rights*)
+- Em caso de inadimplemento do contratado, a **seguradora assume a execução e conclui a obra diretamente**!
+- Se a seguradora concluir a obra, fica isenta de pagar a indenização pecuniária
+
+---
+
+## ⚡ Eixo 3: Cláusulas Exorbitantes e Prerrogativas Especiais (Art. 104)
+### 1. O Rol de Prerrogativas da Administração Pública
+- **1. Modificação Unilateral**: Para melhor adequação às finalidades de interesse público
+- **2. Extinção Unilateral**: Rescisão por razões de interesse público ou inadimplemento do contratado
+- **3. Fiscalização**: Acompanhamento contínuo da execução por fiscal e gestor de contrato
+- **4. Aplicação de Sanções**: Punição de infrações contratuais diretamente
+- **5. Ocupação Provisória**: Assunção de bens e serviços essenciais para continuidade de serviço público
+
+### 2. A Exceção do Contrato Não Cumprido (*Exceptio Non Adimpleti Contractus*)
+- O particular NÃO pode suspender imediatamente a execução do contrato por falta de pagamento
+- 🚨 **Prazo de Tolerância da Lei 14.133/21 (Art. 137, §2º, IV)**:
+  - O contratado só pode suspender o cumprimento ou pleitear rescisão se o atraso de pagamento pelo Estado for **superior a 2 (dois) meses consecutivos** (na Lei 8.666 eram 90 dias)!
+  - Ressalvadas situações de calamidade pública ou grave perturbação da ordem interna
+
+---
+
+## ⏳ Eixo 4: Regime de Duração e Prorrogações Contratuais (Arts. 105 a 114)
+### 1. Regra Geral de Vigência Contratual
+- A vigência dos contratos é fixada no edital, observada a disponibilidade de créditos orçamentários
+
+### 2. Serviços e Fornecimentos Contínuos (Art. 106 e 107)
+- Contratos de serviços e fornecimentos contínuos podem ter vigência inicial de até **5 (cinco) anos**
+- Prorrogação sucessiva autorizada até o prazo máximo de **10 (dez) anos**, desde que vantajoso para a Administração
+
+### 3. Contratos de Eficiência e com Receita
+- Contratos de eficiência com geração de economia: Prazo de até **10 anos** (sem investimento) ou até **35 anos** (com investimento prévio da contratada)
+- Contratos por escopo predeterminado: Vigência pelo prazo necessário para conclusão do objeto
+
+---
+
+## 🔄 Eixo 5: Alterações Contratuais, Limites e Equilíbrio Econômico-Financeiro
+### 1. Alteração Unilateral pela Administração (Art. 124, I)
+- **Quantitativa**: Acréscimo ou supressão de quantidades de obras, serviços ou compras
+- **Qualitativa**: Adequação do projeto ou especificações técnicas
+
+### 2. Limites Legais aos Acréscimos e Supressões (Art. 125)
+- O contratado é obrigado a aceitar, nas mesmas condições contratuais, acréscimos ou supressões de até:
+  - **25% (vinte e cinco por cento)** do valor inicial atualizado do contrato para obras, serviços ou compras
+  - **50% (cinquenta por cento)** para reformas de edifícios ou equipamentos
+  - Supressões podem ultrapassar o limite de 25% mediante **acordo consensual bilateral** entre as partes!
+
+### 3. A Manutenção do Equilíbrio Econômico-Financeiro
+- **Reajuste em Sentido Estrito**: Variação inflacionária de custos (índice previsto no edital após 1 ano)
+- **Repactuação**: Variação analítica de custos decorrente de acordo/convenção coletiva de trabalho (serviços contínuos com dedicação exclusiva de mão de obra)
+- **Revisão (Reequilíbrio / Teoria da Imprevisão - Art. 124, II, 'd')**: Fatos extraordinários, imprevisíveis ou de consequências incalculáveis (álea extraordinária)
+
+---
+
+## 👷 Eixo 6: Responsabilidade pela Execução, Encargos Trabalhistas e Pagamentos
+### 1. Encargos Fiscais, Comerciais e Previdenciários
+- O contratado é responsável pelos encargos trabalhistas, fiscais e comerciais resultantes da execução
+- **Encargos Previdenciários**: A Administração responde **SOLIDARIAMENTE** com o contratado pelo inadimplemento dos encargos previdenciários (art. 121 §2º)
+
+### 2. Encargos Trabalhistas e o Tema 246 do STF (ADC 16)
+- **Regra**: O inadimplemento trabalhista do contratado NÃO transfere automaticamente a responsabilidade à Administração
+- **Condição de Responsabilização Subsidiária**: O Estado só responde subsidiariamente se comprovada sua **conduta culposa e omissiva na FISCALIZAÇÃO** do cumprimento das obrigações contratuais (*culpa in vigilando*)!
+- Não cabe responsabilidade automática do Poder Público!
+
+### 3. Ordem Cronológica de Pagamentos (Art. 141)
+- A Administração deve respeitar a estrita ordem cronológica para cada categoria de contrato
+- Quebra de ordem cronológica só é admitida em situações excepcionais de relevante interesse público devidamente justificadas
+
+---
+
+## 🚫 Eixo 7: As Quatro Sanções Administrativas da Lei 14.133/2021 (Art. 156)
+### 1. Rol Taxativo de Sanções
+- **1. Advertência**: Aplicada exclusivamente em infrações leves que não causem prejuízo ao serviço
+- **2. Multa**: De **0,5% a 30%** do valor do contrato; pode ser cumulada com qualquer das outras sanções!
+- **3. Impedimento de Licitar e Contratar**:
+  - Prazo máximo de até **3 (três) anos**
+  - Âmbito de eficácia: No âmbito da **Administração Pública direta e indireta do ENTE FEDERATIVO** sancionador (União, Estado ou Município que aplicou)
+- **4. Declaração de Inidoneidade para Licitar ou Contratar**:
+  - Prazo mínimo de **3 (três) anos** e máximo de **6 (seis) anos**
+  - Âmbito de eficácia: Perante **TODA A ADMINISTRAÇÃO PÚBLICA DIRETA E INDIRETA DE TODOS OS ENTES FEDERATIVOS DO BRASIL**!
+  - Competência privativa de Ministro de Estado, Secretário Estadual ou Municipal
+
+---
+
+## 🚨 Eixo 8: Síntese de Armadilhas, Prazos Contratuais e Confrontação FGV / Cebraspe
+### 1. Seguro-Garantia com Cláusula de Retomada
+- 🚨 **Pegadinha Clássica**: Dizer que a garantia ordinária máxima na nova lei é de 30%.
+- ✅ **Regra**: Garantia ordinária é de até 5% (ou 10% para grande vulto); 30% é exclusivo para seguro-garantia com retomada da obra pela seguradora!
+
+### 2. Suspensão por Falta de Pagamento
+- 🚨 **Pegadinha Clássica**: Afirmar que o particular pode suspender a obra após 90 dias de inadimplência.
+- ✅ **Regra**: Na Lei 14.133/21 o prazo de tolerância foi reduzido para **mais de 2 (dois) meses** consecutivos!
+
+### 3. Abrangência da Declaração de Inidoneidade
+- 🚨 **Pegadinha Clássica**: Afirmar que a declaração de inidoneidade só impede de licitar com o órgão que aplicou a sanção.
+- ✅ **Regra**: Inidoneidade impede de licitar com TODOS os entes federativos do país (União, Estados, DF e Municípios)!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
