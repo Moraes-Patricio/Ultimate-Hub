@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Mental Interativo - Direito Administrativo: Aula 02 (Fundações e Estatais)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f1f5f9;
+    }
+    #mindmap {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    }
+    .header-bar {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      padding: 12px 22px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 520px;
+    }
+    .header-bar h1 {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+    .header-bar p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .controls-hint {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .controls-hint span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>⚖️ Aula 02: Fundações e Estatais <span class="badge">Cebraspe / FGV</span></h1>
+    <p>Empresas Públicas • Sociedades de Economia Mista • Fundações Públicas • Lei 13.303</p>
+  </div>
+
+  <div class="controls-hint">
+    <span>🖱️ <b>Scroll:</b> Zoom</span>
+    <span>🖐️ <b>Arrastar:</b> Pan</span>
+    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <script>
+    const markdown = "# ⚖️ Direito Administrativo: Aula 02\n## 🏛️ Eixo 0: Fundamentos da Intervenção Estatal na Ordem Econômica (CF, Art. 173)\n### 1. Princípio da Subsidiariedade e Atuação Excepcional\n- **Regra Geral**: Livre iniciativa e livre concorrência (CF, art. 170). O Estado atua primordialmente como agente normativo e regulador (CF, art. 174)\n- **Exceções Constitucionais para Atuação Direta (Art. 173, caput)**:\n  - Imperativos da **Segurança Nacional**\n  - **Relevante Interesse Coletivo**, conforme definidos em lei expressa\n- Vedada a intervenção direta estatal por mero capricho do governante\n\n### 2. Bipolaridade Funcional das Empresas Estatais\n- **Prestadoras de Serviços Públicos (Regime Híbrido com Influxo de Direito Público)**\n  - Atividades essenciais prestadas diretamente à sociedade (ex: ECT/Correios, Infraero, Caerdes)\n  - Responsabilidade Civil Objetiva (CF, art. 37, § 6º)\n  - Bens diretamente afetados ao serviço são impenhoráveis\n  - Imunidade Tributária Recíproca para serviços monopolísticos (CF, art. 150, VI, 'a' e Tema 508 STF)\n  - Execução de dívidas mediante regime de Precatórios se atuarem em regime de monopólio postal/serviço\n- **Exploradoras de Atividade Econômica de Produção e Comercialização**\n  - Atuação no mercado concorrencial em busca de rentabilidade (ex: Petrobras, Banco do Brasil, Caixa Econômica Federal)\n  - Submissão ao regime jurídico próprio das empresas privadas (CF, art. 173, § 1º, II)\n  - VEDAÇÃO de privilégios fiscais não extensivos ao setor privado (CF, art. 173, § 2º)\n  - Responsabilidade Civil Subjetiva (regras do Código Civil/2002)\n  - Sujeição à penhora de bens e cobrança ordinária em juízo\n\n---\n\n## 🏢 Eixo 1: Empresas Públicas (EP) vs. Sociedades de Economia Mista (SEM)\n### 1. As Quatro Diferenças Canônicas\n- **1. Capital Social**:\n  - *Empresa Pública*: 100% PÚBLICO (União, Estados, DF, Municípios ou outras entidades da Administração Indireta)\n  - *Sociedade de Economia Mista*: MISTO (maioria absoluta das ações com direito a voto DEVE pertencer ao Poder Público; admite sócios particulares minoritários)\n- **2. Forma Societária**:\n  - *Empresa Pública*: QUALQUER FORMA admitida em direito (S.A., LTDA, EIRELI/SLU, etc.)\n  - *Sociedade de Economia Mista*: OBRIGATORIAMENTE Sociedade Anônima (S.A.)\n- **3. Foro Processual (Competência da Justiça na Esfera Federal)**:\n  - *Empresa Pública Federal*: JUSTIÇA FEDERAL (CF, art. 109, I - ex: Caixa Econômica Federal)\n  - *Sociedade de Economia Mista Federal*: JUSTIÇA ESTADUAL COMUM (Súmulas 517 e 556 do STF e Súmula 42 do STJ - ex: Banco do Brasil, Petrobras)\n  - *Ressalva*: SEM vai para a JF se a União intervir formalmente como assistente ou opoente\n  - *Estaduais e Municipais*: Ambas respondem sempre perante a Justiça Estadual Comum\n- **4. Acionistas e Mercado de Capitais**:\n  - *Empresa Pública*: Não possui ações negociadas em bolsa voltadas a investidores privados\n  - *Sociedade de Economia Mista*: Pode abrir capital e negociar ações ordinárias/preferenciais na Bolsa de Valores (B3)\n\n### 2. Traços Comuns a Todas as Estatais (EP e SEM)\n- Personalidade jurídica de direito privado\n- Criação AUTORIZADA por lei específica (a personalidade jurídica nasce com o registro na Junta Comercial)\n- Empregados públicos regidos pela Consolidação das Leis do Trabalho (CLT)\n- Admissão obrigatória por **Concurso Público** de provas ou de provas e títulos (CF, art. 37, II)\n- Vedação absoluta de acumulação remunerada de empregos públicos (CF, art. 37, XVII)\n- Fiscalização financeira e contábil obrigatória perante o Tribunal de Contas (TCU / TCEs)\n- Impossibilidade legal de falência (Lei nº 11.101/2005, art. 2º, I)\n\n---\n\n## 📜 Eixo 2: Estatuto das Estatais (Lei nº 13.303/2016) & Regime de Pessoal\n### 1. Regime de Pessoal e Motivação da Demissão (Tema 1022 do STF)\n- Empregados de empresas estatais NÃO possuem a estabilidade constitucional do Art. 41 da CF (Súmula 390, II do TST)\n- **Fixação pelo STF no Tema 1022 (RE 688.267)**:\n  - A dispensa de empregados de estatais admitidos por concurso público **EXIGE MOTIVAÇÃO formal e justificada**\n  - Não se exige processo administrativo disciplinar (PAD) complexo, mas deve haver fundamento fático legítimo (técnico, econômico, disciplinar ou operacional)\n  - Vedada a dispensa arbitrária ou imotivada!\n\n### 2. Teto Remuneratório Constitucional (CF, Art. 37, XI e § 9º)\n- **Estatais Dependentes**: Empresas que recebem recursos da Fazenda Pública para pagamento de despesas de pessoal ou de custeio geral (ex: CONAB, EBC, CPRM) -> **SUBMETEM-SE RIGOROSAMENTE AO TETO CONSTITUCIONAL**\n- **Estatais Não Dependentes**: Empresas autossuficientes financeiramente que vivem de receitas próprias de mercado (ex: Petrobras, Banco do Brasil, Caixa) -> **NÃO SE SUBMETEM AO TETO**\n\n### 3. Governança e Nomeação de Dirigentes (Art. 17 da Lei 13.303/2016)\n- Exigência de idoneidade moral, reputação ilibada e experiência profissional mínima de 10 anos no setor\n- Quarentena e vedações a pessoas com atuação decisória em partidos políticos ou titulares de mandatos legislativos/ministros (com as balizas da medida cautelar do STF na ADI 7.331)\n\n### 4. Licitações e Contratos nas Estatais\n- As estatais seguem o regime licitatório especial da **Lei nº 13.303/2016** (NÃO utilizam a Lei 14.133/2021!)\n- Dispensa de licitação permitida para comercialização, prestação de serviços afins à atividade-fim e oportunidades comerciais de mercado\n\n---\n\n## 🏛️ Eixo 3: Teoria das Fundações Públicas\n### 1. Conceito e Finalidade\n- Patrimônio personalizado afetado a uma finalidade social pública não lucrativa\n- Áreas típicas de atuação: Educação, saúde, assistência social, cultura, patrimônio histórico e pesquisa científica\n\n### 2. Dicotomia Canônica das Fundações Públicas\n- **Fundações Públicas de Direito Público (Fundações Autárquicas / Autarquias Fundacionais)**:\n  - Criadas DIRETAMENTE por lei específica\n  - Regime 100% de direito público\n  - Bens públicos (impenhoráveis e imprescritíveis)\n  - Dívidas executadas por Precatórios (CF, art. 100)\n  - Regime de pessoal estatutário (RJU)\n  - Imunidade Tributária Recíproca plena\n  - Exemplos: FUNAI, IBGE, IPEA\n- **Fundações Públicas de Direito Privado (Fundações Governamentais)**:\n  - Criação AUTORIZADA por lei específica (personalidade nasce com o registro civil)\n  - Regime híbrido (influxo de normas de direito público com base de direito privado)\n  - Empregados públicos celetistas admitidos por concurso público\n  - Bens privados, mas com impenhorabilidade mitigada se afetados a serviços públicos\n\n### 3. Reserva de Lei Complementar (CF, Art. 37, XIX)\n- Cabe à LEI COMPLEMENTAR definir as áreas de atuação das fundações públicas (norma de eficácia limitada)\n\n---\n\n## ⚖️ Eixo 4: Jurisprudência Vinculante e Temática (STF & STJ)\n### 1. Imunidade Tributária Recíproca das Estatais (Tema 508 do STF)\n- A imunidade recíproca (IPTU, IPVA, IR) aplica-se às empresas públicas e sociedades de economia mista que prestem **serviços públicos essenciais em regime de monopólio ou não concorrencial** (ex: ECT/Correios, Infraero, Caerdes)\n- **VEDADA** a imunidade para estatais que exploram atividade econômica em ambiente de livre concorrência ou que distribuem lucros a acionistas privados!\n\n### 2. Súmulas Essenciais\n- **Súmula Vinculante 39 (STF)**: A contratação de servidores por fundação pública instituída pelo Estado exige prévia aprovação em concurso público\n- **Súmula 517 (STF)**: As sociedades de economia mista só têm foro na Justiça Federal se a União intervir como assistente ou opoente\n- **Súmula 556 (STF)**: É competente a Justiça Comum para desapropriação promovida por sociedade de economia mista\n- **Súmula 42 (STJ)**: Compete à Justiça Estadual processar e julgar causas e crimes envolvendo sociedade de economia mista\n\n---\n\n## 🎯 Eixo 5: Radar de Pegadinhas Cebraspe & FGV\n### 1. Distinções Binárias Críticas\n- **EP vs. SEM no Foro Federal**:\n  - Caixa Econômica Federal (EP) -> Justiça Federal\n  - Banco do Brasil e Petrobras (SEM) -> Justiça Estadual!\n- **Estabilidade vs. Motivação**:\n  - Empregado de estatal NÃO tem estabilidade (art. 41 CF)\n  - Mas a sua dispensa NÃO PODE ser imotivada: exige justificativa explícita (Tema 1022 STF)\n- **Criação de Fundações**:\n  - Fundação de Direito Público: Criada por lei\n  - Fundação de Direito Privado: Autorizada por lei + Registro\n- **Falência de Estatais**:\n  - Nem EP nem SEM podem falir (vedação expressa da Lei 11.101/05, art. 2º, I)\n- **Teto Salarial**:\n  - Dependente de repasse para custeio = Sujeita ao teto\n  - Sobrevive de faturamento próprio de mercado = Fora do teto\n";
+
+    window.onload = () => {
+      const { Markmap, loadCSS, loadJS } = window.markmap;
+      const transformer = new window.markmap.Transformer();
+      const { root, features } = transformer.transform(markdown);
+      const { styles, scripts } = transformer.getUsedAssets(features);
+      if (styles) loadCSS(styles);
+      if (scripts) loadJS(scripts);
+      Markmap.create('#mindmap', {
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingVertical: 8,
+        spacingHorizontal: 80,
+        paddingX: 16,
+        autoFit: true
+      }, root);
+    };
+  </script>
+</body>
+</html>
