@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 22: Proteção de Dados Pessoais - Parte II (LGPD) - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 22</span>
+      <h1>Proteção de Dados Pessoais - Parte II (LGPD)</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 22 - Proteção de Dados Pessoais (LGPD) - Parte II
+
+## 👥 Eixo 1: Agentes de Tratamento e o Papel do Encarregado (DPO)
+### 1. Os Agentes de Tratamento (Art. 5º, IX)
+- **Controlador**: Pessoa natural ou jurídica, de direito público ou privado, a quem competem as **decisões referentes ao tratamento** de dados pessoais
+- **Operador**: Pessoa natural ou jurídica, de direito público ou privado, que realiza o **tratamento em nome e sob as instruções do controlador**
+
+### 2. O Encarregado pelo Tratamento de Dados (DPO - Data Protection Officer - Art. 41)
+- Pessoa indicada pelo controlador e operador para atuar como **canal de comunicação** entre o controlador, os titulares dos dados e a ANPD
+- **Atribuições Centrais**:
+  - Aceitar reclamações e comunicações dos titulares e prestar esclarecimentos
+  - Receber comunicações da ANPD e adotar providências
+  - Orientar os funcionários e contratados da entidade sobre as práticas de proteção de dados
+- A identidade e as informações de contato do encarregado devem ser **divulgadas publicamente**, de forma clara e objetiva, no sítio eletrônico do controlador
+
+---
+
+## ⚖️ Eixo 2: Responsabilidade Civil e Ressarcimento de Danos (Arts. 42 a 45)
+### 1. Regime de Responsabilidade dos Agentes
+- O controlador ou o operador que, em razão do exercício de atividade de tratamento, causar a outrem **dano patrimonial, moral, individual ou coletivo**, em violação à legislação, é obrigado a repará-lo
+- **Responsabilidade Solidária do Operador**: O operador responde solidariamente pelos danos quando descumprir as obrigações da legislação ou quando **não tiver seguido as instruções lícitas do controlador**
+
+### 2. Excludentes de Responsabilidade Civil (Art. 43)
+- Os agentes de tratamento só não serão responsabilizados quando provarem:
+  - 1. Que não realizaram o tratamento de dados pessoais que lhes é atribuído
+  - 2. Que, embora tenham realizado o tratamento, não houve violação à legislação de proteção de dados
+  - 3. Que o dano é decorrente de **culpa exclusiva do titular dos dados ou de terceiro**
+
+---
+
+## 🛡️ Eixo 3: Segurança da Informação, Boas Práticas e Incidentes de Segurança
+### 1. Medidas de Segurança e Governança (Art. 46)
+- Os agentes de tratamento devem adotar medidas de segurança, técnicas e administrativas aptas a proteger os dados pessoais de acessos não autorizados e de situações acidentais ou ilícitas
+- Medidas de segurança devem ser observadas desde a concepção do produto até a sua execução (*Privacy by Design* e *Privacy by Default*)
+
+### 2. Comunicação Obrigatória de Incidentes de Segurança (Art. 48)
+- O controlador deve comunicar à **ANPD** e aos **titulares dos dados**, em prazo razoável, a ocorrência de incidente de segurança que possa acarretar **risco ou dano relevante** aos titulares
+- A comunicação deve descrever a natureza dos dados afetados, as medidas técnicas de segurança adotadas e as ações para reverter ou mitigar os efeitos
+
+---
+
+## 🏛️ Eixo 4: A Autoridade Nacional de Proteção de Dados (ANPD - Arts. 55-A a 55-L)
+### 1. Natureza Jurídica da ANPD
+- Criada originariamente como órgão da Presidência e **transformada pela Lei 14.460/2022 em AUTARQUIA DE NATUREZA ESPECIAL**, dotada de autonomia técnica e decisória, com patrimônio próprio e sede no DF
+- Órgão central do Sistema Nacional de Proteção de Dados Pessoais
+
+### 2. Competências Institucionais Centrais
+- Zelar pela proteção dos dados pessoais e fiscalizar e aplicar sanções administrativas
+- Editar normas, orientações e procedimentos simplificados para microempresas e startups
+- Apreciar petições de titulares e fiscalizar o cumprimento da LGPD no setor público e privado
+
+---
+
+## 🚫 Eixo 5: As Sanções Administrativas da LGPD (Arts. 52 a 54)
+### 1. Rol das Sanções Aplicáveis pela ANPD
+- 1. Advertência, com indicação de prazo para adoção de medidas corretivas
+- 2. **Multa Simples**: De até **2% do faturamento** da empresa no Brasil, limitada, no total, a **R$ 50.000.000,00 (cinquenta milhões de reais) por infração**!
+- 3. **Multa Diária**, observado o limite total de R$ 50 milhões
+- 4. Publicização da infração após confirmada a ocorrência
+- 5. Bloqueio dos dados pessoais a que se refere a infração até a regularização
+- 6. **Eliminação dos dados pessoais** a que se refere a infração
+- 7. Suspensão parcial do funcionamento do banco de dados por até 6 meses
+- 8. Suspensão do exercício da atividade de tratamento dos dados por até 6 meses
+- 9. Proibição parcial ou total do exercício de atividades de tratamento
+
+### 2. Inaplicabilidade de Multas Pecuniárias ao Poder Público (Art. 52 §3º)
+- 🚨 **Atenção Absoluta para Provas**: As sanções de **MULTA SIMPLES e MULTA DIÁRIA NÃO SE APLICAM aos órgãos e entidades da Administração Pública**!
+- Aos entes públicos aplicam-se apenas: Advertência, Publicização, Bloqueio, Eliminação e Suspensão do banco de dados!
+
+---
+
+## 🌐 Eixo 6: Transferência Internacional de Dados Pessoais (Arts. 33 a 36)
+### 1. Hipóteses Autorizadas de Transferência ao Exterior
+- Para países ou organismos internacionais que proporcionem grau de proteção de dados adequado ao previsto na LGPD (comprovado pela ANPD)
+- Quando o controlador oferecer e comprovar garantias de cumprimento da LGPD (cláusulas contratuais padrão, normas corporativas globais ou selos de conformidade)
+- Quando necessária para cooperação jurídica internacional entre órgãos públicos
+- Mediante consentimento específico e destacado do titular
+
+---
+
+## 🚨 Eixo 7: Radar de Armadilhas Frequentes Cebraspe / FGV
+### 1. Multa Pecuniária contra Órgão Público
+- 🚨 **Pegadinha Clássica**: Afirmar que a ANPD multou um ministério ou prefeitura em R$ 10 milhões por vazamento de dados.
+- ✅ **Regra**: É proibida a aplicação de multa pecuniária à Fazenda Pública na LGPD (o Estado sofre publicização, advertência e eliminação dos dados, mas não paga multa à ANPD)!
+
+### 2. Natureza Jurídica Atual da ANPD
+- 🚨 **Pegadinha Clássica**: Dizer que a ANPD é órgão subordinado à Presidência da República.
+- ✅ **Regra**: A ANPD foi transformada pela Lei 14.460/2022 em **Autarquia de Natureza Especial**, vinculada ao Ministério da Justiça, com autonomia técnica e administrativa!
+
+### 3. Responsabilidade do Operador
+- 🚨 **Pegadinha Clássica**: Dizer que o operador nunca responde perante os titulares prejudicados.
+- ✅ **Regra**: O operador responde SOLIDARIAMENTE se violar as instruções lícitas do controlador ou descumprir as regras legais!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
