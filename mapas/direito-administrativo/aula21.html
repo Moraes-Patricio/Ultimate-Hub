@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 21: Proteção de Dados Pessoais - Parte I (LGPD) - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 21</span>
+      <h1>Proteção de Dados Pessoais - Parte I (LGPD)</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 21 - Proteção de Dados Pessoais (LGPD) - Parte I
+
+## ⚖️ Eixo 1: Marco Constitucional e Âmbito de Aplicação da LGPD
+### 1. Direito Fundamental à Proteção de Dados (EC 115/2022)
+- A Emenda Constitucional nº 115/2022 incluiu no rol do art. 5º o **direito fundamental à proteção dos dados pessoais, inclusive nos meios digitais** (art. 5º, LXXIX)
+- Competência privativa da **UNIÃO** para legislar sobre proteção e tratamento de dados pessoais (CF art. 22, XXX)
+
+### 2. Âmbito de Aplicação Territorial e Material (Lei 13.709/2018, Arts. 3º e 4º)
+- **Aplica-se**: A qualquer operação de tratamento realizada por pessoa natural ou pessoa jurídica de direito público ou privado, independentemente do meio (físico ou digital) ou país sede, desde que:
+  - A operação seja realizada no território nacional
+  - A atividade tenha por objetivo a oferta de bens ou serviços a indivíduos no Brasil
+  - Os dados tenham sido coletados no território brasileiro
+- **NÃO se Aplica (Exceções do Art. 4º)**:
+  - Fins exclusivamente particulares e não econômicos por pessoa natural
+  - Fins exclusivamente jornalísticos, artísticos ou acadêmicos
+  - Fins exclusivos de **segurança pública, defesa nacional, segurança do Estado ou atividades de investigação e repressão de infrações penais** (objeto de lei específica)
+
+---
+
+## 📖 Eixo 2: Glossário Ontológico da LGPD (Conceitos do Art. 5º)
+### 1. Conceitos Nucleares
+- **Dado Pessoal**: Informação relacionada a **pessoa natural identificada ou identificável** (ex: nome, CPF, RG, IP, geolocalização)
+- **Dado Pessoal Sensível**: Dado sobre origem racial/étnica, convicção religiosa, opinião política, filiação sindical, dado genético ou biométrico, dado referente à saúde ou vida sexual
+- **Dado Anonimizado**: Dado relativo a titular que não possa ser identificado, considerando a utilização de meios técnicos razoáveis (o dado anonimizado **NÃO é considerado dado pessoal**, salvo se revertido!)
+- **Banco de Dados**: Conjunto estruturado de dados pessoais
+- **Titular**: Pessoa natural a quem se referem os dados pessoais
+
+### 2. Operações de Tratamento
+- Toda operação realizada com dados pessoais: coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação ou modificação
+
+---
+
+## 🎯 Eixo 3: Os Dez Princípios Norteadores do Tratamento (Art. 6º)
+### 1. Finalidade, Adequação e Necessidade (O Núcleo Tríplice)
+- **1. Finalidade**: Propósitos legítimos, específicos, explícitos e informados ao titular, sem possibilidade de tratamento posterior incompatível
+- **2. Adequação**: Compatibilidade do tratamento com as finalidades informadas
+- **3. Necessidade (Minimização)**: Limitação do tratamento ao **mínimo necessário** para a realização de suas finalidades (coleta restrita)
+
+### 2. Os Demais Sete Princípios
+- **4. Livre Acesso**: Garantia de consulta facilitada e gratuita sobre a forma e duração do tratamento
+- **5. Qualidade dos Dados**: Exatidão, clareza, relevância e atualização dos dados
+- **6. Transparência**: Informações claras, precisas e facilmente acessíveis aos titulares
+- **7. Segurança**: Medidas técnicas e administrativas aptas a proteger os dados de acessos não autorizados
+- **8. Prevenção**: Adoção de medidas prévias para evitar a ocorrência de danos
+- **9. Não Discriminação**: Impossibilidade de tratamento para fins discriminatórios ilícitos ou abusivos
+- **10. Responsabilização e Prestação de Contas**: Demonstração de medidas eficazes e capazes de comprovar a observância da lei
+
+---
+
+## 📋 Eixo 4: As Dez Bases Legais para Tratamento de Dados Comuns (Art. 7º)
+### 1. Rol Taxativo das Hipóteses de Tratamento
+- 1. **Consentimento** do titular (livre, informado e inequívoco para finalidade determinada)
+- 2. Cumprimento de **obrigação legal ou regulatória** pelo controlador
+- 3. Execução de **políticas públicas** pela Administração Pública
+- 4. Realização de estudos por órgão de pesquisa (garantida a anonimização sempre que possível)
+- 5. Execução de **contrato** ou procedimentos preliminares a pedido do titular
+- 6. Exercício regular de direitos em processo judicial, administrativo ou arbitral
+- 7. Proteção da vida ou da incolumidade física do titular ou de terceiro
+- 8. Tutela da saúde, exclusivamente por profissionais de saúde ou entidades sanitárias
+- 9. Atendimento ao **legítimo interesse** do controlador ou de terceiro (vedado sobrepor-se a direitos fundamentais)
+- 10. Proteção do crédito
+
+---
+
+## 🧬 Eixo 5: Regime Jurídico Específico dos Dados Pessoais Sensíveis (Art. 11)
+### 1. Bases Legais Restritas para Dados Sensíveis
+- Exige consentimento específico e destacado do titular OU hipóteses taxativas sem consentimento:
+  - Cumprimento de obrigação legal ou regulatória
+  - Tratamento compartilhado para execução de políticas públicas
+  - Estudos por órgão de pesquisa
+  - Exercício regular de direitos
+  - Proteção da vida ou tutela da saúde
+  - Prevenção à fraude e segurança do titular nos processos de identificação
+- 🚨 **Vedações Cruciais**: É VEDADO o uso da base do *legítimo interesse* para tratamento de dados sensíveis! É vedada a comunicação ou uso compartilhado de dados de saúde com objetivo de obter vantagem econômica por planos de saúde!
+
+---
+
+## 🏛️ Eixo 6: Tratamento de Dados Pessoais pelo Poder Público (Arts. 23 a 30)
+### 1. Regras Especiais para Pessoas Jurídicas de Direito Público
+- O tratamento de dados pessoais por órgãos e entidades públicas deve ser realizado para o atendimento de sua **finalidade pública**, na persecução do **interesse público**, com o objetivo de executar as competências legais ou cumprir atribuições legais do serviço público
+- **Dever de Informação Pública**: Os órgãos públicos devem informar as hipóteses em que realizam o tratamento, a previsão legal, a finalidade e os procedimentos em veículos de fácil acesso
+
+### 2. Vedações Especiais ao Poder Público (Art. 26)
+- É vedado ao Poder Público transferir a entidades privadas dados pessoais constantes de bases de dados a que tenha acesso, ressalvadas parcerias com previsão legal expressa e órgãos de pesquisa
+
+---
+
+## 🚨 Eixo 7: Direitos do Titular (Art. 18) e Radar Cebraspe / FGV
+### 1. Catálogo de Direitos Fundamentais do Titular
+- Confirmação da existência de tratamento e acesso aos dados
+- Correção de dados incompletos, inexatos ou desatualizados
+- Anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos
+- **Portabilidade dos dados** a outro fornecedor de serviço ou produto
+- Eliminação dos dados pessoais tratados com o consentimento
+- Informação sobre o não consentimento e revogação do consentimento a qualquer tempo
+
+### 2. Pegadinhas Frequentes de Prova
+- 🚨 **Pegadinha Clássica**: Afirmar que a LGPD protege dados de pessoas jurídicas (empresas).
+- ✅ **Regra**: A LGPD protege exclusivamente dados pessoais de **PESSOAS NATURAIS (Pessoas Físicas)**!
+- 🚨 **Pegadinha Clássica**: Considerar o consentimento como a única base legal para tratar dados.
+- ✅ **Regra**: O consentimento é apenas 1 entre as 10 bases legais; a Administração trata dados prioritariamente para cumprimento de obrigação legal e execução de políticas públicas!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
