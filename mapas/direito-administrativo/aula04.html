@@ -3,118 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aula 04: Poderes Administrativos e Uso/Abuso de Poder - Mapa Mental Interativo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <title>Mapa (Dir. Adm. Aula 04 - Antigravity)</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #0b1120;
-      color: #f8fafc;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 12px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-    }
-    .title-box { display: flex; align-items: center; gap: 12px; }
-    .badge {
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      color: white;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 9999px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      letter-spacing: -0.01em;
-    }
-    .controls { display: flex; gap: 8px; align-items: center; }
-    .btn {
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .btn:hover {
-      background: #3b82f6;
-      color: white;
-      border-color: #3b82f6;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-    #markmap-container {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-    svg#mindmap {
-      width: 100%;
-      height: 100%;
-    }
-    .markmap-node text {
-      font-family: 'Inter', sans-serif !important;
-      fill: #e2e8f0 !important;
-    }
-    .markmap-node-circle {
-      cursor: pointer;
-      fill: #1e293b !important;
-      stroke: #38bdf8 !important;
-      stroke-width: 2px !important;
-    }
-    .markmap-node-circle:hover {
-      fill: #38bdf8 !important;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100%; height: 100%; overflow: hidden; background-color: #0b1120; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    #mindmap { width: 100%; height: 100%; }
+    .markmap-node text { fill: #f1f5f9 !important; font-size: 13px; font-weight: 500; }
+    .markmap-link { stroke-width: 2px !important; }
+    .controls { position: absolute; bottom: 24px; right: 24px; display: flex; gap: 8px; z-index: 100; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 6px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+    .btn { background: rgba(255, 255, 255, 0.05); color: #e2e8f0; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; }
+    .btn:hover { background: rgba(255, 255, 255, 0.15); color: #38bdf8; transform: translateY(-1px); }
+    .badge { position: absolute; top: 20px; left: 24px; z-index: 100; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 10px 16px; color: #f8fafc; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.4/dist/browser/index.js"></script>
 </head>
 <body>
-  <header>
-    <div class="title-box">
-      <span class="badge">AULA 04</span>
-      <h1>Poderes Administrativos e Uso/Abuso de Poder</h1>
-    </div>
-    <div class="controls">
-      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
-      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
-      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
-    </div>
-  </header>
-  <div id="markmap-container">
-    <svg id="mindmap"></svg>
+  <div class="badge">
+    <div class="badge-dot"></div>
+    <span>Mapa (Dir. Adm. Aula 04 - Antigravity)</span>
   </div>
-
-  <script id="markdown-source" type="text/markdown">
-# 📚 Direito Administrativo: Aula 04 - Poderes Administrativos e Uso/Abuso de Poder
+  <svg id="mindmap"></svg>
+  <div class="controls">
+    <button class="btn" onclick="fitView()">🎯 Centralizar</button>
+    <button class="btn" onclick="expandAll()">📂 Expandir</button>
+    <button class="btn" onclick="collapseAll()">📁 Recolher</button>
+  </div>
+  <script>
+    let mmInstance;
+    const mdContent = `# Mapa (Dir. Adm. Aula 04 - Antigravity)
 ## 🏛️ Eixo 1: Deveres e Poderes Administrativos
 ### 1. O Poder-Dever de Agir
 - Os poderes administrativos são instrumentais e irrenunciáveis (são prerrogativas de autoridade vinculadas a um dever de agir em prol do interesse público)
@@ -250,66 +169,46 @@
 - **Autoexecutoriedade da Multa**: A aplicação da multa é autoexecutória; a cobrança financeira forçada exige ação de execução fiscal judicial!
 - **Hierarquia vs. Tutela**: Entre Ministério e Autarquia NÃO HÁ hierarquia, apenas tutela finalística
 - **Delegação a Particulares Puros**: O poder sancionatório de polícia NUNCA pode ser delegado a empresas privadas comuns
-
-  </script>
-
-  <script>
-    let mm = null;
-    let rootNode = null;
-
-    window.addEventListener('DOMContentLoaded', async () => {
-      const markdown = document.getElementById('markdown-source').textContent;
+`;
+    window.addEventListener('DOMContentLoaded', () => {
       const { Transformer } = window.markmap;
       const transformer = new Transformer();
-      const { root } = transformer.transform(markdown);
-      rootNode = root;
-
-      const svg = document.getElementById('mindmap');
+      const { root } = transformer.transform(mdContent);
       const { Markmap } = window.markmap;
-      mm = Markmap.create(svg, {
-        color: (node) => {
-          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
-          return depthColors[node.depth % depthColors.length];
-        },
+      mmInstance = Markmap.create('#mindmap', {
         duration: 300,
-        nodeMinHeight: 20,
-        spacingHorizontal: 110,
-        spacingVertical: 12,
-        paddingX: 16,
-        autoFit: true,
-        initialExpandLevel: 2
+        maxWidth: 380,
+        color: (node) => {
+          const colors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24', '#fb7185', '#a78bfa'];
+          return colors[node.state.depth % colors.length];
+        }
       }, root);
-
-      window.addEventListener('resize', () => { mm.fit(); });
+      setTimeout(() => mmInstance.fit(), 300);
     });
-
-    function resetZoom() { if (mm) mm.fit(); }
-
-    function setFold(node, fold) {
-      if (node.children && node.children.length > 0) {
-        node.payload = node.payload || {};
-        node.payload.fold = fold;
-        node.children.forEach(child => setFold(child, fold));
-      }
-    }
-
+    function fitView() { if (mmInstance) mmInstance.fit(); }
     function expandAll() {
-      if (!mm || !rootNode) return;
-      setFold(rootNode, 0);
-      mm.renderData(rootNode);
-      mm.fit();
-    }
-
-    function collapseAll() {
-      if (!mm || !rootNode) return;
-      setFold(rootNode, 1);
-      if (rootNode.children) {
-        rootNode.children.forEach(child => {
-          if (child.payload) child.payload.fold = 1;
-        });
+      if (!mmInstance) return;
+      function expand(node) {
+        if (node.children) {
+          node.payload = { ...node.payload, fold: 0 };
+          node.children.forEach(expand);
+        }
       }
-      mm.renderData(rootNode);
-      mm.fit();
+      expand(mmInstance.state.data);
+      mmInstance.renderData();
+      mmInstance.fit();
+    }
+    function collapseAll() {
+      if (!mmInstance) return;
+      function collapse(node, depth = 0) {
+        if (node.children) {
+          node.payload = { ...node.payload, fold: depth >= 1 ? 1 : 0 };
+          node.children.forEach(c => collapse(c, depth + 1));
+        }
+      }
+      collapse(mmInstance.state.data);
+      mmInstance.renderData();
+      mmInstance.fit();
     }
   </script>
 </body>
