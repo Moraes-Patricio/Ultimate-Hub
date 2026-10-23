@@ -22,42 +22,67 @@
     }
     #mindmap { width: 100%; height: 100%; }
 
-    /* 1. TIPOGRAFIA E ALTO CONTRASTE (Adequação total ao fundo escuro) */
+    /* 1. TIPOGRAFIA POR NÍVEL HIERÁRQUICO (Alto contraste definitivo) */
+    .markmap-node text {
+      fill: #f8fafc !important;
+    }
     .markmap-foreign {
-      color: #f8fafc !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
       line-height: 1.5 !important;
       overflow: visible !important;
+      color: #f1f5f9 !important;
     }
-    .markmap-foreign div {
-      color: #f8fafc !important;
+    .markmap-foreign div,
+    .markmap-foreign span,
+    .markmap-foreign p {
+      color: inherit;
     }
-    .markmap-foreign h1 {
-      color: #ffffff !important;
-      font-weight: 800 !important;
+    
+    /* Nível 0: Título Raiz */
+    .markmap-node[data-depth="0"] .markmap-foreign div {
       font-size: 16px !important;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-      letter-spacing: -0.01em;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      white-space: nowrap !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
     }
-    .markmap-foreign h2 {
-      color: #38bdf8 !important;
-      font-weight: 700 !important;
+
+    /* Nível 1: Eixos Temáticos */
+    .markmap-node[data-depth="1"] .markmap-foreign div {
       font-size: 14.5px !important;
-      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+      font-weight: 700 !important;
+      color: #38bdf8 !important;
+      white-space: nowrap !important;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7) !important;
     }
-    .markmap-foreign h3 {
-      color: #a5b4fc !important;
-      font-weight: 600 !important;
+
+    /* Nível 2: Subtópicos */
+    .markmap-node[data-depth="2"] .markmap-foreign div {
       font-size: 13.5px !important;
+      font-weight: 600 !important;
+      color: #f1f5f9 !important;
     }
+
+    /* Nível 3+: Bullets e Detalhes */
+    .markmap-node[data-depth="3"] .markmap-foreign div,
+    .markmap-node[data-depth="4"] .markmap-foreign div,
+    .markmap-node[data-depth="5"] .markmap-foreign div {
+      font-size: 12.5px !important;
+      font-weight: 400 !important;
+      color: #e2e8f0 !important;
+      line-height: 1.55 !important;
+    }
+
     .markmap-foreign strong, .markmap-foreign b {
       color: #38bdf8 !important;
       font-weight: 600 !important;
     }
+
     .markmap-foreign em, .markmap-foreign i {
       color: #fbbf24 !important;
-      font-style: normal;
+      font-style: normal !important;
     }
+
     .markmap-foreign code {
       background: rgba(255, 255, 255, 0.12);
       padding: 2px 6px;
@@ -294,7 +319,10 @@
       const { Markmap } = window.markmap;
       mmInstance = Markmap.create('#mindmap', {
         duration: 300,
-        maxWidth: 550,
+        maxWidth: 650,
+        spacingVertical: 20,
+        spacingHorizontal: 120,
+        paddingX: 18,
         color: (node) => {
           const colors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24', '#fb7185', '#a78bfa'];
           return colors[node.state.depth % colors.length];
