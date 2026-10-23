@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Mental Interativo - Direito Administrativo: Aula 01 (Organização Administrativa)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f1f5f9;
+    }
+    #mindmap {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    }
+    .header-bar {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      padding: 12px 22px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 520px;
+    }
+    .header-bar h1 {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+    .header-bar p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .controls-hint {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .controls-hint span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>⚖️ Aula 01: Organização Administrativa <span class="badge">Cebraspe / FGV</span></h1>
+    <p>Administração Direta e Indireta • Teoria dos Órgãos • Descentralização • Autarquias</p>
+  </div>
+
+  <div class="controls-hint">
+    <span>🖱️ <b>Scroll:</b> Zoom</span>
+    <span>🖐️ <b>Arrastar:</b> Pan</span>
+    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <script>
+    const markdown = "# ⚖️ Direito Administrativo: Aula 01\n## 🏛️ Eixo 0: Fundamentos da Organização do Estado e da Administração\n### 1. Tríplice Distinção Ontológica\n- **Estado (Pessoa Jurídica Soberana)**\n  - Sociedade politicamente organizada (povo, território e soberania)\n  - Titular do ordenamento jurídico e da soberania internacional\n  - Responde civilmente de forma objetiva por danos (CF, art. 37, § 6º)\n- **Governo (Função Política / Diretiva)**\n  - Comando político superior do Estado e formulação de diretrizes primárias\n  - Atos de governo: ampla discricionariedade, oportunidade e mérito político\n  - Responsabilidade eminentemente política (crimes de responsabilidade)\n- **Administração Pública (Função Executiva / Técnica)**\n  - Aparelho instrumental subordinado que executa as políticas públicas\n  - Atos administrativos: estrita submissão à lei formal e ao princípio da juridicidade\n  - Responsabilidade funcional, civil e administrativa do agente executor\n\n### 2. Pessoas Políticas vs. Pessoas Administrativas\n- **Pessoas Políticas (Entidades Federativas: União, Estados, DF e Municípios)**\n  - Nascem diretamente da Constituição Federal (Administração Direta)\n  - Possuem capacidade política originária (editam leis primárias)\n  - Possuem autogoverno (eleição de governantes) e auto-organização\n- **Pessoas Administrativas (Entidades da Administração Indireta)**\n  - Autarquias, Fundações Públicas, Empresas Públicas e Sociedades de Economia Mista\n  - Criadas ou autorizadas por LEI ESPECÍFICA (não têm capacidade legislativa)\n  - Não possuem autogoverno (dirigentes nomeados); possuem mera autoadministração técnica\n\n---\n\n## 🧭 Eixo 1: Matriz de Distribuição de Competências\n### 1. O Binômio Organizacional (Quadro 2x2)\n- **Centralização vs. Descentralização (Vetor Interentidades)**\n  - *Centralização*: O Estado executa suas tarefas diretamente, pelo seu próprio centro (Entidade Federativa)\n  - *Descentralização*: O Estado transfere a titularidade ou a mera execução para OUTRA pessoa jurídica\n- **Concentração vs. Desconcentração (Vetor Intraentidade)**\n  - *Concentração*: A competência é acumulada no topo da hierarquia, sem repartição interna\n  - *Desconcentração*: Distribuição interna de competências DENTRO da mesma pessoa jurídica, criando ÓRGÃOS\n  - *Mnemônico de Ouro*: Des**CO**ncentração cria órgãos (**CO**rpo); Des**CE**ntralização cria **EN**tidades\n\n### 2. Espécies de Descentralização\n- **Por Serviços / Funcional / Técnica / Outorga**\n  - Transferência da **TITULARIDADE e da EXECUÇÃO** do serviço público\n  - Feita exclusivamente por **LEI formal**\n  - Destinatárias típicas: Entidades da Administração Indireta de direito público (ex: Autarquias)\n  - Prazo: Indeterminado\n- **Por Colaboração / Delegação**\n  - Transferência apenas da **MERA EXECUÇÃO** material do serviço (o Estado retém a titularidade)\n  - Feita por **CONTRATO administrativo** (Concessão/Permissão) ou **ATO precário** (Autorização)\n  - Destinatárias: Empresas privadas particulares concessionárias e permissionárias\n  - Prazo: Determinado e fiscalizado pelo Poder Concedente\n- **Territorial ou Geográfica**\n  - Criação de entidade com capacidade administrativa genérica em circunscrição territorial delimitada\n  - Exemplo: Territórios Federais (possuem natureza jurídica de autarquias territoriais da União)\n\n### 3. Vínculo Jurídico: Hierarquia vs. Tutela\n- **Hierarquia (Subordinação)**\n  - Existe exclusivamente no âmbito INTERNO da mesma pessoa jurídica (entre órgãos e agentes)\n  - Envolve poder de comando, fiscalização, delegação, avocação e anulação/revogação de atos\n- **Tutela / Supervisão Ministerial / Controle Finalístico (Vinculação)**\n  - Ocorre entre a Administração Direta e as Entidades da Administração Indireta\n  - **NÃO HÁ SUBORDINAÇÃO HIERÁRQUICA**!\n  - Controle estritamente finalístico nos limites expressos da lei (vedada ingerência de mérito)\n\n---\n\n## 🏢 Eixo 2: Teoria dos Órgãos Públicos\n### 1. Natureza Jurídica e Teoria do Órgão\n- **Teoria da Imputação Volitiva (Otto Gierke)**\n  - O órgão integra a estrutura da pessoa jurídica como parte indissociável\n  - A manifestação de vontade do agente público é imputada diretamente à pessoa jurídica estatal\n- **Despersonalização Orgânica**\n  - Os órgãos públicos **NÃO possuem personalidade jurídica própria**\n  - Não possuem patrimônio próprio (os bens pertencem à pessoa jurídica a que integram)\n  - Não respondem civilmente por indenizações (a ação é proposta contra o Ente Federativo)\n\n### 2. Capacidade Processual Excepcional (Personalidade Judiciária)\n- Regra Geral: Órgãos não têm capacidade postulatória (não podem figurar como autor ou réu em juízo)\n- **Exceção Constitucional**:\n  - Órgãos de cúpula (Independentes e Autônomos) possuem *personalidade judiciária*\n  - Finalidade estrita: Impetrar Mandado de Segurança para defender suas **prerrogativas institucionais** contra outro órgão/Poder\n  - Exemplo: Mesa da Câmara Municipal contra o Prefeito que reteve o duodécimo\n- **Súmula 525 do STJ**:\n  - A Câmara de Vereadores **NÃO** possui personalidade judiciária para pleitear direitos patrimoniais ou tributários (ex: repasse de tributos)\n\n### 3. Classificação dos Órgãos Públicos (Hely Lopes Meirelles)\n- **Quanto à Posição Estatal / Hierárquica**:\n  - *Independentes*: Previstos na CF, sem subordinação (Presidência, Congresso, STF, Tribunais)\n  - *Autônomos*: Cúpula da administração, subordinados aos independentes (Ministérios, Secretarias)\n  - *Superiores*: Órgãos de direção, controle e decisão (Departamentos, Coordenadorias, Gabinetes)\n  - *Subalternos*: Mero cumprimento de rotinas operacionais (Seções de expediente, portarias)\n- **Quanto à Estrutura**:\n  - *Simples / Unitários*: Sem ramificação interna (único centro de competência)\n  - *Compostos*: Estruturados em múltiplos órgãos menores subordinados\n- **Quanto à Atuação Funcional**:\n  - *Singulares / Unipessoais*: Decisão concentrada em um único titular (Presidência, Chefia)\n  - *Colegiados / Pluripessoais*: Vontade manifestada por deliberação majoritária (Conselhos, Tribunais)\n\n### 4. Criação e Extinção de Órgãos Públicos\n- **Princípio da Reserva Legal (CF, Art. 48, XI)**:\n  - A criação e a extinção de órgãos públicos exigem obrigatoriamente **LEI FORMAL**\n- **Decreto Autônomo Presidencial (CF, Art. 84, VI, 'a')**:\n  - Cabe ao Chefe do Executivo dispor mediante decreto sobre organização e funcionamento da administração\n  - Condições cumulativas rígidas: **SEM aumento de despesa** E **SEM criação ou extinção de órgãos**!\n\n---\n\n## 🏛️ Eixo 3: Estrutura da Administração Direta e Indireta\n### 1. Composição Estrutural\n- **Administração Direta (Centralizada)**\n  - União, Estados, Distrito Federal e Municípios (Pessoas Políticas) e seus órgãos desconcentrados\n- **Administração Indireta (Descentralizada)**\n  - Autarquias, Fundações Públicas, Empresas Públicas e Sociedades de Economia Mista\n\n### 2. Regras Constitucionais Comuns a Toda a Administração Indireta (CF, Art. 37)\n- **Princípio da Reserva Legal**:\n  - Autarquias: Criadas diretamente por lei específica\n  - Fundações, Empresas Públicas e SEM: Criação apenas autorizada por lei específica (exigem registro em cartório / Junta)\n- **Concurso Público (Art. 37, II)**:\n  - Obrigatório para cargos e empregos públicos de todas as entidades da Administração Indireta\n- **Teto Remuneratório (Art. 37, XI e § 9º)**:\n  - Aplica-se a Autarquias e Fundações Públicas\n  - Para Empresas Públicas e SEM: Aplica-se apenas se receberem recursos da Fazenda para custeio de pessoal/gerais (estatais dependentes)\n- **Vedação de Acumulação Remunerada (Art. 37, XVII)**:\n  - Estende-se a cargos, empregos e funções em toda a Administração Indireta\n- **Licitações (Art. 37, XXI)**:\n  - Autarquias e Fundações seguem a Lei 14.133/2021\n  - Empresas Públicas e SEM seguem a Lei 13.303/2016 (Estatuto das Estatais)\n- **Controle Externo**: Todas prestam contas obrigatoriamente ao Tribunal de Contas respectivo\n\n---\n\n## 🏛️ Eixo 4: Teoria Geral das Autarquias\n### 1. Conceito e Criação Legal\n- **Conceito Legal (Art. 5º, I do DL 200/1967)**:\n  - Serviço autônomo, criado por lei, com personalidade jurídica de direito público, patrimônio e receita próprios\n  - Finalidade: Executar atividades típicas da Administração Pública que requeiram gestão administrativa e financeira descentralizada\n- **Modo de Nascimento**:\n  - **Criadas DIRETAMENTE por lei específica**\n  - Adquirem personalidade jurídica no momento da vigência da lei (não necessitam de registro em cartório!)\n\n### 2. Regime Jurídico Autárquico\n- **Natureza dos Bens**:\n  - Bens públicos (de uso especial ou dominicais)\n  - Prerrogativas: Impenhorabilidade, imprescritibilidade (não sujeitos a usucapião) e inalienabilidade relativa\n- **Execução de Dívidas e Débitos**:\n  - Submetem-se ao regime constitucional de **Precatórios e Requisições de Pequeno Valor - RPV** (CF, Art. 100)\n  - Não sofrem penhora de bens nem bloqueio judicial de contas ordinárias\n- **Regime de Pessoal**:\n  - Submetem-se ao **Regime Jurídico Único (RJU)** de natureza estatutária (Lei 8.112/90 na esfera federal)\n  - Servidores estáveis após 3 anos de estágio probatório e avaliação de desempenho\n- **Imunidade Tributária Recíproca (CF, Art. 150, VI, 'a' e § 2º)**:\n  - Extensiva às autarquias quanto ao patrimônio, renda e serviços vinculados às suas finalidades essenciais\n- **Prerrogativas Processuais em Juízo**:\n  - Prazo em dobro para todas as manifestações processuais (CPC, Art. 183)\n  - Remessa Necessária / Duplo Grau Obrigatório de Jurisdição (CPC, Art. 496)\n  - Isenção de custas judiciais e preparo recursal\n  - Prescrição quinquenal de dívidas passivas (Decreto nº 20.910/1932)\n\n---\n\n## ⚖️ Eixo 5: Autarquias Especiais e Conselhos Profissionais\n### 1. Autarquias sob Regime Especial\n- Autarquias dotadas de prerrogativas adicionais outorgadas pela lei instituidora para reforçar sua autonomia\n- **Universidades Federais (CF, Art. 207)**:\n  - Gozam de autonomia didático-científica, administrativa e de gestão financeira e patrimonial\n- **Banco Central do Brasil - BACEN (LC nº 179/2021)**:\n  - Autonomia técnica, operacional, administrativa e financeira\n  - Ausência de vinculação a Ministério (vinculado diretamente ao Conselho Monetário Nacional)\n  - Mandatos fixos e não coincidentes de 4 anos para Presidente e Diretores, com início no 3º ano de mandato do Presidente da República\n\n### 2. Conselhos de Fiscalização Profissional vs. OAB\n- **Conselhos Profissionais em Geral (CRM, CREA, CRC, CRO, etc.)**:\n  - Natureza Jurídica: **Autarquias corporativas federais**\n  - Anuidades cobradas possuem natureza jurídica de **TRIBUTO** (contribuições de interesse de categorias profissionais)\n  - Sujeição obrigatória à fiscalização do **Tribunal de Contas da União (TCU)**\n  - Regime de pessoal: Empregados públicos submetidos à CLT com admissão obrigatória por **Concurso Público** (ADC 36 STF)\n- **Ordem dos Advogados do Brasil - OAB (Conselho Federal e Seccionais)**:\n  - Natureza Jurídica: **Entidade pública sui generis de índole constitucional** (STF - ADI 3.026)\n  - **NÃO INTEGRA A ADMINISTRAÇÃO INDIRETA**\n  - Suas anuidades NÃO possuem natureza tributária\n  - **NÃO se submete à prestação de contas perante o TCU**\n  - **NÃO exige concurso público** para contratação de seus funcionários\n\n---\n\n## ⚡ Eixo 6: Agências Reguladoras e Agências Executivas\n### 1. Agências Reguladoras (A Lei Geral nº 13.848/2019)\n- **Natureza Jurídica**: Autarquias de regime especial voltadas à regulação técnica e fiscalização setorial (ANATEL, ANEEL, ANVISA, ANP)\n- **Garantias Institucionais de Independência**:\n  - Direção Colegiada com nomeação pelo Presidente após aprovação prévia em **sabatina pelo Senado Federal**\n  - **Mandato fixo de 5 anos**, não coincidente, **vedada expressamente a recondução** (Art. 6º da Lei 13.848/2019)\n  - Perda de mandato somente por renúncia, condenação penal transitada em julgado ou processo administrativo disciplinar\n  - **Quarentena**: Proibição de exercer atividade no setor regulado por 6 meses após o término do mandato (com remuneração compensatória)\n\n### 2. Agências Executivas (Qualificação Especial)\n- **NÃO são uma nova pessoa jurídica ou categoria de entidade!**\n- Trata-se de um **STATUS ou QUALIFICAÇÃO JURÍDICA** outorgada pelo Poder Executivo\n- Beneficiários: Exclusivamente **Autarquias ou Fundações Públicas** preexistentes\n- **Requisitos Cumulativos**:\n  - Ter celebrado **Contrato de Gestão** com o Ministério supervisor, com prazo mínimo de vigência de 1 ano\n  - Ter plano estratégico institucional de reestruturação e modernização operacional aprovado\n- **Prerrogativa Especial**:\n  - Dobra dos limites de valor para dispensa de licitação em razão do valor (Lei 14.133/2021, Art. 75, § 2º)\n\n---\n\n## 🎯 Eixo 7: Radar de Pegadinhas Cebraspe & FGV\n### 1. Decodificação de Oposições Binárias Frequentes\n- **Desconcentração vs. Descentralização**:\n  - Desconcentração = Distribuição INTERNA de competências dentro da mesma pessoa jurídica (cria órgãos, mantém subordinação)\n  - Descentralização = Transferência de atribuições para OUTRA pessoa jurídica (cria entidades, relação de tutela/vinculação)\n- **Outorga vs. Delegação**:\n  - Outorga = Transfere Titularidade + Execução; feita por LEI; por prazo indeterminado (para Autarquias)\n  - Delegação = Transfere apenas a Execução; feita por CONTRATO/ATO; por prazo determinado (para Particulares)\n- **Criação por Lei vs. Autorização Legal**:\n  - Autarquias: Criadas DIRETAMENTE por lei específica (personalidade pública imediata)\n  - Estatais e Fundações Privadas: Criação apenas AUTORIZADA por lei (personalidade privada surge com o registro em cartório)\n- **Órgão Público vs. Entidade Administrativa**:\n  - Órgãos: Centros de competência desprovidos de personalidade jurídica própria e sem patrimônio próprio\n  - Entidades: Pessoas jurídicas autônomas, dotadas de patrimônio, orçamento e personalidade próprios\n- **OAB vs. Demais Conselhos de Classe**:\n  - OAB: Entidade sui generis fora da Adm. Indireta, sem concurso, sem TCU\n  - Demais Conselhos: Autarquias federais, com concurso público (CLT) e fiscalização obrigatória do TCU\n- **Agência Reguladora vs. Agência Executiva**:\n  - Reguladora = Autarquia sob regime especial criada por LEI com dirigentes em mandato fixo de 5 anos\n  - Executiva = MERA QUALIFICAÇÃO por Decreto para autarquia/fundação com Contrato de Gestão\n";
+
+    window.onload = () => {
+      const { Markmap, loadCSS, loadJS } = window.markmap;
+      const transformer = new window.markmap.Transformer();
+      const { root, features } = transformer.transform(markdown);
+      const { styles, scripts } = transformer.getUsedAssets(features);
+      if (styles) loadCSS(styles);
+      if (scripts) loadJS(scripts);
+      Markmap.create('#mindmap', {
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingVertical: 8,
+        spacingHorizontal: 80,
+        paddingX: 16,
+        autoFit: true
+      }, root);
+    };
+  </script>
+</body>
+</html>
