@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 16: Improbidade Administrativa (Lei 8.429/1992 e Lei 14.230/2021) - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 16</span>
+      <h1>Improbidade Administrativa (Lei 8.429/1992 e Lei 14.230/2021)</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 16 - Improbidade Administrativa (Lei 8.429/92 e 14.230/21)
+
+## ⚖️ Eixo 1: O Novo Regime Jurídico e o Fim da Culpa (Dolo Específico)
+### 1. Extinção da Improbidade Culposa (Reforma da Lei 14.230/2021)
+- O sistema de improbidade administrativa brasileiro **ABOLIU INTEGRALMENTE A MODALIDADE CULPOSA**
+- Não existe mais ato de improbidade culposo, nem mesmo na modalidade de lesão ao erário (antigo art. 10)
+- Exige-se indispensavelmente a comprovação de **DOLO ESPECÍFICO** em TODOS os atos de improbidade (arts. 9º, 10 e 11)
+
+### 2. Definição Legal de Dolo Específico (Art. 1º, §§ 2º e 3º)
+- Considera-se dolo a vontade livre e consciente de alcançar o resultado ilícito tipificado nos artigos 9º, 10 e 11, **não bastando a voluntariedade do agente**
+- O mero exercício da função ou desempenho de competências sem comprovação de ato doloso com fim ilícito afasta a responsabilidade por improbidade
+- Divergência interpretativa da lei, fundada em jurisprudência ou doutrina razoável, **NÃO configura ato de improbidade**!
+
+---
+
+## 👥 Eixo 2: Sujeitos Ativo e Passivo e Regime dos Agentes Políticos
+### 1. Sujeito Passivo da Improbidade (Art. 1º)
+- Administração direta e indireta de todos os Poderes da União, dos Estados, do DF e dos Municípios
+- Entidades privadas que recebam subvenção, benefício fiscal ou creditício de órgãos públicos (sanção patrimonial limitada à contribuição estatal)
+
+### 2. Sujeito Ativo (Agente Público e Terceiro)
+- **Agente Público (Art. 2º)**: Todo aquele que exerce, ainda que transitoriamente ou sem remuneração, por eleição, nomeação, posse ou contratação, mandato, cargo, emprego ou função
+- **Particular / Terceiro (Art. 3º)**: O particular responde por improbidade se **induzir ou concorrer dolosamente** para a prática do ato
+  - *Regra de Ouro da Jurisprudência*: Não é cabível ação de improbidade exclusivamente contra o particular; exige-se sempre a presença de agente público no polo passivo!
+
+### 3. Regime Especial dos Agentes Políticos (STF e STJ)
+- **Presidente da República**: Responde por **Crime de Responsabilidade** perante o Senado Federal (Lei 1.079/50), não se submetendo à Lei de Improbidade por atos funcionais típicos
+- **Demais Agentes Políticos (Governadores, Prefeitos, Ministros, Magistrados e Parlamentares)**: Submetem-se ao regime da Lei de Improbidade Administrativa em concurso com eventuais normas disciplinares/penais
+
+---
+
+## 🗂️ Eixo 3: Tipologia dos Atos de Improbidade (Arts. 9º, 10 e 11)
+### 1. Atos que Importam Enriquecimento Ilícito (Art. 9º)
+- Gravidade máxima; rol **EXEMPLIFICATIVO** (*numerus apertus*)
+- Hipóteses típicas: Receber propina, comissão ou presente; utilizar bens públicos em proveito pessoal; enriquecer sem causa justificada; incorporar bens públicos ao patrimônio particular
+
+### 2. Atos que Causam Prejuízo ao Erário (Art. 10)
+- Exige comprovação de **DANO PATRIMONIAL EFETIVO E REAL** (vedado dano presumido / *in re ipsa*!)
+- Rol **EXEMPLIFICATIVO** (*numerus apertus*)
+- Hipóteses típicas: Facilitar a incorporação de patrimônio público; doar bens públicos sem observar a lei; frustrar licitação com efetivo sobrepreço ou superfaturamento
+
+### 3. Atos que Atentam contra os Princípios da Administração (Art. 11)
+- 🚨 **Mudança Radical da Lei 14.230/2021**: O rol do art. 11 passou a ser **TAXATIVO** (*numerus clausus*)!
+- Só é improbidade violadora de princípios o que estiver expressamente listado nos incisos do art. 11
+- Hipóteses taxativas atuais:
+  - Revelar fato ou segredo de que tem ciência em razão das funções
+  - Frustrar o caráter concorrencial de concurso público com dolo de beneficiar a si ou a outrem
+  - Praticar **Nepotismo** (nomeação de cônjuge, companheiro ou parente até 3º grau para cargo comissionado - Súmula Vinculante 13)
+  - Publicidade governamental com promoção pessoal de agente público
+
+---
+
+## 🏛️ Eixo 4: Quadro-Geral de Penalidades da Lei de Improbidade (Art. 12)
+### 1. Tabela Comparativa de Sanções
+- **Enriquecimento Ilícito (Art. 9º)**:
+  - Perda dos bens ou valores acrescidos ilicitamente
+  - Perda da função pública (afeta o cargo em que o ato foi praticado)
+  - Suspensão dos direitos políticos: **Até 14 (quatorze) anos**
+  - Multa civil: Equivalente ao valor do acréscimo patrimonial
+  - Proibição de contratar com o Poder Público: **Até 14 anos**
+- **Prejuízo ao Erário (Art. 10)**:
+  - Ressarcimento integral do dano patrimonial efetivo
+  - Perda da função pública
+  - Suspensão dos direitos políticos: **Até 12 (doze) anos**
+  - Multa civil: Equivalente ao valor do dano
+  - Proibição de contratar com o Poder Público: **Até 12 anos**
+- **Violação a Princípios (Art. 11)**:
+  - Multa civil: De **até 24 (vinte e quatro) vezes o valor da remuneração** do agente
+  - Proibição de contratar com o Poder Público: **Até 4 (quatro) anos**
+  - 🚨 *Atenção Absoluta*: Na violação de princípios (art. 11), **NÃO HÁ MAIS perda da função pública nem suspensão de direitos políticos**!
+
+---
+
+## 🔒 Eixo 5: Tutela Cautelar da Indisponibilidade de Bens (Art. 16)
+### 1. Requisitos para a Decretação da Indisponibilidade
+- A decretação da indisponibilidade de bens exige a presença cumulativa de:
+  - 1. *Fumus boni iuris* (probabilidade do direito)
+  - 2. *Periculum in mora* (perigo de dano ou risco ao resultado útil)
+- 🚨 **Fim do Perigo Presumido**: A nova lei acabou com o *periculum in mora* implícito; exige-se demonstrar **perigo concreto de dissipação do patrimônio**!
+
+### 2. Limites da Indisponibilidade de Bens
+- A indisponibilidade recai apenas sobre o montante suficiente para assegurar o integral ressarcimento do erário ou devolução do acréscimo ilícito
+- **É VEDADO** incidir sobre valores de multa civil!
+- Impenhorabilidade legal da poupança até **40 salários mínimos** e bem de família (salvo se fruto direto da improbidade)
+
+---
+
+## 📜 Eixo 6: Ação de Improbidade, Legitimidade e ANPC
+### 1. Legitimidade Ativa (ADIs 7.042 e 7.043 do STF)
+- A Lei 14.230/21 tentou tornar a legitimidade ativa exclusiva do Ministério Público
+- **Decisão do STF**: O STF declarou inconstitucional a exclusividade do MP!
+- A legitimidade para propor a ação de improbidade é **CONCORRENTE e DISJUNTIVA**: Cabe ao **Ministério Público** E à **Pessoa Jurídica lesada** (Fazenda Pública)!
+
+### 2. Acordo de Não Continuidade / Não Persecução Cível (ANPC - Art. 17-B)
+- É cabível a celebração de Acordo de Não Persecução Cível (ANPC)
+- Requisitos mínimos: Reparação integral do dano comprovado e perda da vantagem patrimonial ilícita
+- Celebração pelo Ministério Público ou Pessoa Jurídica lesada com homologação judicial
+
+---
+
+## ⏱️ Eixo 7: Regime Prescricional Unificado e Prescrição Intercorrente
+### 1. Prazo Prescricional Geral Unificado (Art. 23)
+- O prazo de prescrição é de **8 (oito) anos**, contados a partir da data de ocorrência do fato (ou da cessação da permanência nos atos permanentes)
+- Fim da regra antiga que vinculava a prescrição ao término do mandato de agentes políticos
+
+### 2. A Prescrição Intercorrente (Art. 23 §4º e §5º)
+- A interrupção da prescrição (pelo ajuizamento da ação ou citação) faz reiniciar a contagem do prazo pela metade: **4 (quatro) anos**!
+- Se a ação ficar paralisada por mais de 4 anos entre a citação, publicação de sentença ou acórdão condenatório, opera-se a **Prescrição Intercorrente** extinguindo o processo!
+
+---
+
+## 🚨 Eixo 8: Síntese de Armadilhas, Confrontação FGV / Cebraspe e Jurisprudência
+### 1. O Fim da Culpa na Improbidade
+- 🚨 **Pegadinha Clássica**: Afirmar que o ato praticado com negligência ou imprudência grave que cause prejuízo aos cofres públicos é ato de improbidade.
+- ✅ **Regra**: A Lei 14.230/21 eliminou a improbidade culposa! Mesmo para dano ao erário, exige-se DOLO ESPECÍFICO comprovado.
+
+### 2. Taxatividade do Art. 11
+- 🚨 **Pegadinha Clássica**: Considerar como ato de improbidade por violação de princípios conduta não prevista nos incisos do art. 11.
+- ✅ **Regra**: O rol do art. 11 é taxativo (*numerus clausus*)! Apenas as hipóteses expressas configuram ato ímprobo.
+
+### 3. Penalidades no Art. 11
+- 🚨 **Pegadinha Clássica**: Cobrar perda da função pública ou suspensão de direitos políticos na violação do art. 11.
+- ✅ **Regra**: No art. 11 NÃO há mais suspensão de direitos políticos nem perda da função pública (somente multa civil e proibição de contratar)!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
