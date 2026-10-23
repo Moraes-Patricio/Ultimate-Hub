@@ -3,115 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapa Mental Interativo - Direito Administrativo: Aula 00 (Regime Jurídico e Princípios)</title>
+  <title>Aula 00: Regime Jurídico e Princípios Constitucionais - Mapa Mental Interativo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: #0b1120;
-      color: #f1f5f9;
-    }
-    #mindmap {
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
-    }
-    .header-bar {
-      position: absolute;
-      top: 16px;
-      left: 20px;
-      z-index: 100;
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(12px);
-      padding: 12px 22px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      max-width: 480px;
     }
-    .header-bar h1 {
-      margin: 0;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #38bdf8;
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
       letter-spacing: -0.01em;
     }
-    .header-bar p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #94a3b8;
-      line-height: 1.4;
-    }
-    .controls-hint {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(8px);
-      padding: 8px 16px;
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #94a3b8;
-      font-size: 0.75rem;
-      display: flex;
-      gap: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
       align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      gap: 6px;
     }
-    .controls-hint span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
-    .badge {
-      display: inline-block;
-      padding: 1px 6px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      border-radius: 4px;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.25);
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
 </head>
 <body>
-  <div class="header-bar">
-    <h1>⚖️ Aula 00: Regime Jurídico e Princípios <span class="badge">Cebraspe / FGV</span></h1>
-    <p>Mapa Mental Interativo de Alto Rendimento • Direto ao Ponto com Mnemônicos e Precedentes</p>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 00</span>
+      <h1>Regime Jurídico e Princípios Constitucionais</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
   </div>
 
-  <div class="controls-hint">
-    <span>🖱️ <b>Scroll:</b> Zoom</span>
-    <span>🖐️ <b>Arrastar:</b> Pan</span>
-    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
-  </div>
-
-  <svg id="mindmap"></svg>
-
-  <script>
-    const markdown = `# ⚖️ Direito Administrativo: Aula 00
-## 🏛️ Eixo 0: Fundamentos Ontológicos
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 00 - Regime Jurídico e Princípios Constitucionais
+## 🏛️ Eixo 1: Fundamentos Ontológicos
 ### 1. Bipé do Regime Jurídico-Administrativo (Celso Antônio Bandeira de Mello)
 - **Supremacia do Interesse Público sobre o Particular**
   - Vertente de **Prerrogativas** e privilégios estatais
@@ -146,7 +150,7 @@
 
 ---
 
-## 📜 Eixo 1: Princípios Constitucionais Expressos (CF, Art. 37 - LIMPE)
+## 📜 Eixo 2: Princípios Constitucionais Expressos (CF, Art. 37 - LIMPE)
 ### 1. Legalidade
 - **Particular (Art. 5º, II)**: Autonomia da vontade (faz tudo que a lei não proíbe)
 - **Administração Pública**: Vinculação positiva estrita (só pode agir onde, quando e como a lei autoriza)
@@ -183,7 +187,7 @@
 
 ---
 
-## ⚖️ Eixo 2: Princípios Constitucionais Implícitos / Reconhecidos
+## ⚖️ Eixo 3: Princípios Constitucionais Implícitos / Reconhecidos
 ### 1. Autotutela (Poder-Dever de Correção)
 - **Súmula 346/STF**: A Administração pode declarar a nulidade de seus próprios atos
 - **Súmula 473/STF**:
@@ -220,7 +224,7 @@
 
 ---
 
-## 📑 Eixo 3: Princípios Infraconstitucionais Expressos
+## 📑 Eixo 4: Princípios Infraconstitucionais Expressos
 ### 1. Nova Lei de Licitações (Lei nº 14.133/2021, Art. 5º)
 - **22 Princípios Expressos**: Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência, Interesse Público, Probidade, Igualdade, Planejamento, Transparência, Eficácia, Segregação de Funções, Motivação, Vinculação ao Edital, Julgamento Objetivo, Segurança Jurídica, Razoabilidade, Competitividade, Proporcionalidade, Celeridade, Economicidade e Desenvolvimento Nacional Sustentável
 - **Segregação de Funções**: Veda que o mesmo agente exerça fases críticas sucessivas (planejar edital, licitar, fiscalizar e atestar pagamento)
@@ -232,7 +236,7 @@
 
 ---
 
-## ⚖️ Eixo 4: Jurisprudência Vinculante e Temática
+## ⚖️ Eixo 5: Jurisprudência Vinculante e Temática
 ### 1. Súmulas Vinculantes do STF
 - **SV nº 5**: A falta de defesa técnica por advogado no PAD não ofende a Constituição
 - **SV nº 13**: Vedação do nepotismo até o 3º grau (não se aplica a cargos políticos, salvo desvio comprovado)
@@ -245,7 +249,7 @@
 
 ---
 
-## 🎯 Eixo 5: Radar de Pegadinhas Cebraspe / FGV
+## 🎯 Eixo 6: Radar de Pegadinhas Cebraspe / FGV
 ### 1. Distinções Binárias Decisivas
 - **Publicidade vs. Validade**: Publicidade gera EFICÁCIA (efeito externo); não interfere na validade intrínseca do ato
 - **Revogação vs. Anulação**:
@@ -255,24 +259,67 @@
   - Supremacia confere **Poderes e Prerrogativas**
   - Indisponibilidade impõe **Restrições, Deveres e Sujeições**
 - **Moralidade vs. Legalidade**: Moralidade é autônoma; ato estritamente legal pode ser nulo por imoralidade
-`;
 
-    window.onload = () => {
-      const { Markmap, loadCSS, loadJS } = window.markmap;
-      const transformer = new window.markmap.Transformer();
-      const { root, features } = transformer.transform(markdown);
-      const { styles, scripts } = transformer.getUsedAssets(features);
-      if (styles) loadCSS(styles);
-      if (scripts) loadJS(scripts);
-      Markmap.create('#mindmap', {
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
         duration: 300,
         nodeMinHeight: 20,
-        spacingVertical: 8,
-        spacingHorizontal: 80,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
         paddingX: 16,
-        autoFit: true
+        autoFit: true,
+        initialExpandLevel: 2
       }, root);
-    };
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
   </script>
 </body>
 </html>
