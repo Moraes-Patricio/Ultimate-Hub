@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 20: Acesso à Informação e Transparência Pública (LAI) - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 20</span>
+      <h1>Acesso à Informação e Transparência Pública (LAI)</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 20 - Acesso à Informação e Transparência (LAI)
+
+## 🏛️ Eixo 1: O Regime Constitucional da Informação Pública na CF/88
+### 1. Princípios Constitucionais Fundamentais
+- **Princípio da Publicidade como Regra Geral (CF art. 5º, XXXIII e art. 37)**: Todos têm direito a receber dos órgãos públicos informações de seu interesse particular ou de interesse coletivo
+- **O Sigilo como Exceção Rígida**: O sigilo somente é admitido em hipóteses constitucionais estritas, quando imprescindível à **segurança da sociedade e do Estado** ou para proteger a **intimidade e a vida privada**
+
+### 2. Âmbito Subjetivo de Aplicação da LAI (Lei 12.527/2011, Art. 1º)
+- **Obrigados Diretos**: União, Estados, Distrito Federal e Municípios (todos os Poderes Executivo, Legislativo e Judiciário, Cortes de Contas e Ministério Público)
+- **Administração Indireta**: Autarquias, fundações públicas, empresas públicas e sociedades de economia mista
+- **Entidades Privadas sem Fins Lucrativos**: Entidades que recebam recursos públicos mediante convênios, contratos de gestão ou termos de parceria (obrigadas a prestar contas da parcela pública recebida)
+
+---
+
+## 🌐 Eixo 2: Transparência Ativa vs. Transparência Passiva (Lei 12.527/2011)
+### 1. Transparência Ativa (Art. 8º)
+- Divulgação espontânea, proativa e periódica de informações públicas pela própria Administração, independentemente de qualquer requerimento prévio
+- **Obrigatoriedade de Sítios Oficiais na Internet**:
+  - Dados sobre estrutura organizacional, competências e endereços
+  - Registros de repasses ou transferências de recursos financeiros
+  - Execução orçamentária e financeira detalhada
+  - Informações de licitações (editais, resultados, contratos)
+  - Remuneração detalhada dos agentes públicos por cargo
+  - *Exceção a Municípios Pequenos*: Municípios com até 10.000 habitantes são dispensados de manter site na internet, mantendo a obrigação de transparência passiva
+
+### 2. Transparência Passiva (Art. 10)
+- Disponibilização de informações específicas mediante **requerimento formal** formulado por qualquer interessado
+- **Direito à Informação sem Motivação**: É expressamente **VEDADA a exigência de justificação ou motivo** para o pedido de acesso à informação pública (art. 10 §3º)!
+
+---
+
+## 🔒 Eixo 3: Classificação e Regimes de Sigilo: Informações Sigilosas vs. Pessoais
+### 1. Graus de Sigilo e Prazos Máximos de Classificação (Art. 24)
+- **1. Ultrassecreta**: Prazo máximo de **25 (vinte e cinco) anos** (prorrogável uma única vez por igual período)
+- **2. Secreta**: Prazo máximo de **15 (quinze) anos**
+- **3. Reservada**: Prazo máximo de **5 (cinco) anos**
+- *Vedação Absoluta de Sigilo*: Informações necessárias à tutela judicial de direitos fundamentais ou que versem sobre **violações de direitos humanos praticadas por agentes públicos** NUNCA poderão ser objeto de restrição de acesso!
+
+### 2. Tratamento das Informações Pessoais (Art. 31)
+- Informações relativas à intimidade, vida privada, honra e imagem de pessoas físicas
+- Prazo de restrição de acesso a terceiros: Até **100 (cem) anos** a contar da data de sua produção
+- Exceções ao sigilo pessoal: Consentimento expresso da pessoa, necessidade de tutela médica de urgência ou apuração judicial
+
+---
+
+## 📬 Eixo 4: Procedimento de Acesso, Prazos e Mecanismos Recursais
+### 1. Prazos de Resposta ao Requerimento (Arts. 11 e 12)
+- Regra Geral: Resposta e acesso **IMEDIATO** se a informação estiver disponível
+- Se não for possível o acesso imediato, o órgão tem prazo de **até 20 (vinte) dias** para:
+  - Disponibilizar a informação
+  - Indicar data, local e modo para consulta
+  - Comunicar a recusa fundamentada de acesso
+- **Prorrogação Justificada**: O prazo de 20 dias pode ser prorrogado por mais **10 (dez) dias** mediante justificativa expressa enviada ao solicitante
+
+### 2. Gratuidade e Custos de Reprodução
+- O serviço de busca e fornecimento da informação pública é **GRATUITO**
+- A Administração só pode cobrar o valor estrito referente aos **custos de reprodução gráfica/digital** dos documentos
+
+### 3. Mecanismos Recursais da LAI (Arts. 15 a 17)
+- Em caso de negativa de acesso ou não fornecimento das razões da negativa:
+  - Recurso à autoridade hierarquicamente superior no prazo de **10 (dez) dias** (decisão em 5 dias)
+  - No âmbito federal: Persistindo a negativa, recurso à **Controladoria-Geral da União (CGU)** e, por fim, à **Comissão Mista de Reavaliação de Informações (CMRI)**
+
+---
+
+## 🤝 Eixo 5: Interface com a Lei nº 13.460/2017 e Ouvidorias Públicas
+### 1. O Código de Defesa dos Usuários de Serviços Públicos
+- Estabelece normas sobre participação, proteção e defesa dos direitos dos usuários de serviços públicos
+- Fixa prazo geral de resposta a manifestações em ouvidorias de até **30 dias**, prorrogável por igual período
+
+### 2. Funções Essenciais da Ouvidoria
+- Recebimento, análise e encaminhamento de reclamações, denúncias, sugestões e elogios
+- Produção de relatórios periódicos de governança e melhoria contínua dos serviços
+
+---
+
+## ⚖️ Eixo 6: Síntese Jurisprudencial Vinculante (STF, STJ e TCU)
+### 1. Divulgação da Remuneração dos Servidores Públicos (Tema 483 STF)
+- É **legítima e constitucional** a divulgação dos nomes dos servidores públicos e dos valores correspondentes às suas respectivas remunerações brutas e líquidas em portais de transparência, sem violação ao direito de intimidade
+
+### 2. Acesso a Gastos de Cartões Corporativos pelo TCU
+- As despesas realizadas com cartões corporativos de autoridades públicas sujeitam-se ao escrutínio público e transparência, ressalvadas apenas despesas operacionais da segurança pessoal do Presidente
+
+---
+
+## 🚨 Eixo 7: Radar de Armadilhas Frequentes Cebraspe / FGV
+### 1. Justificativa para Pedido de Informação
+- 🚨 **Pegadinha Clássica**: Afirmar que o cidadão deve justificar o motivo ou finalidade para solicitar informação de transparência passiva.
+- ✅ **Regra**: A LAI proíbe terminantemente exigir do solicitante os motivos do pedido de informação!
+
+### 2. Prazos de Classificação de Sigilo
+- 🚨 **Pegadinha Clássica**: Inverter os prazos das informações sigilosas.
+- ✅ **Regra**: Ultrassecreta = **25 anos**; Secreta = **15 anos**; Reservada = **5 anos**; Informações Pessoais = **100 anos**!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
