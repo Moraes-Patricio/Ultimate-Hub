@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Mental Interativo - Direito Administrativo: Aula 07 (Consórcios Públicos)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120; color: #f1f5f9;
+    }
+    #mindmap {
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    }
+    .header-bar {
+      position: absolute; top: 16px; left: 20px; z-index: 100;
+      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(12px);
+      padding: 12px 22px; border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex; flex-direction: column; gap: 4px; max-width: 520px;
+    }
+    .header-bar h1 {
+      margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.05rem;
+      font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 8px;
+    }
+    .header-bar p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+    .controls-hint {
+      position: absolute; bottom: 20px; right: 20px; z-index: 100;
+      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
+      padding: 8px 16px; border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08); color: #94a3b8;
+      font-size: 0.75rem; display: flex; gap: 12px; align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .controls-hint span { display: flex; align-items: center; gap: 4px; }
+    .badge {
+      display: inline-block; padding: 1px 6px; font-size: 0.7rem; font-weight: 600;
+      border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>⚖️ Aula 07: Consórcios Públicos <span class="badge">Cebraspe / FGV</span></h1>
+    <p>Lei 11.107/05 • Associação Pública • Contrato de Rateio e Programa • Prerrogativas Licitatórias</p>
+  </div>
+  <div class="controls-hint">
+    <span>🖱️ <b>Scroll:</b> Zoom</span>
+    <span>🖐️ <b>Arrastar:</b> Pan</span>
+    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
+  </div>
+  <svg id="mindmap"></svg>
+  <script>
+    const markdown = "# ⚖️ Direito Administrativo: Aula 07\n## 🤝 Eixo 1: Fundamento Constitucional e Regras Federativas\n### 1. O Artigo 241 da Constituição Federal (EC nº 19/1998)\n- A União, os Estados, o Distrito Federal e os Municípios disciplinarão por meio de lei os **consórcios públicos** e os **convênios de cooperação** para gestão associada de serviços públicos\n- Regulamentação infraconstitucional: **Lei Federal nº 11.107/2005** e **Decreto nº 6.017/2007**\n\n### 2. Regras Rígidas de Participação Federativa (Quem Pode Consorciar?)\n- **Regra Fundamental**: A **União só pode participar** de consórcios públicos em que também participem **todos os Estados** em cujos territórios estejam situados os Municípios consorciados\n- **Vedação Absoluta**: É inconstitucional e nulo consórcio formado exclusivamente entre a União e Municípios sem a presença do respectivo Estado federado!\n- Municípios podem consorciar-se entre si (mesmo de Estados diferentes) e com seus respectivos Estados sem a presença da União\n\n### 3. Consórcio Público vs. Convênio de Cooperação\n- **Consórcio Público**: Dá origem a uma **NOVA PESSOA JURÍDICA AUTÔNOMA** (com patrimônio, quadro de pessoal e capacidade processual próprios)\n- **Convênio de Cooperação**: Mero acordo de vontades sem criação de nova entidade personalizada\n\n---\n\n## 📜 Eixo 2: Procedimento Trifásico de Criação do Consórcio\n### 1. Fase 1: Subscrição do Protocolo de Intenções\n- Negociação e assinatura pelos Chefes do Poder Executivo dos entes consorciados (Prefeitos, Governadores, Presidente)\n- Deve ser obrigatoriamente publicado na imprensa oficial de todos os entes partícipes\n\n### 2. Fase 2: Ratificação Legislativa\n- O Protocolo de Intenções deve ser aprovado e ratificado mediante **LEI FORMAL** aprovada pelas Câmaras Municipais / Assembleias Legislativas de cada ente consorciado\n- A ratificação parcial ou com reservas equivale à recusa da ratificação\n\n### 3. Fase 3: Celebração do Contrato de Consórcio Público\n- A ratificação converte automaticamente o Protocolo de Intenções em Contrato de Consórcio Público (na pessoa jurídica de direito público) ou serve de base para o registro civil (na pessoa de direito privado)\n\n---\n\n## 🏛️ Eixo 3: Natureza Jurídica: Associação Pública vs. Direito Privado\n### 1. Consórcio Público de Direito Público (Associação Pública)\n- Denominada expressamente por lei como **ASSOCIAÇÃO PÚBLICA**\n- **Natureza Jurídica**: Espécie de **AUTARQUIA INTERFEDERATIVA** (Código Civil, art. 41, IV)\n- **Pertencimento**: Integra a **ADMINISTRAÇÃO PÚBLICA INDIRETA de TODOS os entes consorciados simultaneamente**!\n- Prerrogativas: Bens públicos (impenhoráveis e imprescritíveis), execução de dívidas pelo regime de Precatórios (CF, art. 100), imunidade tributária recíproca e prazo em dobro processual\n\n### 2. Consórcio Público de Direito Privado\n- Pessoa jurídica de direito privado sem fins lucrativos\n- Aquisição de personalidade: Com a inscrição do estatuto e atos constitutivos no **Registro Civil de Pessoas Jurídicas**\n- Sujeição: Segue regime híbrido, submetendo-se a concurso público, licitação e prestação de contas ao Tribunal de Contas\n\n---\n\n## 👥 Eixo 4: Regime de Pessoal e Prerrogativas Licitatórias\n### 1. Regime de Pessoal (Lei nº 13.822/2019)\n- O pessoal admitido pelos consórcios públicos (sejam de direito público ou de direito privado) é regido pela **Consolidação das Leis do Trabalho (CLT)**\n- **Concurso Público Obrigatório**: A admissão exige prévia aprovação em concurso público de provas ou de provas e títulos (CF, art. 37, II)\n- Cessão de Servidores: Servidores dos entes consorciados podem ser cedidos ao consórcio, mantendo o regime jurídico de origem\n\n### 2. Prerrogativas Licitatórias (Nova Lei de Licitações — Lei nº 14.133/2021)\n- **Limites de Dispensa de Licitação por Valor**: Os consórcios públicos dispõem de limites em **DOBRO** para contratação direta em razão do valor (Lei 14.133/2021, art. 75, § 2º)\n- **Comissão de Contratação Integrada**: Pode ser formada por servidores pertencentes a quaisquer dos órgãos e entidades dos entes consorciados\n\n---\n\n## 💸 Eixo 5: Execução Financeira e o Contrato de Rateio\n### 1. O Contrato de Rateio (Lei nº 11.107/2005, Art. 8º)\n- Instrumento formal anual obrigatório pelo qual os entes consorciados entregam recursos financeiros ao consórcio público\n- **Obrigatoriedade de Dotação Orçamentária**: Os entes devem consignar dotação específica em suas respectivas Leis Orçamentárias Anuais (LOA)\n- Vedada expressamente a aplicação de recursos do consórcio em despesas não previstas no contrato de rateio\n\n### 2. Inadimplência e Conexão com Improbidade\n- O ente que não efetuar o repasse fica inadimplente e pode ser suspenso de usufruir dos serviços do consórcio\n- O ato de repassar recursos sem prévio contrato de rateio ou sem amparo orçamentário configura ilícito financeiro e **ato de improbidade administrativa**\n\n---\n\n## 📑 Eixo 6: Gestão Associada e o Contrato de Programa\n### 1. O Contrato de Programa (Art. 13 da Lei)\n- Instrumento pelo qual os entes consorciados transferem ou contratam entre si ou com o consórcio a **prestação de serviços públicos ou a realização de obras associadas**\n- Cláusulas obrigatórias: Critérios de remuneração, metas de desempenho, fiscalização e penalidades\n- **Sobrevivência do Contrato de Programa**: A desfiliação ou retirada de um ente consorciado **NÃO EXTINGUE** as obrigações pactuadas no contrato de programa até o fim do seu prazo original\n\n---\n\n## 🎯 Eixo 7: Radar de Pegadinhas Cebraspe & FGV\n- **Associação Pública = Autarquia**: Sim, consórcio público de direito público é autarquia interfederativa integrante da Administração Indireta de todos os entes partícipes\n- **União e Município sem Estado**: NULO! A União não pode consorciar com Municípios sem a presença do Estado onde estão sediados\n- **Regime de Pessoal**: Empregados de consórcios públicos são SEMPRE celetistas (CLT), com concurso público obrigatório\n- **Dispensa de Licitação**: Consórcios públicos têm limites dobrados de dispensa de licitação por valor (Lei 14.133/21)\n- **Contrato de Rateio vs. Contrato de Programa**: Rateio repassa dinheiro público para custeio do consórcio; Programa transfere a prestação de serviços ou obras públicas associadas\n";
+    window.onload = () => {
+      const { Markmap, loadCSS, loadJS } = window.markmap;
+      const transformer = new window.markmap.Transformer();
+      const { root, features } = transformer.transform(markdown);
+      const { styles, scripts } = transformer.getUsedAssets(features);
+      if (styles) loadCSS(styles);
+      if (scripts) loadJS(scripts);
+      Markmap.create('#mindmap', {
+        duration: 300, nodeMinHeight: 20, spacingVertical: 8,
+        spacingHorizontal: 80, paddingX: 16, autoFit: true
+      }, root);
+    };
+  </script>
+</body>
+</html>
