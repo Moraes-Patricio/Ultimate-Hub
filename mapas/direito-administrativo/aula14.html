@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 14: Lei 8.112/90 - Regime Disciplinar, PAD e Seguridade - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 14</span>
+      <h1>Lei 8.112/90 - Regime Disciplinar, PAD e Seguridade</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 14 - Lei 8.112/90: Regime Disciplinar, PAD e Seguridade
+
+## ⚖️ Eixo 1: Deveres Funcionais, Proibições e Responsabilidades
+### 1. Deveres Funcionais (Art. 116)
+- **Dever de Lealdade e Obediência**:
+  - Exercer com zelo e dedicação as atribuições do cargo
+  - Cumprir as ordens superiores, **EXCETO quando manifestamente ilegais** (ordem ilegal NÃO se cumpre!)
+- **Dever de Probidade e Urbanidade**:
+  - Guardar sigilo sobre assunto da repartição
+  - Tratar com urbanidade as pessoas e representar contra ilegalidade, omissão ou abuso de poder
+
+### 2. Proibições Expressas (Art. 117)
+- **Faltas Leves / Médias**: Ausentar-se do serviço sem prévia autorização; retirar documento ou objeto sem anuência; coagir subordinados a filiação partidária
+- **Faltas Graves (Apenadas com Demissão)**:
+  - Praticar usura sob qualquer de suas formas
+  - Valer-se do cargo para lograr proveito pessoal ou de outrem
+  - Receber propina, comissão, presente ou vantagem de qualquer espécie
+  - Exercer comércio ou participar de sociedade comercial, **EXCETO como acionista, cotista ou comanditário** (proibição de gerência/administração!)
+
+### 3. Independência das Instâncias (Civil, Penal e Administrativa)
+- **Regra Geral**: As sanções civis, penais e administrativas são cumulativas e independentes entre si (art. 125)
+- **Exceção Constitucional Absoluta**: A absolvição criminal que declara a **INEXISTÊNCIA DO FATO** ou a **NEGATIVA DE AUTORIA** vincula a Administração e **anula sumariamente a punição administrativa**!
+- A absolvição criminal por *falta de provas* NÃO impede a demissão disciplinar administrativa!
+
+---
+
+## 🚫 Eixo 2: Penalidades Disciplinares da Lei 8.112/1990
+### 1. Rol Taxativo de Penalidades (Art. 127)
+- Advertência, Suspensão, Demissão, Cassação de aposentadoria ou disponibilidade, Destituição de cargo em comissão e Destituição de função comissionada (vedada pena não prevista em lei!)
+
+### 2. Advertência e Suspensão
+- **Advertência (Art. 129)**: Aplicada por escrito em violação de deveres ou proibições leves; cancelamento do registro após **3 anos** sem nova infração
+- **Suspensão (Art. 130)**:
+  - Aplicada em caso de reincidência em falta leve ou violação de proibições médias; prazo máximo de **90 dias**
+  - Cancelamento do registro após **5 anos**
+  - *Conversão em Multa*: A penalidade de suspensão pode ser convertida em multa à base de **50% por dia de remuneração**, com o servidor obrigado a permanecer em serviço (conveniência administrativa)
+
+### 3. Demissão (Infrações Gravíssimas - Art. 132)
+- Crime contra a administração pública; Abandono de cargo (ausência intencional por mais de **30 dias consecutivos**); Inassiduidade habitual (falta sem justificativa por **60 dias interpolados** em 12 meses); Improbidade administrativa; Incontinência pública e conduta escandalosa; Insubordinação grave em serviço; Ofensa física em serviço a servidor ou particular (salvo em legítima defesa); Aplicação irregular de dinheiros públicos; Revelação de segredo conhecido em razão do cargo; Corrupção e Lesão aos cofres públicos
+
+### 4. Efeitos Temporais da Demissão
+- **Incompatibilidade por 5 Anos**: Demissão por valer-se do cargo para proveito próprio ou praticar comércio/gerência
+- **Incompatibilidade Permanente (Inidoneidade)**: Demissão por crime contra a administração, improbidade, corrupção ou lesão ao erário impede novo retorno ao serviço público federal!
+
+---
+
+## ⏳ Eixo 3: Prazos Prescricionais e Competência para Aplicação
+### 1. Prazos Prescricionais da Ação Disciplinar (Art. 142)
+- **5 (cinco) anos**: Para infrações puníveis com **Demissão**, Cassação de aposentadoria/disponibilidade e Destituição de comissionado
+- **2 (dois) anos**: Para infrações puníveis com **Suspensão**
+- **180 (cento e oitenta) dias**: Para infrações puníveis com **Advertência**
+- *Termo Inicial*: O prazo prescricional começa a correr na **data em que o fato se tornou conhecido pela autoridade competente** (e não na data da prática da infração)!
+- *Interrupção da Prescrição*: A instauração regular de Sindicância ou PAD **interrompe a prescrição uma única vez** até a decisão final (ou até 140 dias no PAD)
+
+### 2. Infrações Capitais como Crime
+- Se a infração disciplinar também for capitulada como crime, aplicam-se os **prazos de prescrição da lei penal** (art. 142 §2º)
+
+### 3. Competência para Aplicação das Penalidades (Art. 141)
+- Demissão e Cassação de aposentadoria: **Presidente da República** (ou Chefes de Poder/PGR)
+- Suspensão superior a 30 dias: Autoridades administrativas de hierarquia imediatamente inferior
+- Suspensão até 30 dias e Advertência: Chefe da repartição e outras autoridades designadas em regimento
+
+---
+
+## 🔍 Eixo 4: Processo Administrativo Disciplinar (PAD Ordinário) e Sindicância
+### 1. Sindicância Administrativa (Art. 145)
+- Procedimento preparatório sumário de apuração
+- **Resultados Possíveis da Sindicância**:
+  - 1. Arquivamento do processo (inexistência de irregularidade)
+  - 2. Aplicação direta de penalidade de **Advertência** ou de **Suspensão de até 30 dias**
+  - 3. Instauração obrigatória de **PAD** (se a falta exigir suspensão superior a 30 dias, demissão ou cassação)
+- Prazo da sindicância: 30 dias, prorrogável por igual período
+
+### 2. PAD Ordinário (Rito Geral - Arts. 148 a 166)
+- Obrigatório para apurar faltas que cominem demissão, cassação de aposentadoria ou suspensão superior a 30 dias
+- **Comissão Processante**: Composta por **3 (três) servidores estáveis**, designados pela autoridade instauradora (o presidente da comissão deve ocupar cargo de nível igual ou superior ao do indiciado)
+- **Fases do PAD**:
+  - 1ª Instauração (publicação da portaria constitutiva da comissão)
+  - 2ª Inquérito Administrativo (Instrução probatória, Defesa e Relatório Conclusivo da Comissão)
+  - 3ª Julgamento (autoridade competente decide acatando ou agravando fundamentadamente o relatório)
+- **Prazos do PAD Ordinário**:
+  - Prazo de conclusão: **60 dias**, prorrogável por mais 60 dias (total: 120 dias)
+  - Prazo para julgamento da autoridade: **20 dias**
+  - *Prazo total de garantia*: 140 dias (ao final de 140 dias a prescrição interrompida volta a correr!)
+
+---
+
+## ⚡ Eixo 5: Procedimento Sumário e Revisão do Processo Disciplinar
+### 1. O Rito Sumário (Art. 133)
+- Rito célere aplicável a apenas três faltas formais graves:
+  - 1. **Acumulação ilegal de cargos, empregos ou funções públicas**
+  - 2. **Abandono de cargo** (falta por mais de 30 dias consecutivos)
+  - 3. **Inassiduidade habitual** (60 dias interpolados no período de 12 meses)
+- **Comissão do Rito Sumário**: Composta por apenas **2 (dois) servidores estáveis** (no rito ordinário são 3!)
+- **Prazos no Rito Sumário**: Prazo de conclusão de **30 dias**, prorrogável por até 15 dias; prazo de defesa de 5 dias
+
+### 2. A Opção de Boa-Fé na Acumulação Ilegal
+- Notificado da acumulação ilegal, o servidor tem prazo de **10 dias para fazer opção** por um dos cargos
+- Se fizer a opção tempestiva: Caracteriza-se a boa-fé e o processo é arquivado sem punição!
+- Se não optar ou provada má-fé: Aplica-se a pena de demissão em ambos os cargos federais!
+
+### 3. Revisão do Processo Disciplinar (Arts. 174 a 182)
+- Cabível a qualquer tempo a pedido do servidor ou herdeiros quando surgirem **fatos novos ou circunstâncias relevantes** suscetíveis de provar a inocência ou inadequação da sanção
+- 🚨 **Princípio da Vedação da Reformatio in Pejus**: Da revisão do processo **NUNCA PODERÁ RESULTAR AGRAVAMENTO DA PENALIDADE** já imposta!
+
+---
+
+## 🏛️ Eixo 6: Compilado de Jurisprudência Vinculante e Temas do STF/STJ
+### 1. Súmula Vinculante nº 5 do STF
+- > *"A falta de defesa técnica por advogado no processo administrativo disciplinar não ofende a Constituição."*
+- A presença de advogado no PAD é facultativa; assegura-se ampla defesa pessoal ou por defensor dativo
+
+### 2. Súmula 592 do STJ (Excesso de Prazo no PAD)
+- O excesso de prazo para a conclusão do PAD **NÃO gera nulidade automática**, desde que não cause prejuízo comprovado à ampla defesa e ao contraditório
+
+### 3. Súmula 650 do STJ (Provas Emprestadas)
+- É legítima a utilização em PAD de prova emprestada de processo penal (inclusive interceptações telefônicas autorizadas judicialmente), assegurado o contraditório administrativo
+
+### 4. Súmula 635 do STJ (Prescrição e Falta como Crime)
+- Os prazos de prescrição da lei penal só se aplicam à infração disciplinar se houver expressa apuração e tipificação criminal com ação penal proposta
+
+---
+
+## 🛡️ Eixo 7: Seguridade Social do Servidor Público Federal (EC 103/2019)
+### 1. Regime Próprio de Previdência Social (RPPS - CF art. 40)
+- Exclusivo para ocupantes de cargo efetivo da União; caráter contributivo e solidário
+- Ocupantes exclusivamente de cargo em comissão, emprego público e temporários vinculam-se ao **Regime Geral de Previdência Social (RGPS / INSS)**!
+
+### 2. Benefícios Previdenciários do Servidor
+- Aposentadoria Voluntária, Compulsória (aos **75 anos de idade** com proventos proporcionais) e por Incapacidade Permanente
+- Pensão por morte aos dependentes e Auxílio-funeral
+
+---
+
+## 🚨 Eixo 8: Síntese de Armadilhas, Prazos Críticos e Confrontação FGV / Cebraspe
+### 1. Quantitativo de Membros da Comissão
+- 🚨 **Pegadinha Clássica**: Afirmar que a comissão do rito sumário exige 3 servidores estáveis.
+- ✅ **Regra**: PAD Ordinário = **3 servidores estáveis**; Rito Sumário (acumulação/abandono) = **2 servidores estáveis**!
+
+### 2. Presença de Advogado no PAD
+- 🚨 **Pegadinha Clássica**: Dizer que a ausência de advogado no interrogatório do PAD anula o processo.
+- ✅ **Regra**: Súmula Vinculante 5 do STF: Defesa por advogado é FACULTATIVA no processo disciplinar!
+
+### 3. Agravamento de Pena na Revisão
+- 🚨 **Pegadinha Clássica**: Dizer que na revisão do PAD a autoridade pode agravar a punição se descobrir falta pior.
+- ✅ **Regra**: A revisão disciplinar JAMAIS pode resultar em agravamento de penalidade (*reformatio in pejus* vedada)!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
