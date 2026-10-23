@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 12: Servidores Públicos - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 12</span>
+      <h1>Servidores Públicos</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 👔 Servidores Públicos (Regime Constitucional - Aula 12)
+
+## 👥 1. Ontologia & Classificação dos Agentes Públicos
+### 🌐 1.1 Teoria da Imputação Volitiva (Otto Gierke)
+- A atuação do agente público é imputada diretamente à pessoa jurídica (Estado), e não à sua pessoa física
+- Os atos do funcionário de fato (investidura irregular) permanecem válidos perante terceiros de boa-fé
+### 🗂️ 1.2 Classificação Quíntupla dos Agentes
+- **1. Agentes Políticos**: Membros de Poder que expressam a vontade soberana do Estado (Chefes do Executivo, Ministros, Secretários, Parlamentares, Magistrados e membros do MP)
+- **2. Agentes Administrativos**: Vinculados por relação profissional de trabalho (Servidores Estatutários, Empregados Públicos Celetistas e Contratados Temporários - art. 37, IX)
+- **3. Agentes Honoríficos**: Cidadãos convocados temporariamente para colaborar com o Estado sem vínculo profissional (Jurados do Tribunal do Júri, Mesários eleitorais)
+- **4. Agentes Delegados**: Particulares que recebem a incumbência de prestar serviço público em nome próprio (Concessionários, permissionários, tabeliães e notários)
+- **5. Agentes Credenciados**: Recebem delegação especial do Estado para representá-lo em ato ou evento internacional específico
+
+## 🏢 2. Cargos, Empregos & Funções Públicas (CF art. 37)
+### ⚖️ 2.1 A Tríade Estrutural
+- **Cargos Públicos**:
+  - Unidade básica de atribuições e responsabilidades do regime estatutário (Administração Direta, Autarquias e Fundações Públicas de Direito Público)
+  - Podem ser: *Efetivos* (exigem concurso público) ou *Em Comissão* (livre nomeação e exoneração para Chefia, Direção e Assessoramento)
+- **Empregos Públicos**:
+  - Regime contratual celetista (CLT), típico das Empresas Públicas e Sociedades de Economia Mista
+  - Exigem concurso público para admissão, mas **NÃO adquirem a estabilidade do art. 41 da CF**!
+- **Funções Públicas**:
+  - Conjunto de atribuições exercidas por servidor
+  - *Funções de Confiança (FC)*: Destinadas exclusivamente a servidores ocupantes de **cargo efetivo** para direção, chefia e assessoramento
+### 📜 2.2 Criação e Extinção de Cargos
+- **Criação de Cargos e Fixação de Remuneração**: Exige **LEI EM SENTIDO ESTRITO** de iniciativa privativa do respectivo Chefe de Poder (art. 61 §1º II 'a')
+- **Extinção de Cargos Vagos**: Pode ser feita diretamente por **Decreto Autônomo** do Chefe do Executivo (CF art. 84, VI, 'b')
+
+## 📝 3. Concurso Público, Nomeação, Posse & Exercício
+### 🎯 3.1 Regime Constitucional do Concurso Público (CF art. 37, II e III)
+- Provas ou de provas e títulos, de acordo com a complexidade do cargo
+- **Prazo de Validade**: Até **2 anos**, prorrogável uma única vez por igual período
+- **Direito Subjetivo à Nomeação (Tema 161 STF)**:
+  - Candidato aprovado **DENTRO DO NÚMERO DE VAGAS** do edital tem direito líquido e certo à nomeação durante a validade do certame
+  - Candidato no cadastro de reserva tem mera expectativa de direito, salvo se demonstrada preterição arbitrária e imotivada
+### 🚶 3.2 O Fluxo de Ingresso: Da Aprovação ao Trabalho
+- 1º **Aprovação e Homologação** do Concurso
+- 2º **Nomeação**: Única forma originária de provimento (ato convocatório unilateral)
+- 3º **Posse**: Ato formal de **INVESTIDURA** no cargo público (assinatura do termo de compromisso - prazo: 30 dias na Lei 8.112)
+- 4º **Exercício**: Efetivo desempenho das atribuições do cargo (início da contagem de tempo de serviço e remuneração - prazo: 15 dias)
+
+## 🛡️ 4. Estágio Probatório, Estabilidade & Perda do Cargo
+### ⏳ 4.1 Aquisição da Estabilidade Constitucional (CF art. 41)
+- Requisitos Cumulativos:
+  - 1. Aprovação em concurso público para cargo efetivo
+  - 2. **3 (três) anos de efetivo exercício** (EC 19/98 unificou o estágio probatório em 3 anos - Súmula 21 STF)
+  - 3. Aprovação em **Avaliação Especial de Desempenho** por comissão instituída para essa finalidade
+### ❌ 4.2 Hipóteses Constitucionais Taxativas de Perda do Cargo pelo Estável
+- 1. Em virtude de **sentença judicial transitada em julgado**
+- 2. Mediante **Processo Administrativo Disciplinar (PAD)** em que lhe seja assegurada ampla defesa
+- 3. Mediante procedimento de **avaliação periódica de desempenho**, na forma de Lei Complementar
+- 4. **Excesso de despesas com pessoal** (CF art. 169 §4º): Redução de 20% de cargos em comissão -> exoneração de não-estáveis -> só então exoneração de estáveis com indenização de 1 mês por ano de serviço!
+
+## 🔄 5. Formas de Provimento & Formas de Vacância (Lei 8.112/90)
+### 📥 5.1 Formas de Provimento
+- **Originário**: Nomeação (cria o vínculo inaugural)
+- **Derivado (Requisitos de Vínculo Anterior)**:
+  - **Promoção**: Ascensão na carreira com maior complexidade e remuneração (constitucional)
+  - **Readaptação**: Investidura em cargo de atribuições e responsabilidades compatíveis com a limitação física ou mental superveniente
+  - **Reversão**: Retorno do aposentado ao serviço ativo (de ofício no interesse público ou voluntária a pedido)
+  - **Reintegração**: Retorno do servidor estável demitido ilegalmente, por decisão judicial ou administrativa, com **RESSARCIMENTO INTEGRAL** de vencimentos!
+  - **Recondução**: Retorno do servidor estável ao cargo de origem por inabilitação em estágio probatório ou reintegração do anterior ocupante
+  - **Aproveitamento**: Retorno do servidor que estava em disponibilidade para cargo compatível
+- 🚨 **Súmula Vinculante 43 STF**: É inconstitucional qualquer forma de provimento que permita ao servidor ascender a carreira diversa daquela para a qual prestou concurso (proibição de ascensão e transferência)!
+### 📤 5.2 Formas de Vacância
+- Exoneração (não punitiva), Demissão (penalidade disciplinar), Promoção, Readaptação, Aposentadoria, Posse em outro cargo inacumulável e Falecimento
+
+## 💰 6. Regime Remuneratório, Teto & Acumulação de Cargos
+### 🏛️ 6.1 Teto Constitucional e Subtetos (CF art. 37, XI)
+- **Teto Geral Federal**: Subsídio mensal dos **Ministros do STF**
+- **Subtetos Estaduais**:
+  - Poder Executivo: Subsídio do Governador
+  - Poder Legislativo: Subsídio dos Deputados Estaduais
+  - Poder Judiciário: Subsídio dos Desembargadores do TJ (limitado a 90,25% do STF)
+- **Subteto Municipal**: Subsídio do Prefeito (para todos os Poderes municipais)
+### 🤝 6.2 Regra da Não-Acumulação & Exceções Constitucionais (CF art. 37, XVI)
+- **Regra Geral**: Vedada a acumulação remunerada de cargos, empregos e funções públicas
+- **Exceções Cumulativas (Havendo Compatibilidade de Horários)**:
+  - A) 2 (dois) cargos de **Professor**
+  - B) 1 (um) cargo de **Professor com outro Técnico ou Científico**
+  - C) 2 (dois) cargos ou empregos privativos de **Profissionais de Saúde** com profissões regulamentadas
+- 🎯 **Incidência do Teto em Acumulação Lícita (Temas 377 e 384 STF)**:
+  - Nos casos de acumulação autorizada, **o teto remuneratório incide ISOLADAMENTE sobre a remuneração de cada um dos cargos**, e não sobre o somatório dos rendimentos!
+
+## 🚨 7. Radar de Pegadinhas Frequentes (Cebraspe / FGV)
+### ⚠️ 7.1 Demissão vs. Exoneração
+- 🚨 **Pegadinha Clássica**: Tratar demissão e exoneração como sinônimos.
+- ✅ **Regra**: Demissão é PENALIDADE DISCIPLINAR por infração grave; Exoneração é rompimento regular sem conotação punitiva!
+### ⚠️ 7.2 Empregados de Empresas Estatais
+- 🚨 **Pegadinha Clássica**: Afirmar que empregado de Petrobras ou Caixa adquire estabilidade após 3 anos de CLT.
+- ✅ **Regra**: Súmula 390 TST: Empregados de estatais NÃO têm estabilidade no cargo (art. 41 aplica-se apenas a servidores públicos)!
+### ⚠️ 7.3 Extinção de Cargo por Decreto
+- 🚨 **Pegadinha Clássica**: Dizer que o Presidente pode criar ou extinguir cargos ocupados por decreto autônomo.
+- ✅ **Regra**: Decreto autônomo (art. 84, VI, 'b') SÓ EXTINGUE cargos quando estiverem VAGOS; criar cargos exige LEI!
+### ⚠️ 7.4 Teto Remuneratório em Acumulação de Saúde
+- 🚨 **Pegadinha Clássica**: Somar dois salários de médico e cortar o que exceder o teto do STF.
+- ✅ **Regra**: STF pacificou: O teto incide isoladamente sobre cada vínculo em acumulação lícita!
+
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
