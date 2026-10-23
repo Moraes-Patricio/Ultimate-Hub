@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 10: Bens Públicos - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 10</span>
+      <h1>Bens Públicos</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 🏞️ Bens Públicos (Aula 10)
+
+## 🏛️ 1. Ontologia, Conceito & Titularidade
+### 🏷️ 1.1 Conceito Dogmático & Critério Subjetivo (CC art. 98)
+- **Bens Públicos**: Bens do domínio nacional pertencentes às pessoas jurídicas de direito público interno
+  - União, Estados, Distrito Federal, Municípios, Autarquias e Fundações Públicas de Direito Público
+- **Bens Privados**: Todos os demais, seja qual for a pessoa a que pertencerem
+### 🏢 1.2 Bens das Empresas Estatais (EP e SEM)
+- **Regra Geral (Direito Privado)**: Bens de estatais são bens privados comuns
+- **Exceção Constitucional Crucial (Jurisprudência STF)**:
+  - Bens de estatais **prestadoras de serviços públicos próprios do Estado** que estejam diretamente vinculados à prestação do serviço
+  - Gozam das prerrogativas de bens públicos: **Impenhorabilidade e regime de precatórios** (ex: Correios / ECT)!
+  - Bens de estatais exploradoras de atividade econômica em regime de concorrência: Penhoráveis e alienáveis livremente
+
+## 🗂️ 2. Classificação Tripartite do Código Civil (Art. 99) & Afetação
+### 🌳 2.1 As Três Classes de Bens
+- **1. Bens de Uso Comum do Povo (Domínio Público)**:
+  - Destinados à utilização geral da coletividade (mares, rios, estradas, praças, ruas)
+  - Podem ser gratuitos ou remunerados (ex: cobrança de pedágio não desnatura a natureza comum)
+- **2. Bens de Uso Especial (Patrimônio Administrativo Indisponível)**:
+  - Afetados à execução dos serviços públicos e instalação de repartições
+  - Edifícios públicos, escolas, hospitais, fóruns, viaturas e quartéis
+- **3. Bens Dominicais / Patrimoniais Disponíveis**:
+  - Constituem o patrimônio disponível do Estado sem destinação pública específica
+  - Prédios desativados, terras devolutas, dívida ativa inscrita, títulos
+  - *Única classe alienável ordinariamente*!
+### 🔄 2.2 Regime da Afetação e Desafetação
+- **Afetação**: Atribuição de destinação pública a um bem (torna o bem inalienável)
+  - *Explícita (Formal)*: Por lei ou ato administrativo
+  - *Fática (Tácita)*: Pelo uso real na prestação de serviço público
+- **Desafetação**: Retirada da destinação pública do bem (passa a ser dominical)
+  - **Condição essencial prévia para qualquer alienação** de bem público de uso comum ou especial!
+
+## 🛡️ 3. Regime Jurídico & Prerrogativas Protetivas
+### ⚔️ 3.1 As Quatro Prerrogativas Fundamentais
+- **1. Inalienabilidade Relativa**:
+  - Bens de uso comum e especial: Inalienáveis enquanto mantiverem a afetação (art. 100 CC)
+  - Bens dominicais: Alienáveis, desde que cumpridos os requisitos legais
+- **2. Impenhorabilidade**:
+  - Não se sujeitam à penhora ou constrição judicial em execuções forçadas
+  - Dívidas da Fazenda Pública executadas exclusivamente pelo regime de **Precatórios** (CF art. 100)
+- **3. Imprescritibilidade**:
+  - **NÃO se sujeitam a USUCAPIÃO**, qualquer que seja a categoria (Súmula 340 STF / CF art. 183 §3º e art. 191)
+- **4. Não-Onerabilidade**:
+  - Bens públicos não podem ser gravados com direitos reais de garantia (penhor, hipoteca, anticrese)
+### 🚫 3.2 Ocupação Irregular: Posse vs. Detenção (Súmula 619 STJ)
+- A ocupação indevida de bem público configura **MERA DETENÇÃO** de natureza precária
+- **Efeitos da Súmula 619 do STJ**:
+  - ❌ NÃO induz posse contra o Poder Público
+  - ❌ NÃO gera direito à retenção nem indenização por benfeitorias úteis ou necessárias
+  - ❌ O particular deve desocupar sumariamente sem indenização
+
+## 🏷️ 4. Regime de Alienação de Bens Públicos (Lei 14.133/2021)
+### 📋 4.1 Requisitos Cumulativos Obrigatórios (Art. 76)
+- **Para Bens Imóveis**:
+  - 1. Demonstração expressa do *Interesse Público justificado*
+  - 2. *Avaliação prévia* de mercado
+  - 3. *Autorização legislativa* (indispensável para imóveis da Administração Direta e Autárquica)
+  - 4. *Licitação prévia*
+- **Para Bens Móveis**:
+  - Interesse público justificado + Avaliação prévia + Licitação (dispensada autorização legislativa)
+### 🔨 4.2 Modalidade Licitatória Obrigatória: LEILÃO!
+- 🚨 **Mudança Radical da Nova Lei de Licitações**:
+  - Na Lei 8.666/93, a alienação de imóveis era por *Concorrência*
+  - **Na Lei 14.133/2021: TODA alienação de bens públicos (móveis ou imóveis) deve ser por LEILÃO**!
+### 🎯 4.3 Hipóteses de Licitação Dispensada para Imóveis (Art. 76, I)
+- Dação em pagamento, Doação para outro órgão público, Permuta entre entes públicos
+- Investidura (venda de remanescente de obra pública ao lindeiro por até o valor de dispensa)
+- Legitimação fundiária e programas de regularização fundiária de interesse social (REURB-S)
+
+## 🗺️ 5. Espécies Constitucionais Especiais de Bens Públicos
+### 🌾 5.1 Terras Devolutas (CF art. 20, II e art. 26, IV)
+- Terras públicas que nunca ingressaram no domínio privado e não têm destinação pública
+- **Regra**: Pertencem aos **ESTADOS** (competência residual)
+- **Exceção (Bens da UNIÃO)**:
+  - Faixa de fronteira (até 150 km)
+  - Necessárias à defesa das fronteiras, fortificações e vias de transporte federais
+  - Destinadas à preservação ambiental e áreas indígenas
+### 🏖️ 5.2 Terrenos de Marinha & Acrescidos (CF art. 20, VII)
+- Propriedade EXCLUSIVA da **UNIÃO** (faixa de 33 metros contados da linha do preamar médio de 1831)
+- *Atenção*: A ocupação por particulares se dá por regime enfitêutico/foro ou taxa de ocupação
+### 💧 5.3 Águas Públicas & Recursos Hídricos
+- **Águas da UNIÃO (CF art. 20, III)**: Lagos, rios e correntes que banhem mais de um Estado ou sirvam de limite (interestaduais ou fronteiriços)
+- **Águas dos ESTADOS (CF art. 26, I)**: Águas superficiais ou subterrâneas que nasçam e deságuem no território de um único Estado
+- 🚨 **Atenção**: Os **MUNICÍPIOS NÃO POSSUEM** águas públicas nem terras devolutas!
+
+## 🤝 6. Instrumentos de Outorga de Uso a Particulares
+### 📄 6.1 Autorização de Uso
+- Ato unilateral, discricionário e **precário** (revogável a qualquer tempo sem indenização)
+- Atende predominantemente ao **interesse exclusivo do particular** (ex: fechamento de rua para festa de aniversário)
+- Independe de licitação prévia
+### 📑 6.2 Permissão de Uso
+- Ato unilateral, discricionário e **precário**
+- Atende ao **interesse concomitante do particular e da coletividade** (ex: banca de jornal, quiosque de praia)
+- Exige licitação prévia (regra)
+### 📜 6.3 Concessão de Uso
+- **Contrato Administrativo bilateral**, comutativo e estável (não é precário)
+- Prazo determinado; confere estabilidade ao particular para investimentos de grande porte (ex: restaurante em aeroporto)
+- Exige **licitação obrigatória**
+### 🏠 6.4 Concessão de Direito Real de Uso (CDRU - DL 271/67)
+- Contrato que institui **direito real resolúvel** sobre o imóvel público
+- Pode ser registrado no Cartório de Registro de Imóveis (RGI) e transmitido por ato inter vivos ou causa mortis
+- Utilizado para fins de urbanização, industrialização, edificação e regularização fundiária
+
+## 🚨 7. Radar de Pegadinhas Frequentes (Cebraspe / FGV)
+### ⚠️ 7.1 Modalidade de Licitação na Lei 14.133/2021
+- 🚨 **Pegadinha Clássica**: Afirmar que alienação de bens imóveis exige a modalidade Concorrência.
+- ✅ **Regra**: Na Lei 14.133/21, alienação de imóveis e móveis é SEMPRE por **LEILÃO**!
+### ⚠️ 7.2 Indenização por Benfeitorias em Bem Público
+- 🚨 **Pegadinha Clássica**: Dizer que posseiro de boa-fé de terra pública tem direito de retenção de benfeitoria necessária.
+- ✅ **Regra**: Súmula 619 STJ: ocupação de bem público é mera detenção; NÃO há posse, retenção nem indenização!
+### ⚠️ 7.3 Usucapião de Bens Dominicais
+- 🚨 **Pegadinha Clássica**: Alegar que bem dominical pode sofrer usucapião por não estar afetado a serviço público.
+- ✅ **Regra**: Súmula 340 STF: NENHUM bem público, nem mesmo o dominical, é passível de usucapião!
+### ⚠️ 7.4 Titularidade Municipal de Recursos Hídricos
+- 🚨 **Pegadinha Clássica**: Dizer que lago localizado integralmente em um município pertence a este município.
+- ✅ **Regra**: Municípios NÃO são titulares de águas públicas; águas intraestaduais pertencem aos Estados!
+
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
