@@ -3,77 +3,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapa Mental Interativo - Direito Administrativo: Aula 06 (Serviços Públicos)</title>
+  <title>Aula 06: Serviços Públicos, Concessões e PPPs - Mapa Mental Interativo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body, html {
-      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #0b1120; color: #f1f5f9;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    #mindmap {
-      width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
     }
-    .header-bar {
-      position: absolute; top: 16px; left: 20px; z-index: 100;
-      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(12px);
-      padding: 12px 22px; border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      display: flex; flex-direction: column; gap: 4px; max-width: 520px;
-    }
-    .header-bar h1 {
-      margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.05rem;
-      font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 8px;
-    }
-    .header-bar p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
-    .controls-hint {
-      position: absolute; bottom: 20px; right: 20px; z-index: 100;
-      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
-      padding: 8px 16px; border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.08); color: #94a3b8;
-      font-size: 0.75rem; display: flex; gap: 12px; align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .controls-hint span { display: flex; align-items: center; gap: 4px; }
+    .title-box { display: flex; align-items: center; gap: 12px; }
     .badge {
-      display: inline-block; padding: 1px 6px; font-size: 0.7rem; font-weight: 600;
-      border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
 </head>
 <body>
-  <div class="header-bar">
-    <h1>⚖️ Aula 06: Serviços Públicos <span class="badge">Cebraspe / FGV</span></h1>
-    <p>Concessões • Permissões • PPPs (Lei 11.079) • Extinção da Concessão • Tarifas e IAC 8 STJ</p>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 06</span>
+      <h1>Serviços Públicos, Concessões e PPPs</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
   </div>
-  <div class="controls-hint">
-    <span>🖱️ <b>Scroll:</b> Zoom</span>
-    <span>🖐️ <b>Arrastar:</b> Pan</span>
-    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
-  </div>
-  <svg id="mindmap"></svg>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 06 - Serviços Públicos, Concessões e PPPs
+## 🧭 Eixo 1: Ontologia, Conceito e Princípios do Serviço Público
+### 1. Elementos Constitutivos (Tríplice Critério)
+- **Elemento Material**: Atividade de utilidade ou comodidade pública prestada para satisfazer necessidades coletivas
+- **Elemento Subjetivo**: Presença direta do Estado ou de seus delegatários (concessionárias/permissionárias) sob fiscalização estatal
+- **Elemento Formal**: Submissão a regime jurídico de direito público derrogatório e exorbitante do direito comum
+
+### 2. O Princípio do Serviço Adequado (Lei nº 8.987/1995, Art. 6º)
+- O serviço adequado satisfaz plenamente as condições cumulativas de:
+  - **Regularidade**: Prestação habitual sem interrupções injustificadas
+  - **Continuidade**: Vedação à suspensão arbitrária (regime ininterrupto de utilidade)
+  - **Eficiência**: Rendimento técnico, qualidade e celeridade
+  - **Segurança**: Prevenção de acidentes e proteção à integridade dos usuários
+  - **Atualidade**: Modernidade das técnicas, equipamentos e instalações, e sua conservação
+  - **Generalidade**: Universalidade de acesso sem discriminações ilegítimas
+  - **Cortesia**: Urbanidade e respeito no trato com o público consumidor
+  - **Modicidade das Tarifas**: Tarifas acessíveis à renda média popular
+
+### 3. Regime de Continuidade e Regras de Corte
+- **Exceções Legais à Continuidade (Art. 6º, § 3º)**:
+  - *Motivo de Ordem Técnica ou de Segurança*: Situações de emergência e reparo imediato
+  - *Inadimplemento do Usuário*: Após formal e inequívoco **aviso prévio**
+- **Regras de Ouro da Jurisprudência (STJ e STF)**:
+  - **Lei nº 14.015/2020**: **VEDADO** o corte por inadimplemento que se inicie em **sextas-feiras, sábados, domingos, feriados ou vésperas de feriados**!
+  - **Dívidas Pretéritas**: O corte de fornecimento de serviço essencial só é legítimo para débitos **atuais** (mês corrente). Débitos pretéritos consolidados devem ser cobrados pelas vias ordinárias judiciais (Súmula do STJ)!
+  - **Unidades Públicas Essenciais**: É ilegal o corte em hospitais, prontos-socorros, UTIs, escolas públicas e delegacias
+
+---
+
+## 🏗️ Eixo 2: Formas de Delegação e Matriz Tríplice
+### 1. Concessão de Serviço Público (Lei nº 8.987/1995)
+- **Natureza Jurídica**: Contrato administrativo bilateral, oneroso e comutativo
+- **Destinatários**: Exclusivamente **pessoa jurídica** ou **consórcio de empresas** (vedada a pessoa física)
+- **Prazo**: Sempre determinado
+- **Modalidade Licitatória**: Obrigatoriamente **Concorrência** ou **Diálogo Competitivo** (Lei 14.133/2021)
+- **Responsabilidade Civil**: Objetiva perante terceiros usuários e não usuários (CF, art. 37, § 6º)
+
+### 2. Permissão de Serviço Público
+- **Natureza Jurídica**: Contrato de adesão precário e revogável
+- **Destinatários**: Pessoa jurídica OU **pessoa física**
+- **Licitação**: Exigida prévia licitação em qualquer modalidade legal
+
+### 3. Autorização de Serviço Público
+- **Natureza Jurídica**: Ato administrativo unilateral, discricionário e precário
+- **Dispensa de Licitação**: Situações transitórias ou emergenciais (ex: táxis, serviços pontuais de transporte)
+
+---
+
+## 💰 Eixo 3: Política Tarifária e Remuneração
+### 1. Taxa vs. Tarifa (Preço Público)
+- **Taxa**:
+  - Tributo cobrado por serviço público específico e divisível (*uti singuli*), de utilização obrigatória ou posto à disposição
+  - Regime de direito tributário estrito (princípio da legalidade estrita)
+  - Arrecadada diretamente pelo Poder Público
+- **Tarifa (Preço Público)**:
+  - Contraprestação não tributária cobrada por serviços facultativos delegados a particulares
+  - Fixada por contrato e regulada pelo Poder Concedente
+  - **Súmula Vinculante 40 (STF)**: O serviço de iluminação pública não pode ser remunerado mediante taxa
+  - **Súmula 545 (STF)**: Preços de serviços públicos e taxas não se confundem: taxa exige lei; preço decorre de utilização facultativa contratual
+
+### 2. Receitas Acessórias e o Tema IAC 8 do STJ
+- Concessionárias podem explorar receitas alternativas e acessórias (publicidade, projetos associados) para modicidade tarifária
+- **Tese Fixada no IAC 8 do STJ**: Concessionária de rodovia federal **NÃO PODE COBRAR** de outra concessionária de serviço público (água, luz, telecomunicações) taxa ou valor pelo uso ou passagem na faixa de domínio da rodovia!
+
+### 3. Manutenção do Equilíbrio Econômico-Financeiro
+- A equação econômico-financeira inicial do contrato é garantia constitucional (CF, art. 37, XXI)
+- Áleas extraordinárias, fato do príncipe e fato da administração autorizam a imediata revisão tarifária
+
+---
+
+## 🏁 Eixo 4: As 6 Formas de Extinção da Concessão
+### 1. Advento do Termo Contratual
+- Fim natural do prazo fixado em contrato
+- Opera a **reversão automática** dos bens vinculados ao serviço que já foram amortizados
+
+### 2. Encampação (Resgate)
+- Retomada do serviço pelo Poder Concedente durante a vigência do contrato por motivo de **INTERESSE PÚBLICO**
+- **Requisitos Cumulativos Obrigatórios**:
+  - **Lei autorizativa específica**
+  - **Indenização prévia em dinheiro** cobrindo os investimentos não amortizados e lucros cessantes
+
+### 3. Caducidade
+- Extinção decretada pela Administração por motivo de **INEXECUÇÃO TOTAL OU PARCIAL** culposa da concessionária
+- Declarada mediante **DECRETO do Poder Executivo**
+- Exige processo administrativo com ampla defesa prévia; não exige indenização prévia (eventuais saldos são acertados a posteriori com dedução de multas e prejuízos)
+
+### 4. Rescisão
+- Extinção requerida pela **CONCESSIONÁRIA** em virtude do inadimplemento culposo das obrigações do Poder Concedente
+- **Regra Fundamental**: Exige **AÇÃO JUDICIAL transitada em julgado**!
+- A concessionária **NÃO PODE interromper unilateralmente o serviço** antes da sentença final transitada em julgado (princípio da continuidade)
+
+### 5. Anulação
+- Extinção por motivo de **ILEGALIDADE originária** na licitação ou no contrato
+- Efeitos retroativos (*ex tunc*), com direito a indenização pelos investimentos feitos de boa-fé
+
+### 6. Falência ou Extinção da Empresa
+- Falência da concessionária ou dissolução societária (e falecimento do titular, na permissão de pessoa física)
+
+---
+
+## 🤝 Eixo 5: Parcerias Público-Privadas (PPPs — Lei nº 11.079/2004)
+### 1. As Modalidades de Concessão Especial
+- **Concessão Patrocinada**:
+  - Envolve a prestação de serviços públicos ou obras públicas com **cobrança de tarifa dos usuários + contraprestação pecuniária do parceiro público**
+- **Concessão Administrativa**:
+  - Contrato em que a **Administração Pública é a usuária direta ou indireta**, com contraprestação integralmente paga pelo Poder Público (mesmo que envolva execução de obra prévia)
+  - Ex: Presídios geridos por PPP, centros administrativos municipais
+
+### 2. Vedações Expressas da Lei de PPPs (Art. 2º, § 4º)
+- É terminantemente **VEDADA** a celebração de contrato de PPP cujo:
+  - Valor do contrato seja **inferior a R$ 10 milhões**
+  - Período de prestação seja **inferior a 5 anos ou superior a 35 anos** (já computada eventual prorrogação)
+  - Objeto seja **única e exclusivamente fornecimento de mão de obra** ou execução de obra pública sem prestação de serviço associada
+
+---
+
+## 🎯 Eixo 6: Radar de Pegadinhas Cebraspe & FGV
+- **Encampação vs. Caducidade**: Encampação decorre de interesse público (exige lei e indenização prévia); Caducidade decorre de culpa da concessionária (por decreto, sem lei e sem indenização prévia)
+- **Rescisão Judicial**: Concessionária não pode invocar exceção do contrato não cumprido para parar o serviço por conta própria; tem de ingressar com ação judicial
+- **PPPs**: Concessão comum (Lei 8.987: só tarifa do usuário); Patrocinada (tarifa + dinheiro público); Administrativa (só dinheiro público, Estado é o usuário)
+- **Faixa de Domínio (IAC 8 STJ)**: Concessionária de rodovia não cobra de concessionária de água/energia pelo uso da faixa de domínio
+
+  </script>
+
   <script>
-    const markdown = "# ⚖️ Direito Administrativo: Aula 06\n## 🧭 Eixo 1: Ontologia, Conceito e Princípios do Serviço Público\n### 1. Elementos Constitutivos (Tríplice Critério)\n- **Elemento Material**: Atividade de utilidade ou comodidade pública prestada para satisfazer necessidades coletivas\n- **Elemento Subjetivo**: Presença direta do Estado ou de seus delegatários (concessionárias/permissionárias) sob fiscalização estatal\n- **Elemento Formal**: Submissão a regime jurídico de direito público derrogatório e exorbitante do direito comum\n\n### 2. O Princípio do Serviço Adequado (Lei nº 8.987/1995, Art. 6º)\n- O serviço adequado satisfaz plenamente as condições cumulativas de:\n  - **Regularidade**: Prestação habitual sem interrupções injustificadas\n  - **Continuidade**: Vedação à suspensão arbitrária (regime ininterrupto de utilidade)\n  - **Eficiência**: Rendimento técnico, qualidade e celeridade\n  - **Segurança**: Prevenção de acidentes e proteção à integridade dos usuários\n  - **Atualidade**: Modernidade das técnicas, equipamentos e instalações, e sua conservação\n  - **Generalidade**: Universalidade de acesso sem discriminações ilegítimas\n  - **Cortesia**: Urbanidade e respeito no trato com o público consumidor\n  - **Modicidade das Tarifas**: Tarifas acessíveis à renda média popular\n\n### 3. Regime de Continuidade e Regras de Corte\n- **Exceções Legais à Continuidade (Art. 6º, § 3º)**:\n  - *Motivo de Ordem Técnica ou de Segurança*: Situações de emergência e reparo imediato\n  - *Inadimplemento do Usuário*: Após formal e inequívoco **aviso prévio**\n- **Regras de Ouro da Jurisprudência (STJ e STF)**:\n  - **Lei nº 14.015/2020**: **VEDADO** o corte por inadimplemento que se inicie em **sextas-feiras, sábados, domingos, feriados ou vésperas de feriados**!\n  - **Dívidas Pretéritas**: O corte de fornecimento de serviço essencial só é legítimo para débitos **atuais** (mês corrente). Débitos pretéritos consolidados devem ser cobrados pelas vias ordinárias judiciais (Súmula do STJ)!\n  - **Unidades Públicas Essenciais**: É ilegal o corte em hospitais, prontos-socorros, UTIs, escolas públicas e delegacias\n\n---\n\n## 🏗️ Eixo 2: Formas de Delegação e Matriz Tríplice\n### 1. Concessão de Serviço Público (Lei nº 8.987/1995)\n- **Natureza Jurídica**: Contrato administrativo bilateral, oneroso e comutativo\n- **Destinatários**: Exclusivamente **pessoa jurídica** ou **consórcio de empresas** (vedada a pessoa física)\n- **Prazo**: Sempre determinado\n- **Modalidade Licitatória**: Obrigatoriamente **Concorrência** ou **Diálogo Competitivo** (Lei 14.133/2021)\n- **Responsabilidade Civil**: Objetiva perante terceiros usuários e não usuários (CF, art. 37, § 6º)\n\n### 2. Permissão de Serviço Público\n- **Natureza Jurídica**: Contrato de adesão precário e revogável\n- **Destinatários**: Pessoa jurídica OU **pessoa física**\n- **Licitação**: Exigida prévia licitação em qualquer modalidade legal\n\n### 3. Autorização de Serviço Público\n- **Natureza Jurídica**: Ato administrativo unilateral, discricionário e precário\n- **Dispensa de Licitação**: Situações transitórias ou emergenciais (ex: táxis, serviços pontuais de transporte)\n\n---\n\n## 💰 Eixo 3: Política Tarifária e Remuneração\n### 1. Taxa vs. Tarifa (Preço Público)\n- **Taxa**:\n  - Tributo cobrado por serviço público específico e divisível (*uti singuli*), de utilização obrigatória ou posto à disposição\n  - Regime de direito tributário estrito (princípio da legalidade estrita)\n  - Arrecadada diretamente pelo Poder Público\n- **Tarifa (Preço Público)**:\n  - Contraprestação não tributária cobrada por serviços facultativos delegados a particulares\n  - Fixada por contrato e regulada pelo Poder Concedente\n  - **Súmula Vinculante 40 (STF)**: O serviço de iluminação pública não pode ser remunerado mediante taxa\n  - **Súmula 545 (STF)**: Preços de serviços públicos e taxas não se confundem: taxa exige lei; preço decorre de utilização facultativa contratual\n\n### 2. Receitas Acessórias e o Tema IAC 8 do STJ\n- Concessionárias podem explorar receitas alternativas e acessórias (publicidade, projetos associados) para modicidade tarifária\n- **Tese Fixada no IAC 8 do STJ**: Concessionária de rodovia federal **NÃO PODE COBRAR** de outra concessionária de serviço público (água, luz, telecomunicações) taxa ou valor pelo uso ou passagem na faixa de domínio da rodovia!\n\n### 3. Manutenção do Equilíbrio Econômico-Financeiro\n- A equação econômico-financeira inicial do contrato é garantia constitucional (CF, art. 37, XXI)\n- Áleas extraordinárias, fato do príncipe e fato da administração autorizam a imediata revisão tarifária\n\n---\n\n## 🏁 Eixo 4: As 6 Formas de Extinção da Concessão\n### 1. Advento do Termo Contratual\n- Fim natural do prazo fixado em contrato\n- Opera a **reversão automática** dos bens vinculados ao serviço que já foram amortizados\n\n### 2. Encampação (Resgate)\n- Retomada do serviço pelo Poder Concedente durante a vigência do contrato por motivo de **INTERESSE PÚBLICO**\n- **Requisitos Cumulativos Obrigatórios**:\n  - **Lei autorizativa específica**\n  - **Indenização prévia em dinheiro** cobrindo os investimentos não amortizados e lucros cessantes\n\n### 3. Caducidade\n- Extinção decretada pela Administração por motivo de **INEXECUÇÃO TOTAL OU PARCIAL** culposa da concessionária\n- Declarada mediante **DECRETO do Poder Executivo**\n- Exige processo administrativo com ampla defesa prévia; não exige indenização prévia (eventuais saldos são acertados a posteriori com dedução de multas e prejuízos)\n\n### 4. Rescisão\n- Extinção requerida pela **CONCESSIONÁRIA** em virtude do inadimplemento culposo das obrigações do Poder Concedente\n- **Regra Fundamental**: Exige **AÇÃO JUDICIAL transitada em julgado**!\n- A concessionária **NÃO PODE interromper unilateralmente o serviço** antes da sentença final transitada em julgado (princípio da continuidade)\n\n### 5. Anulação\n- Extinção por motivo de **ILEGALIDADE originária** na licitação ou no contrato\n- Efeitos retroativos (*ex tunc*), com direito a indenização pelos investimentos feitos de boa-fé\n\n### 6. Falência ou Extinção da Empresa\n- Falência da concessionária ou dissolução societária (e falecimento do titular, na permissão de pessoa física)\n\n---\n\n## 🤝 Eixo 5: Parcerias Público-Privadas (PPPs — Lei nº 11.079/2004)\n### 1. As Modalidades de Concessão Especial\n- **Concessão Patrocinada**:\n  - Envolve a prestação de serviços públicos ou obras públicas com **cobrança de tarifa dos usuários + contraprestação pecuniária do parceiro público**\n- **Concessão Administrativa**:\n  - Contrato em que a **Administração Pública é a usuária direta ou indireta**, com contraprestação integralmente paga pelo Poder Público (mesmo que envolva execução de obra prévia)\n  - Ex: Presídios geridos por PPP, centros administrativos municipais\n\n### 2. Vedações Expressas da Lei de PPPs (Art. 2º, § 4º)\n- É terminantemente **VEDADA** a celebração de contrato de PPP cujo:\n  - Valor do contrato seja **inferior a R$ 10 milhões**\n  - Período de prestação seja **inferior a 5 anos ou superior a 35 anos** (já computada eventual prorrogação)\n  - Objeto seja **única e exclusivamente fornecimento de mão de obra** ou execução de obra pública sem prestação de serviço associada\n\n---\n\n## 🎯 Eixo 6: Radar de Pegadinhas Cebraspe & FGV\n- **Encampação vs. Caducidade**: Encampação decorre de interesse público (exige lei e indenização prévia); Caducidade decorre de culpa da concessionária (por decreto, sem lei e sem indenização prévia)\n- **Rescisão Judicial**: Concessionária não pode invocar exceção do contrato não cumprido para parar o serviço por conta própria; tem de ingressar com ação judicial\n- **PPPs**: Concessão comum (Lei 8.987: só tarifa do usuário); Patrocinada (tarifa + dinheiro público); Administrativa (só dinheiro público, Estado é o usuário)\n- **Faixa de Domínio (IAC 8 STJ)**: Concessionária de rodovia não cobra de concessionária de água/energia pelo uso da faixa de domínio\n";
-    window.onload = () => {
-      const { Markmap, loadCSS, loadJS } = window.markmap;
-      const transformer = new window.markmap.Transformer();
-      const { root, features } = transformer.transform(markdown);
-      const { styles, scripts } = transformer.getUsedAssets(features);
-      if (styles) loadCSS(styles);
-      if (scripts) loadJS(scripts);
-      Markmap.create('#mindmap', {
-        duration: 300, nodeMinHeight: 20, spacingVertical: 8,
-        spacingHorizontal: 80, paddingX: 16, autoFit: true
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
       }, root);
-    };
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
   </script>
 </body>
 </html>
