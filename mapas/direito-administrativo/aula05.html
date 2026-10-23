@@ -3,77 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapa Mental Interativo - Direito Administrativo: Aula 05 (Atos Administrativos)</title>
+  <title>Aula 05: Atos Administrativos - Mapa Mental Interativo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body, html {
-      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #0b1120; color: #f1f5f9;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    #mindmap {
-      width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% 50%, #111d38 0%, #070d19 100%);
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
     }
-    .header-bar {
-      position: absolute; top: 16px; left: 20px; z-index: 100;
-      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(12px);
-      padding: 12px 22px; border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      display: flex; flex-direction: column; gap: 4px; max-width: 520px;
-    }
-    .header-bar h1 {
-      margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.05rem;
-      font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 8px;
-    }
-    .header-bar p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
-    .controls-hint {
-      position: absolute; bottom: 20px; right: 20px; z-index: 100;
-      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
-      padding: 8px 16px; border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.08); color: #94a3b8;
-      font-size: 0.75rem; display: flex; gap: 12px; align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .controls-hint span { display: flex; align-items: center; gap: 4px; }
+    .title-box { display: flex; align-items: center; gap: 12px; }
     .badge {
-      display: inline-block; padding: 1px 6px; font-size: 0.7rem; font-weight: 600;
-      border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
 </head>
 <body>
-  <div class="header-bar">
-    <h1>⚖️ Aula 05: Atos Administrativos <span class="badge">Cebraspe / FGV</span></h1>
-    <p>Elementos (CO-FI-FO-MO-OB) • Atributos (PATI) • Classificações • Extinção e Convalidação (FO-CO)</p>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 05</span>
+      <h1>Atos Administrativos</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
   </div>
-  <div class="controls-hint">
-    <span>🖱️ <b>Scroll:</b> Zoom</span>
-    <span>🖐️ <b>Arrastar:</b> Pan</span>
-    <span>🔘 <b>Clique no Nó:</b> Recolher / Expandir</span>
-  </div>
-  <svg id="mindmap"></svg>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 05 - Atos Administrativos
+## 🏛️ Eixo 1: Conceito, Fatos Jurídicos e o Silêncio Administrativo
+### 1. A Cadeia Genealógica do Ato
+- **Fato da Administração**: Todo acontecimento material no âmbito estatal que não produz efeitos de direito administrativo (ex: circulação rotineira de viaturas, limpeza de repartição)
+- **Fato Administrativo**: Fato natural ou humano que produz efeitos jurídicos na esfera administrativa independentemente de vontade (ex: morte de servidor estável que gera vacância de cargo; desabamento de ponte por temporal)
+- **Ato da Administração**: Toda manifestação de agentes públicos (abrange atos de direito privado, atos de governo, atos materiais e atos administrativos)
+- **Ato Administrativo (Conceito Estrito)**: Manifestação unilateral de vontade da Administração Pública que, sob o regime de direito público, tem por finalidade imediata adquirir, resguardar, transferir, modificar, extinguir ou declarar direitos, ou impor obrigações aos administrados ou a si própria
+
+### 2. O Silêncio Administrativo
+- O silêncio da Administração é um **FATO ADMINISTRATIVO** (não é ato administrativo!)
+- **Regra Geral**: O silêncio não produz efeito jurídico tácito algum
+- **Exceção**: Só produz efeito de deferimento ou indeferimento quando houver **expressa previsão em lei**
+- **Omissão Ilícita**: Cabe impetrar Mandado de Segurança ou Ação de Obrigação de Fazer para que o juiz assine prazo para a autoridade decidir (o Judiciário não substitui a vontade do Executivo, mas compele à decisão)
+
+---
+
+## 🧩 Eixo 2: Os Cinco Elementos do Ato Administrativo (CO-FI-FO-MO-OB)
+### 1. Quadro Geral dos Elementos Estruturais (Lei nº 4.717/1965)
+- **1. Competência (Sujeito)**:
+  - Poder atribuído pela lei ao agente para a prática do ato
+  - Elemento **SEMPRE VINCULADO**
+  - *Vício*: Excesso de poder, usurpação de função ou incompetência
+  - *Sanabilidade*: Vício sanável (convalidável) se a competência NÃO for exclusiva!
+- **2. Finalidade**:
+  - Bem jurídico mediato objetivado pelo ato (Interesse público geral + Fim específico definido em lei)
+  - Elemento **SEMPRE VINCULADO**
+  - *Vício*: Desvio de finalidade / Desvio de poder
+  - *Sanabilidade*: **INSANÁVEL** (vício de finalidade nunca se convalida)
+- **3. Forma**:
+  - Modo exterior de manifestação da vontade (regra: forma escrita e solene)
+  - Elemento **SEMPRE VINCULADO**
+  - *Vício*: Ausência de forma ou inobservância de solenidade
+  - *Sanabilidade*: Vício sanável se a forma não for essencial para a validade do ato!
+- **4. Motivo**:
+  - Situação fática de fato e os fundamentos de direito que justificam a prática do ato
+  - Pode ser **VINCULADO ou DISCRICIONÁRIO**
+  - *Vício*: Motivo inexistente, falso ou juridicamente inadequado
+  - *Sanabilidade*: **INSANÁVEL** (não se pode alterar o motivo pretérito)
+- **5. Objeto (Conteúdo)**:
+  - O efeito jurídico imediato que o ato produz (o que o ato declara, concede, interdita, pune)
+  - Pode ser **VINCULADO ou DISCRICIONÁRIO**
+  - *Vício*: Objeto ilícito, impossível, indeterminado ou imoral
+  - *Sanabilidade*: **INSANÁVEL**
+
+### 2. Motivo vs. Motivação e Teoria dos Motivos Determinantes
+- **Motivo**: É o pressuposto fático e legal objetivo (o evento do mundo real)
+- **Motivação**: É a exteriorização formal e escrita das razões fáticas e jurídicas
+- **Teoria dos Motivos Determinantes**:
+  - A validade do ato vincula-se indissociavelmente aos motivos expostos pela autoridade
+  - Se os motivos invocados forem falsos ou inexistentes, o ato é **NULO DE PLENO DIREITO**, mesmo que a motivação fosse facultativa (ex: exoneração de cargo em comissão motivada por falta injustificada inexistente)
+- **Motivação Aliunde (Per Relationem)**: É válida a motivação por remissão formal a pareceres, informações ou decisões anteriores constantes do processo
+
+---
+
+## 🛡️ Eixo 3: Os Atributos do Ato Administrativo (Mnemônico: PATI)
+### 1. Presunção de Legitimidade e Veracidade
+- *Presunção de Legitimidade*: Conformidade do ato com o ordenamento jurídico
+- *Presunção de Veracidade*: Conformidade dos fatos declarados com a verdade real
+- **Presente em TODOS os atos administrativos**
+- Natureza: *Juris tantum* (relativa), inverte o ônus da prova para quem contesta
+
+### 2. Autoexecutoriedade
+- Prerrogativa de executar diretamente suas determinações sem prévia autorização judicial
+- *Exigibilidade*: A obrigação é formalmente exigível de plano (decisão unilateral)
+- *Executoriedade*: Emprego direto da força e coação material (demolição, apreensão de remédio)
+- **Exceção Capital**: A cobrança forçada de crédito decorrente de **MULTA NÃO é autoexecutória** (exige execução fiscal na Justiça!)
+
+### 3. Tipicidade
+- O ato administrativo deve corresponder a figuras e modelos previamente desenhados pela lei
+- Impede a prática de atos arbitrários ou inominados não previstos no direito positivo
+
+### 4. Imperatividade (Poder Extroverso)
+- Capacidade de impor obrigações coercitivas a terceiros independentemente de sua concordância
+- **NÃO ESTÁ PRESENTE EM TODOS OS ATOS**: Ausente em atos negociais (licença, autorização) e enunciativos (certidões, atestados)
+
+---
+
+## 📊 Eixo 4: Classificação dos Atos Administrativos
+### 1. Quanto à Formação da Vontade (Foco Máximo Cebraspe/FGV)
+- **Ato Simples**:
+  - Manifestação de vontade de um **ÚNICO ÓRGÃO** (seja ele singular/unipessoal ou colegiado/pluripessoal)
+  - Ex: Portaria ministerial; acórdão unânime de um Tribunal administrativo
+- **Ato Complexo**:
+  - Fusão e conjugação de vontades de **DOIS OU MAIS ÓRGÃOS INDEPENDENTES** que se unem para formar um **ÚNICO ATO**
+  - A vontade de um órgão é incompleta sem a do outro
+  - *Exemplo Canônico*: Aposentadoria de servidor público (órgão de origem + registro do TCU - Súmula Vinculante nº 3)
+  - *Exemplo Constitucional*: Nomeação de Ministro do STF (Presidente indica + Senado aprova + Presidente nomeia)
+- **Ato Composto**:
+  - Envolve **DOIS ATOS DISTINTOS**: Um ato principal (que já está perfeito) e um ato acessório que o homologa, aprova ou ratifica
+  - Praticado por um órgão e ratificado por outro
+  - Ex: Visto de autoridade superior; aprovação de orçamento por comitê gestor
+
+---
+
+## 📜 Eixo 5: Espécies de Atos Administrativos (Mnemônico: PONEI)
+### 1. As Cinco Espécies
+- **Punitivos**: Aplicação de sanções administrativas e funcionais (multas, demissão, interdição de fábrica)
+- **Ordinatórios**: Disciplinam o funcionamento interno da administração e a conduta de servidores (circulares, portarias internas, memorandos, ordens de serviço)
+- **Negociais**: Manifestação de vontade convergente com o particular
+- **Enunciativos**: Atestam ou certificam uma situação fática prévia sem manifestar vontade estatal autônoma (certidões, atestados, pareceres consultivos)
+- **Normativos**: Comandos gerais e abstratos para a fiel execução das leis (decretos, regulamentos, regimentos)
+
+### 2. O Duelo Clássico: Licença vs. Autorização
+- **Licença**:
+  - Ato **VINCULADO e DEFINITIVO**
+  - Preenchidos os requisitos da lei, o administrado tem **direito subjetivo** à obtenção
+  - Gera direito adquirido; não pode ser revogada discricionariamente
+  - Exemplos: Licença para dirigir (CNH), licença para construir, licença para exercício profissional
+- **Autorização**:
+  - Ato **DISCRICIONÁRIO e PRECÁRIO**
+  - Juízo de conveniência e oportunidade do Estado
+  - Pode ser **REVOGADA A QUALQUER TEMPO** pela Administração sem direito a indenização
+  - Exemplos: Autorização para uso de praça para evento, porte de arma para defesa pessoal
+
+---
+
+## ❌ Eixo 6: Extinção dos Atos Administrativos
+### 1. Anulação vs. Revogação
+- **Anulação (Invalidação)**:
+  - *Motivo*: **Ilegalidade / Ilegitimidade** do ato (vício insanável)
+  - *Competência*: Pela **Administração Pública** (Autotutela - Súmula 473 STF) OU pelo **Poder Judiciário**
+  - *Efeitos Temporais*: **EX TUNC** (retroage às origens, destruindo todos os efeitos)
+  - *Decadência*: Prazo de **5 anos** para a Administração anular atos favoráveis a destinatários de boa-fé (Lei 9.784/99, art. 54)
+- **Revogação**:
+  - *Motivo*: **Inconveniência ou Inoportunidade** superveniente de ato originalmente válido
+  - *Competência*: **PRIVATIVA da Administração Pública** (O Judiciário **JAMAIS** revoga atos do Executivo!)
+  - *Efeitos Temporais*: **EX NUNC** (prospectivo, não retroage, respeita efeitos pretéritos)
+  - *Atos Irrevogáveis*: Atos vinculados, atos consumados, atos que geraram direito adquirido, atos integrantes de processo findo
+
+### 2. Outras Formas de Extinção
+- **Cassação**: Extinção sancionatória porque o beneficiário do ato descumpriu condições legais essenciais supervenientes (ex: hotel que descumpre alvará e passa a funcionar como prostíbulo)
+- **Caducidade**: Extinção pela superveniência de lei nova que torna a atividade concedida juridicamente ilícita ou incompatível
+- **Contraposição / Derrubada**: Emissão de novo ato, emitido com base em competência diversa, cujos efeitos extinguem o ato anterior (ex: nomeação extinta por exoneração)
+- **Renúncia**: O próprio beneficiário abre mão voluntariamente dos efeitos do ato
+
+---
+
+## 🩹 Eixo 7: Convalidação (Sanatória) dos Atos Administrativos
+### 1. Conceito e a Regra de Ouro do 'FO-CO'
+- Correção de vício sanável do ato administrativo, com efeitos retroativos (**EX TUNC**)
+- **Requisitos Cumulativos Obrigatórios**:
+  - Não acarretar lesão ao interesse público
+  - Não causar prejuízos a terceiros
+  - Apresentar defeitos passíveis de convalidação
+- **A Regra do FO-CO**: Apenas a **FORMA** (não essencial) e a **COMPETÊNCIA** (não exclusiva) admitem convalidação!
+- Vícios em **Finalidade, Motivo e Objeto são ABSOLUTAMENTE INSANÁVEIS**
+
+---
+
+## ⚖️ Eixo 8: Súmulas Vinculantes e Radar Cebraspe / FGV
+- **Súmulas 346 e 473 do STF**: Princípio da Autotutela (A Administração pode anular seus próprios atos ilegais e revogar os inoportunos)
+- **Súmula Vinculante nº 3**: O TCU só exige contraditório e ampla defesa em processo de aposentadoria se transcorridos mais de 5 anos da chegada do processo ao Tribunal
+- **Judiciário Revoga?**: NUNCA! O Judiciário anula atos ilegais de qualquer Poder, mas nunca revoga atos discricionários de outro Poder
+- **Multa e Autoexecutoriedade**: A aplicação da penalidade é autoexecutória; a cobrança pecuniária coercitiva depende de processo judicial de execução fiscal
+
+  </script>
+
   <script>
-    const markdown = "# ⚖️ Direito Administrativo: Aula 05\n## 🏛️ Eixo 0: Conceito, Fatos Jurídicos e o Silêncio Administrativo\n### 1. A Cadeia Genealógica do Ato\n- **Fato da Administração**: Todo acontecimento material no âmbito estatal que não produz efeitos de direito administrativo (ex: circulação rotineira de viaturas, limpeza de repartição)\n- **Fato Administrativo**: Fato natural ou humano que produz efeitos jurídicos na esfera administrativa independentemente de vontade (ex: morte de servidor estável que gera vacância de cargo; desabamento de ponte por temporal)\n- **Ato da Administração**: Toda manifestação de agentes públicos (abrange atos de direito privado, atos de governo, atos materiais e atos administrativos)\n- **Ato Administrativo (Conceito Estrito)**: Manifestação unilateral de vontade da Administração Pública que, sob o regime de direito público, tem por finalidade imediata adquirir, resguardar, transferir, modificar, extinguir ou declarar direitos, ou impor obrigações aos administrados ou a si própria\n\n### 2. O Silêncio Administrativo\n- O silêncio da Administração é um **FATO ADMINISTRATIVO** (não é ato administrativo!)\n- **Regra Geral**: O silêncio não produz efeito jurídico tácito algum\n- **Exceção**: Só produz efeito de deferimento ou indeferimento quando houver **expressa previsão em lei**\n- **Omissão Ilícita**: Cabe impetrar Mandado de Segurança ou Ação de Obrigação de Fazer para que o juiz assine prazo para a autoridade decidir (o Judiciário não substitui a vontade do Executivo, mas compele à decisão)\n\n---\n\n## 🧩 Eixo 1: Os Cinco Elementos do Ato Administrativo (CO-FI-FO-MO-OB)\n### 1. Quadro Geral dos Elementos Estruturais (Lei nº 4.717/1965)\n- **1. Competência (Sujeito)**:\n  - Poder atribuído pela lei ao agente para a prática do ato\n  - Elemento **SEMPRE VINCULADO**\n  - *Vício*: Excesso de poder, usurpação de função ou incompetência\n  - *Sanabilidade*: Vício sanável (convalidável) se a competência NÃO for exclusiva!\n- **2. Finalidade**:\n  - Bem jurídico mediato objetivado pelo ato (Interesse público geral + Fim específico definido em lei)\n  - Elemento **SEMPRE VINCULADO**\n  - *Vício*: Desvio de finalidade / Desvio de poder\n  - *Sanabilidade*: **INSANÁVEL** (vício de finalidade nunca se convalida)\n- **3. Forma**:\n  - Modo exterior de manifestação da vontade (regra: forma escrita e solene)\n  - Elemento **SEMPRE VINCULADO**\n  - *Vício*: Ausência de forma ou inobservância de solenidade\n  - *Sanabilidade*: Vício sanável se a forma não for essencial para a validade do ato!\n- **4. Motivo**:\n  - Situação fática de fato e os fundamentos de direito que justificam a prática do ato\n  - Pode ser **VINCULADO ou DISCRICIONÁRIO**\n  - *Vício*: Motivo inexistente, falso ou juridicamente inadequado\n  - *Sanabilidade*: **INSANÁVEL** (não se pode alterar o motivo pretérito)\n- **5. Objeto (Conteúdo)**:\n  - O efeito jurídico imediato que o ato produz (o que o ato declara, concede, interdita, pune)\n  - Pode ser **VINCULADO ou DISCRICIONÁRIO**\n  - *Vício*: Objeto ilícito, impossível, indeterminado ou imoral\n  - *Sanabilidade*: **INSANÁVEL**\n\n### 2. Motivo vs. Motivação e Teoria dos Motivos Determinantes\n- **Motivo**: É o pressuposto fático e legal objetivo (o evento do mundo real)\n- **Motivação**: É a exteriorização formal e escrita das razões fáticas e jurídicas\n- **Teoria dos Motivos Determinantes**:\n  - A validade do ato vincula-se indissociavelmente aos motivos expostos pela autoridade\n  - Se os motivos invocados forem falsos ou inexistentes, o ato é **NULO DE PLENO DIREITO**, mesmo que a motivação fosse facultativa (ex: exoneração de cargo em comissão motivada por falta injustificada inexistente)\n- **Motivação Aliunde (Per Relationem)**: É válida a motivação por remissão formal a pareceres, informações ou decisões anteriores constantes do processo\n\n---\n\n## 🛡️ Eixo 2: Os Atributos do Ato Administrativo (Mnemônico: PATI)\n### 1. Presunção de Legitimidade e Veracidade\n- *Presunção de Legitimidade*: Conformidade do ato com o ordenamento jurídico\n- *Presunção de Veracidade*: Conformidade dos fatos declarados com a verdade real\n- **Presente em TODOS os atos administrativos**\n- Natureza: *Juris tantum* (relativa), inverte o ônus da prova para quem contesta\n\n### 2. Autoexecutoriedade\n- Prerrogativa de executar diretamente suas determinações sem prévia autorização judicial\n- *Exigibilidade*: A obrigação é formalmente exigível de plano (decisão unilateral)\n- *Executoriedade*: Emprego direto da força e coação material (demolição, apreensão de remédio)\n- **Exceção Capital**: A cobrança forçada de crédito decorrente de **MULTA NÃO é autoexecutória** (exige execução fiscal na Justiça!)\n\n### 3. Tipicidade\n- O ato administrativo deve corresponder a figuras e modelos previamente desenhados pela lei\n- Impede a prática de atos arbitrários ou inominados não previstos no direito positivo\n\n### 4. Imperatividade (Poder Extroverso)\n- Capacidade de impor obrigações coercitivas a terceiros independentemente de sua concordância\n- **NÃO ESTÁ PRESENTE EM TODOS OS ATOS**: Ausente em atos negociais (licença, autorização) e enunciativos (certidões, atestados)\n\n---\n\n## 📊 Eixo 3: Classificação dos Atos Administrativos\n### 1. Quanto à Formação da Vontade (Foco Máximo Cebraspe/FGV)\n- **Ato Simples**:\n  - Manifestação de vontade de um **ÚNICO ÓRGÃO** (seja ele singular/unipessoal ou colegiado/pluripessoal)\n  - Ex: Portaria ministerial; acórdão unânime de um Tribunal administrativo\n- **Ato Complexo**:\n  - Fusão e conjugação de vontades de **DOIS OU MAIS ÓRGÃOS INDEPENDENTES** que se unem para formar um **ÚNICO ATO**\n  - A vontade de um órgão é incompleta sem a do outro\n  - *Exemplo Canônico*: Aposentadoria de servidor público (órgão de origem + registro do TCU - Súmula Vinculante nº 3)\n  - *Exemplo Constitucional*: Nomeação de Ministro do STF (Presidente indica + Senado aprova + Presidente nomeia)\n- **Ato Composto**:\n  - Envolve **DOIS ATOS DISTINTOS**: Um ato principal (que já está perfeito) e um ato acessório que o homologa, aprova ou ratifica\n  - Praticado por um órgão e ratificado por outro\n  - Ex: Visto de autoridade superior; aprovação de orçamento por comitê gestor\n\n---\n\n## 📜 Eixo 4: Espécies de Atos Administrativos (Mnemônico: PONEI)\n### 1. As Cinco Espécies\n- **Punitivos**: Aplicação de sanções administrativas e funcionais (multas, demissão, interdição de fábrica)\n- **Ordinatórios**: Disciplinam o funcionamento interno da administração e a conduta de servidores (circulares, portarias internas, memorandos, ordens de serviço)\n- **Negociais**: Manifestação de vontade convergente com o particular\n- **Enunciativos**: Atestam ou certificam uma situação fática prévia sem manifestar vontade estatal autônoma (certidões, atestados, pareceres consultivos)\n- **Normativos**: Comandos gerais e abstratos para a fiel execução das leis (decretos, regulamentos, regimentos)\n\n### 2. O Duelo Clássico: Licença vs. Autorização\n- **Licença**:\n  - Ato **VINCULADO e DEFINITIVO**\n  - Preenchidos os requisitos da lei, o administrado tem **direito subjetivo** à obtenção\n  - Gera direito adquirido; não pode ser revogada discricionariamente\n  - Exemplos: Licença para dirigir (CNH), licença para construir, licença para exercício profissional\n- **Autorização**:\n  - Ato **DISCRICIONÁRIO e PRECÁRIO**\n  - Juízo de conveniência e oportunidade do Estado\n  - Pode ser **REVOGADA A QUALQUER TEMPO** pela Administração sem direito a indenização\n  - Exemplos: Autorização para uso de praça para evento, porte de arma para defesa pessoal\n\n---\n\n## ❌ Eixo 5: Extinção dos Atos Administrativos\n### 1. Anulação vs. Revogação\n- **Anulação (Invalidação)**:\n  - *Motivo*: **Ilegalidade / Ilegitimidade** do ato (vício insanável)\n  - *Competência*: Pela **Administração Pública** (Autotutela - Súmula 473 STF) OU pelo **Poder Judiciário**\n  - *Efeitos Temporais*: **EX TUNC** (retroage às origens, destruindo todos os efeitos)\n  - *Decadência*: Prazo de **5 anos** para a Administração anular atos favoráveis a destinatários de boa-fé (Lei 9.784/99, art. 54)\n- **Revogação**:\n  - *Motivo*: **Inconveniência ou Inoportunidade** superveniente de ato originalmente válido\n  - *Competência*: **PRIVATIVA da Administração Pública** (O Judiciário **JAMAIS** revoga atos do Executivo!)\n  - *Efeitos Temporais*: **EX NUNC** (prospectivo, não retroage, respeita efeitos pretéritos)\n  - *Atos Irrevogáveis*: Atos vinculados, atos consumados, atos que geraram direito adquirido, atos integrantes de processo findo\n\n### 2. Outras Formas de Extinção\n- **Cassação**: Extinção sancionatória porque o beneficiário do ato descumpriu condições legais essenciais supervenientes (ex: hotel que descumpre alvará e passa a funcionar como prostíbulo)\n- **Caducidade**: Extinção pela superveniência de lei nova que torna a atividade concedida juridicamente ilícita ou incompatível\n- **Contraposição / Derrubada**: Emissão de novo ato, emitido com base em competência diversa, cujos efeitos extinguem o ato anterior (ex: nomeação extinta por exoneração)\n- **Renúncia**: O próprio beneficiário abre mão voluntariamente dos efeitos do ato\n\n---\n\n## 🩹 Eixo 6: Convalidação (Sanatória) dos Atos Administrativos\n### 1. Conceito e a Regra de Ouro do 'FO-CO'\n- Correção de vício sanável do ato administrativo, com efeitos retroativos (**EX TUNC**)\n- **Requisitos Cumulativos Obrigatórios**:\n  - Não acarretar lesão ao interesse público\n  - Não causar prejuízos a terceiros\n  - Apresentar defeitos passíveis de convalidação\n- **A Regra do FO-CO**: Apenas a **FORMA** (não essencial) e a **COMPETÊNCIA** (não exclusiva) admitem convalidação!\n- Vícios em **Finalidade, Motivo e Objeto são ABSOLUTAMENTE INSANÁVEIS**\n\n---\n\n## ⚖️ Eixo 7: Súmulas Vinculantes e Radar Cebraspe / FGV\n- **Súmulas 346 e 473 do STF**: Princípio da Autotutela (A Administração pode anular seus próprios atos ilegais e revogar os inoportunos)\n- **Súmula Vinculante nº 3**: O TCU só exige contraditório e ampla defesa em processo de aposentadoria se transcorridos mais de 5 anos da chegada do processo ao Tribunal\n- **Judiciário Revoga?**: NUNCA! O Judiciário anula atos ilegais de qualquer Poder, mas nunca revoga atos discricionários de outro Poder\n- **Multa e Autoexecutoriedade**: A aplicação da penalidade é autoexecutória; a cobrança pecuniária coercitiva depende de processo judicial de execução fiscal\n";
-    window.onload = () => {
-      const { Markmap, loadCSS, loadJS } = window.markmap;
-      const transformer = new window.markmap.Transformer();
-      const { root, features } = transformer.transform(markdown);
-      const { styles, scripts } = transformer.getUsedAssets(features);
-      if (styles) loadCSS(styles);
-      if (scripts) loadJS(scripts);
-      Markmap.create('#mindmap', {
-        duration: 300, nodeMinHeight: 20, spacingVertical: 8,
-        spacingHorizontal: 80, paddingX: 16, autoFit: true
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
       }, root);
-    };
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
   </script>
 </body>
 </html>
