@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 15: Processo Administrativo Federal (Lei 9.784/1999) - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 15</span>
+      <h1>Processo Administrativo Federal (Lei 9.784/1999)</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 📚 Direito Administrativo: Aula 15 - Processo Administrativo Federal (Lei 9.784/1999)
+
+## ⚖️ Eixo 1: Âmbito de Aplicação, Princípios e Critérios Processuais
+### 1. Âmbito de Incidência (Art. 1º)
+- Regula o processo administrativo no âmbito da Administração Federal direta e indireta
+- Aplica-se também aos Poderes Legislativo e Judiciário da União quando no **desempenho de atividade administrativa atípica**
+- Caráter supletivo e subsidiário em relação a leis especiais (ex: Lei 8.112, Lei 14.133)
+
+### 2. Princípios Fundamentais Expressos (Art. 2º)
+- Legalidade, Finalidade, Motivação, Razoabilidade, Proporcionalidade, Moralidade, Ampla Defesa, Contraditório, Segurança Jurídica, Interesse Público e Eficiência
+- **Princípio da Gratuidade**: Proibição de cobrança de despesas processuais, ressalvadas as previstas em lei
+- **Princípio do Formalismo Moderado (Informalismo)**: Ritos simples e interpretação flexível que assegurem a certeza jurídica sem exigências burocráticas inúteis
+- **Princípio da Oficialidade**: Impulsão de ofício do processo pela Administração, sem prejuízo da atuação dos interessados
+
+---
+
+## 👥 Eixo 2: Direitos e Deveres dos Administrados, Legitimidade e Capacidade
+### 1. Direitos Básicos do Administrado (Art. 3º)
+- Ser tratado com respeito pelas autoridades e servidores
+- Ter ciência da tramitação dos processos em que tenha a condição de interessado e obter cópias
+- Formular alegações e apresentar documentos antes da tomada de decisão
+- Fazer-se assistir, facultativamente, por advogado (salvo quando obrigatório por força de lei)
+
+### 2. Deveres do Administrado perante a Administração (Art. 4º)
+- Expor os fatos conforme a verdade e proceder com lealdade e boa-fé
+- Prestar as informações requeridas e colaborar para o esclarecimento dos fatos
+
+### 3. Legitimidade Ativa no Processo Administrativo (Art. 9º)
+- **Interessados Legítimos**:
+  - Pessoas físicas ou jurídicas titulares de direitos ou interesses individuais
+  - Titulares de direitos que possam ser afetados pela decisão
+  - Organizações e associações representativas no tocante a direitos coletivos
+  - Cidadãos ou associações legalmente constituídas quanto a direitos difusos
+- **Capacidade Processual (Art. 10)**: Têm capacidade processual os maiores de **18 (dezoito) anos**, ressalvada previsão especial em lei
+
+---
+
+## 🏛️ Eixo 3: Competência Administrativa: Irrenunciabilidade, Delegação e Avocação
+### 1. Irrenunciabilidade da Competência (Art. 11)
+- A competência é irrenunciável e se exerce pelos órgãos administrativos a que foi atribuída como própria, salvo os casos de delegação e avocação legalmente admitidos
+
+### 2. Regime de Delegação de Competência (Art. 12)
+- Pode ser delegada parte da competência a outros órgãos ou titulares, ainda que não haja subordinação hierárquica
+- O ato de delegação e sua revogação devem ser **obrigatoriamente publicados no meio oficial**
+- A delegação é **revogável a qualquer tempo** pela autoridade delegante
+- O ato praticado por delegação considera-se praticado pelo **órgão DELEGADO** (Súmula 510 STF)!
+
+### 3. Hipóteses em que é VEDADA a Delegação (Mnemônico CENORA - Art. 13)
+- ❌ **CE** - Edição de atos de caráter normativo
+- ❌ **NO** - Decisão de recursos administrativos
+- ❌ **RA** - Matérias de competência exclusiva do órgão ou autoridade
+
+### 4. Regime da Avocação de Competência (Art. 15)
+- Chamamento temporário e excepcional de competência atribuída a órgão subordinado
+- Requisitos cumulativos: Caráter **excepcional**, por **motivos relevantes** devidamente justificados, e **exige hierarquia** (só avoca de subordinado)!
+
+---
+
+## 🚫 Eixo 4: Impedimentos e Suspeição: Critérios Objetivos vs. Subjetivos
+### 1. Hipóteses de Impedimento (Critério OBJETIVO Absoluto - Art. 18)
+- O servidor ou autoridade é impedido de atuar no processo em que:
+  - Tenha interesse direto ou indireto na matéria
+  - Tenha participado ou venha a participar como perito, testemunha ou representante, ou se tais situações ocorrem quanto a cônjuge, companheiro ou parente até o **3º grau**
+  - Esteja litigando judicial ou administrativamente com o interessado ou respectivo cônjuge/companheiro
+- *Dever de Autodeclaração*: A omissão do dever de comunicar o impedimento constitui **falta disciplinar grave**!
+
+### 2. Hipóteses de Suspeição (Critério SUBJETIVO Relativo - Art. 20)
+- Pode ser arguida a suspeição de autoridade ou servidor que tenha **amizade íntima ou inimizade notória** com algum dos interessados ou com os respectivos cônjuges, companheiros, parentes e afins até o 3º grau
+- Indeferimento de suspeição cabe recurso sem efeito suspensivo
+
+---
+
+## 📬 Eixo 5: Comunicação dos Atos (Intimação), Prazos e Instrução
+### 1. Comunicação e Intimação dos Atos (Arts. 26 a 28)
+- **Antecedência Mínima**: A intimação para comparecimento deve ser efetuada com antecedência de, no mínimo, **3 (três) dias úteis** em relação à data do comparecimento
+- **Conteúdo da Intimação**: Identificação do intimado, finalidade, data, hora, local, continuidade do processo em caso de não comparecimento
+- **Comparecimento Espontâneo**: O comparecimento do administrado supre a falta ou irregularidade da intimação!
+
+### 2. Contagem de Prazos Processuais (Arts. 66 e 67)
+- Prazos contam-se de modo contínuo, excluindo o dia do começo e incluindo o dia do vencimento
+- Se o início ou vencimento coincidir em dia sem expediente ou encerrado antes da hora, prorroga-se até o primeiro dia útil seguinte
+- Prazo geral supletivo para prática de atos pela Administração (quando não houver prazo específico): **5 (cinco) dias**
+
+### 3. Instrução e Provas
+- São inadmissíveis no processo administrativo as provas obtidas por meios ilícitos
+- Abertura de prazo de **10 (dez) dias** para manifestação final do interessado após a instrução
+
+---
+
+## 🤝 Eixo 6: Decisão Coordenada (Arts. 49-A a 49-G da Lei 14.210/2021)
+### 1. Conceito e Finalidade
+- Mecanismo de integração institucional para deliberação conjunta entre órgãos e entidades da Administração
+- Aplicável quando a matéria envolver competências executórias de mais de um órgão público
+- Requisitos: Justificativa de celeridade, eficiência e governança integrada
+
+### 2. Hipóteses em que NÃO se Aplica a Decisão Coordenada
+- ❌ Processos licitatórios
+- ❌ Processos disciplinares (PAD)
+- ❌ Decisões que envolvam competência constitucional indelegável
+
+---
+
+## 📝 Eixo 7: Dever de Decidir, Motivação e Anulação/Convalidação
+### 1. O Dever Explícito de Emitir Decisão (Art. 48 e 49)
+- A Administração tem o dever de explicitamente emitir decisão nos processos administrativos
+- Concluída a instrução, a Administração tem o prazo de até **30 (trinta) dias** para decidir, salvo prorrogação motivada por igual período
+
+### 2. Obrigatoriedade da Motivação (Art. 50)
+- Os atos administrativos devem ser motivados com indicação dos fatos e fundamentos jurídicos quando:
+  - Neguem, limitem ou afetem direitos ou interesses
+  - Imponham deveres, encargos ou sanções
+  - Decidam recursos administrativos
+  - Decorram de reexame de ofício
+  - Deixem de aplicar jurisprudência firmada ou discordem de pareceres oficiais
+  - Importem anulação, revogação, suspensão ou convalidação de ato administrativo
+
+### 3. Decadência do Direito de Anular Atos Favoráveis (Art. 54)
+- O direito da Administração de anular os atos administrativos de que decorram efeitos favoráveis para os destinatários decai em **5 (cinco) anos**, contados da data em que foram praticados, **SALVO COMPROVADA MÁ-FÉ**!
+
+---
+
+## 🔄 Eixo 8: Recursos Administrativos, Reformatio in Pejus e Revisão
+### 1. Recursos Administrativos (Arts. 56 a 65)
+- Das decisões administrativas cabe recurso em face de razões de legalidade e de mérito
+- **Direcionamento**: Dirigido à autoridade que proferiu a decisão; se não a reconsiderar no prazo de **5 dias**, encaminha à autoridade superior
+- **Instâncias Recursais Máximas**: O recurso tramita no máximo por **3 (três) instâncias administrativas**, salvo disposição legal diversa
+- **Prazo para Interposição**: **10 (dez) dias**, contados a partir da intimação
+- **Prazo para Julgamento**: A autoridade superior tem prazo de até **30 (trinta) dias** para decidir o recurso
+
+### 2. A Admissibilidade da Reformatio in Pejus (Art. 64)
+- No processo administrativo geral da Lei 9.784/99, a decisão do recurso **PODE AGRAVAR A SITUAÇÃO DO RECORRENTE** (*Reformatio in Pejus* é permitida!)
+- Requisito de garantia: Quando houver risco de agravamento, o recorrente deve ser previamente cientificado para formular suas alegações antes da decisão final!
+
+---
+
+## 🚨 Eixo 9: Radar de Armadilhas Frequentes Cebraspe / FGV
+### 1. Vedação de Delegação (CENORA)
+- 🚨 **Pegadinha Clássica**: Afirmar que a competência para julgar recurso administrativo pode ser delegada ao chefe de gabinete.
+- ✅ **Regra**: O art. 13 veda expressamente delegação para decisão de recursos administrativos, atos normativos e matéria exclusiva!
+
+### 2. Reformatio in Pejus na Lei 9.784 vs. Revisão Disciplinar
+- 🚨 **Pegadinha Clássica**: Confundir o recurso da Lei 9.784 com a revisão disciplinar da Lei 8.112.
+- ✅ **Regra**: No Processo Administrativo Geral (Lei 9.784), a *reformatio in pejus* é ADMITIDA com contraditório prévio; na Revisão do PAD (Lei 8.112), a *reformatio in pejus* é TERMINANTEMENTE PROIBIDA!
+
+### 3. Antecedência da Intimação
+- 🚨 **Pegadinha Clássica**: Dizer que a intimação para comparecimento deve ser feita com antecedência de 24 horas.
+- ✅ **Regra**: O art. 26, §2º exige antecedência mínima de **3 (três) dias úteis**!
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
