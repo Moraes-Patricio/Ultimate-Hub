@@ -4,17 +4,170 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mapa (Dir. Adm. Aula 14 - Antigravity)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { width: 100%; height: 100%; overflow: hidden; background-color: #0b1120; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #070b14;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(30, 58, 138, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.3) 0%, transparent 50%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #f8fafc;
+    }
     #mindmap { width: 100%; height: 100%; }
-    .markmap-node text { fill: #f1f5f9 !important; font-size: 13px; font-weight: 500; }
-    .markmap-link { stroke-width: 2px !important; }
-    .controls { position: absolute; bottom: 24px; right: 24px; display: flex; gap: 8px; z-index: 100; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 6px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
-    .btn { background: rgba(255, 255, 255, 0.05); color: #e2e8f0; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; }
-    .btn:hover { background: rgba(255, 255, 255, 0.15); color: #38bdf8; transform: translateY(-1px); }
-    .badge { position: absolute; top: 20px; left: 24px; z-index: 100; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 10px 16px; color: #f8fafc; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
-    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+
+    /* 1. TIPOGRAFIA E ALTO CONTRASTE (Adequação total ao fundo escuro) */
+    .markmap-foreign {
+      color: #f8fafc !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+      line-height: 1.5 !important;
+      overflow: visible !important;
+    }
+    .markmap-foreign div {
+      color: #f8fafc !important;
+    }
+    .markmap-foreign h1 {
+      color: #ffffff !important;
+      font-weight: 800 !important;
+      font-size: 16px !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      letter-spacing: -0.01em;
+    }
+    .markmap-foreign h2 {
+      color: #38bdf8 !important;
+      font-weight: 700 !important;
+      font-size: 14.5px !important;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+    }
+    .markmap-foreign h3 {
+      color: #a5b4fc !important;
+      font-weight: 600 !important;
+      font-size: 13.5px !important;
+    }
+    .markmap-foreign strong, .markmap-foreign b {
+      color: #38bdf8 !important;
+      font-weight: 600 !important;
+    }
+    .markmap-foreign em, .markmap-foreign i {
+      color: #fbbf24 !important;
+      font-style: normal;
+    }
+    .markmap-foreign code {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #f43f5e !important;
+      font-size: 12px;
+    }
+
+    /* Linhas conectoras do mapa */
+    .markmap-link {
+      stroke-width: 2.2px !important;
+      stroke-opacity: 0.85 !important;
+    }
+    .markmap-node line {
+      stroke-width: 2px !important;
+    }
+
+    /* 2. BOTÃO DE ABRIR NÓ ELEGANTE, NEON E PERFEITAMENTE ALINHADO */
+    .markmap-node circle {
+      cursor: pointer !important;
+      r: 6px !important;
+      transform: translateY(-4px); /* Centralização vertical precisa na altura da linha do texto */
+      stroke-width: 2.2px !important;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* Nó aberto (expandido): anel sutil com centro escuro */
+    .markmap-node circle[fill="#fff"],
+    .markmap-node circle[fill="rgb(255, 255, 255)"],
+    .markmap-node circle[fill="white"] {
+      fill: #070b14 !important;
+      stroke: #64748b !important;
+    }
+
+    /* Nó fechado (recolhido com filhos): pílula de luz neon elegante */
+    .markmap-node circle:not([fill="#fff"]):not([fill="rgb(255, 255, 255)"]):not([fill="white"]) {
+      fill: #38bdf8 !important;
+      stroke: #ffffff !important;
+      filter: drop-shadow(0 0 6px #38bdf8) !important;
+    }
+
+    /* Efeito ao passar o cursor no botão */
+    .markmap-node circle:hover {
+      r: 8px !important;
+      fill: #0ea5e9 !important;
+      stroke: #ffffff !important;
+      filter: drop-shadow(0 0 10px #38bdf8) !important;
+    }
+
+    /* 3. CONTROLES E BADGE MODERNOS EM GLASSMORPHISM */
+    .controls {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 6px;
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+      font-family: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+    .badge {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 10px;
+      padding: 10px 18px;
+      color: #f8fafc;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 12px #38bdf8;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
@@ -186,7 +339,7 @@
       const { Markmap } = window.markmap;
       mmInstance = Markmap.create('#mindmap', {
         duration: 300,
-        maxWidth: 380,
+        maxWidth: 550,
         color: (node) => {
           const colors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24', '#fb7185', '#a78bfa'];
           return colors[node.state.depth % colors.length];
