@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 08: Controle da Administração Pública - Mapa Mental Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .title-box { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    #markmap-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    svg#mindmap {
+      width: 100%;
+      height: 100%;
+    }
+    .markmap-node text {
+      font-family: 'Inter', sans-serif !important;
+      fill: #e2e8f0 !important;
+    }
+    .markmap-node-circle {
+      cursor: pointer;
+      fill: #1e293b !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2px !important;
+    }
+    .markmap-node-circle:hover {
+      fill: #38bdf8 !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.0"></script>
+</head>
+<body>
+  <header>
+    <div class="title-box">
+      <span class="badge">AULA 08</span>
+      <h1>Controle da Administração Pública</h1>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="resetZoom()">🎯 Centralizar</button>
+      <button class="btn" onclick="expandAll()">➕ Expandir Tudo</button>
+      <button class="btn" onclick="collapseAll()">➖ Recolher</button>
+    </div>
+  </header>
+  <div id="markmap-container">
+    <svg id="mindmap"></svg>
+  </div>
+
+  <script id="markdown-source" type="text/markdown">
+# 🏛️ Controle da Administração Pública (Aula 08)
+
+## ⚖️ 1. Teoria Geral e Classificação Ontológica
+### 🏷️ 1.1 Conceito & Fundamento Constitucional
+- Conjunto de mecanismos jurídicos de fiscalização, orientação, correção e anulação
+- Assegura primazia da Constituição, legalidade e moralidade administrativa
+- **Analogia Prática**: Sistema de VAR e Arbitragem no Estado de Direito
+### 🧭 1.2 Classificação Quádrupla Essencial
+- **Quanto à Origem**:
+  - *Interno*: Próprio Poder sobre sua estrutura (ex: CGU, chefia sobre subordinado)
+  - *Externo*: Um Poder sobre atividade de outro (ex: Congresso + TCU fiscalizando Executivo; Judiciário)
+  - *Social / Popular*: Sociedade diretamente (Ação Popular, denúncia art. 74 §2º CF)
+- **Quanto ao Momento**:
+  - *Prévio (Preventivo / A priori)*: Antes do ato (aprovação de autoridades pelo Senado art. 52, III)
+  - *Concomitante (Pari passu)*: Durante execução (fiscalização de obras e licitações pelo TCU)
+  - *Posterior (Corretivo / A posteriori)*: Após o ato (anulação, revogação, homologação)
+- **Quanto ao Aspecto Controlado**:
+  - *Legalidade / Juridicidade*: Conformidade com o ordenamento (Exercido por TODOS os Poderes)
+  - *Mérito (Conveniência e Oportunidade)*: Escolha discricionária (**Privativo da Administração**, vedado ao Judiciário!)
+- **Quanto à Amplitude**:
+  - *Hierárquico*: Subordinação interna, pleno e irrestrito (independe de lei expressa)
+  - *Finalístico (Tutela / Vinculação)*: Direta sobre Indireta (**Exige previsão expressa em lei**, sem subordinação)
+
+## 🔄 2. Controle Administrativo & Regime da Autotutela
+### 📜 2.1 Princípio da Autotutela (STF)
+- **Súmula 346 STF**: Administração declara nulidade de seus próprios atos
+- **Súmula 473 STF**: Anula ilegais (não geram direitos) e revoga inconvenientes (respeitado direito adquirido)
+### ⚔️ 2.2 Oposição Binária: Anulação x Revogação
+- **Anulação**:
+  - *Motivo*: Ilegalidade / vício insanável
+  - *Atos*: Vinculados ou discricionários
+  - *Competência*: Administração Pública OU Poder Judiciário (provocado)
+  - *Efeitos*: Retroativos (*Ex Tunc*)
+  - *Decadência*: 5 anos para atos favoráveis com boa-fé (art. 54 Lei 9.784/99)
+  - *Exceção*: Comprovada má-fé = anulação a qualquer tempo!
+- **Revogação**:
+  - *Motivo*: Inconveniência ou inoportunidade superveniente (mérito)
+  - *Atos*: Apenas discricionários válidos e vigentes
+  - *Competência*: **EXCLUSIVA da Administração** (Judiciário JAMAIS revoga ato de outro Poder!)
+  - *Efeitos*: Prospectivos (*Ex Nunc* - preserva passado)
+  - *Limitações*: Atos consumados, vinculados, direitos adquiridos e atos que integraram procedimento
+### 📥 2.3 Instrumentos de Provocação
+- Direito de Petição (art. 5º, XXXIV, 'a', CF - independente de taxa)
+- Representação, Reclamação Administrativa e Pedido de Reconsideração (à mesma autoridade)
+- Recurso Administrativo (à autoridade superior - independente de caução/depósito prévio: Súmula Vinculante 21)
+
+## 🏛️ 3. Controle Legislativo Político & Parlamentar
+### 📜 3.1 Competências Exclusivas do Congresso Nacional (CF art. 49)
+- **Inciso V**: Sustar atos normativos do Executivo que exorbitem o poder regulamentar ou limites de delegação
+- **Inciso IX**: Julgar anualmente contas do Presidente e apreciar relatórios de planos de governo
+- **Inciso X**: Fiscalizar e controlar diretamente os atos do Executivo (inclusive Administração Indireta)
+### 🔍 3.2 Comissões Parlamentares de Inquérito (CPI - CF art. 58 §3º)
+- Poderes de investigação próprios de autoridades judiciais
+- **Pode Realizar Diretamente**:
+  - Quebra de sigilo bancário, fiscal e telefônico (dados de ligações)
+  - Convocação e oitiva de testemunhas e investigados (sob condução coercitiva)
+  - Requisição de perícias, documentos e informações públicas
+- **NÃO PODE Fazer (Reserva de Jurisdição)**:
+  - ❌ Decretar prisão (salvo flagrante delito)
+  - ❌ Interceptação telefônica (escuta telefônica / gravação de voz)
+  - ❌ Busca e apreensão domiciliar (cláusula de domicílio)
+  - ❌ Decretar indisponibilidade de bens ou arresto
+### 👔 3.3 Aprovação Prévia de Autoridades pelo Senado (CF art. 52, III)
+- Ministros do TCU, Chefes de Missão Diplomática permanente
+- Magistrados (STF, STJ), PGR, Diretores do Banco Central e Diretores de Agências Reguladoras
+
+## 💰 4. Controle Externo Financeiro & TCU (CF arts. 70 a 75)
+### 🌐 4.1 Abrangência & Fiscalização Contábil, Financeira e Orçamentária
+- Aspectos: Legalidade, Legitimidade, Economicidade, Aplicação de subvenções e renúncia de receitas
+- Jurisdição sobre qualquer pessoa física ou jurídica (pública ou privada) que utilize recursos públicos
+### 🏛️ 4.2 Composição & Natureza Jurídica do TCU (CF art. 73)
+- Órgão autônomo, independente, não subordinado ao Poder Legislativo
+- Composto por 9 Ministros:
+  - 3 pelo Presidente da República (com aprovação do Senado: 1 auditor, 1 MP junto ao TCU, 1 livre escolha)
+  - 6 pelo Congresso Nacional
+- Garantias, prerrogativas e vencimentos equiparados aos Ministros do STJ
+### 🎯 4.3 Competências Centrais do TCU (CF art. 71)
+- **Parecer Prévio**: Sobre contas anuais do Presidente da República (prazo: 60 dias) - Julgamento é do Congresso!
+- **Julgamento de Contas**: Dos demais administradores e responsáveis por dinheiros públicos (Julgamento técnico definitivo)
+- **Apreciação de Legalidade para Registro**: Admissão de pessoal e concessão de aposentadorias/pensões (atos complexos)
+- **Fiscalização e Auditorias**: Por iniciativa própria ou solicitada pelo Congresso, Câmara, Senado ou comissões
+- **Aplicação de Sanções**: Multa proporcional ao dano e declaração de inidoneidade para licitar
+### 🛑 4.4 Regra de Ouro: Sustação de Atos vs. Sustação de Contratos
+- **Ato Administrativo Ilegal**:
+  - TCU assina prazo para órgão adotar providências
+  - Não atendido: **O próprio TCU SUSTA a execução do ato diretamente** e comunica ao Congresso!
+- **Contrato Administrativo Ilegal**:
+  - TCU assina prazo para correção
+  - Não atendido: **A sustação do contrato é competência EXCLUSIVA DO CONGRESSO NACIONAL**!
+  - Se Congresso não agir em 90 dias: O Poder Executivo decide; se omisso, o TCU pode então decidir a sustação!
+### ⚖️ 4.5 Eficácia Executiva das Decisões (CF art. 71 §3º)
+- Decisões com imputação de débito ou multa: **Constituem TÍTULO EXECUTIVO EXTRAJUDICIAL**
+- Dispensa ação de conhecimento prévia!
+- Execução judicial promovida pela Fazenda Pública credora (União/Estado/Município) e NÃO pelo TCU!
+
+## ⚖️ 5. Controle Judicial & Limites do Mérito
+### 🚪 5.1 Princípio da Inafastabilidade da Jurisdição (CF art. 5º, XXXV)
+- A lei não excluirá da apreciação do Judiciário lesão ou ameaça a direito
+- Sistema de Jurisdição Una (Monista / Sistema Inglês)
+- **Exceções Relativas (Exigência de Esgotamento Prévio)**:
+  - 1. Justiça Desportiva (art. 217 §1º CF - aguardar até 60 dias)
+  - 2. Habeas Data (exige prova de recusa administrativa prévia - Súmula 2 STJ)
+  - 3. Reclamação Constitucional por descumprimento de Súmula Vinculante (esgotamento administrativo da Lei 11.417/06)
+  - 4. Benefício Previdenciário no INSS (Tema 350 STF - prévio requerimento administrativo)
+### 🛡️ 5.2 Limite Insuperável: A Vedação de Incursão no Mérito
+- Judiciário controla: **Legalidade, Moralidade, Proporcionalidade, Razoabilidade e Desvio de Finalidade**
+- Judiciário NÃO PODE: Substituir a escolha de conveniência e oportunidade do administrador
+- Teoria dos Motivos Determinantes: Se a motivação declarada for falsa/inexistente, o ato é nulo!
+
+## 📜 6. Instrumentos Processuais Constitucionais
+### ⚡ 6.1 Mandado de Segurança (Lei 12.016/09 / CF art. 5º, LXIX)
+- Protege direito líquido e certo, não amparado por Habeas Corpus ou Habeas Data
+- Exige prova documental pré-constituída (sem dilação probatória)
+- Prazo decadencial: 120 dias a contar da ciência do ato
+### 👥 6.2 Ação Popular (Lei 4.717/65 / CF art. 5º, LXXIII)
+- Legitimidade ativa: **Apenas o CIDADÃO** (eleitor no gozo dos direitos políticos - título de eleitor obrigatório)
+- Finalidade: Anular ato lesivo ao patrimônio público, moralidade, meio ambiente ou patrimônio histórico/cultural
+- Gratuidade salvo comprovada má-fé
+### 🏛️ 6.3 Ação Civil Pública (Lei 7.347/85)
+- Proteção do patrimônio público, social, meio ambiente, consumidor e outros interesses difusos/coletivos
+- Legitimados: MP, Defensoria Pública, Entes Federativos e Associações civis constituídas há mais de 1 ano
+### 📄 6.4 Habeas Data & Mandado de Injunção
+- **Habeas Data**: Assegurar conhecimento ou retificação de informações relativas à pessoa do impetrante em registros governamentais
+- **Mandado de Injunção**: Combater a falta de norma regulamentadora que inviabilize o exercício de direitos e liberdades constitucionais
+
+## ⚖️ 7. Arsenal Jurisprudencial Vinculante (STF & STJ)
+### 📌 7.1 Súmulas Vinculantes Relevantes
+- **SV 3**: Ampla defesa e contraditório são obrigatórios no TCU na anulação de ato que beneficie o servidor, EXCETO na apreciação inicial de concessão de aposentadoria/pensão
+- **SV 21**: É inconstitucional a exigência de depósito ou arrolamento prévios de dinheiro para admissibilidade de recurso administrativo
+### 🎯 7.2 Teses de Repercussão Geral de Alto Rendimento
+- **Tema 899 STF (RE 636.886)**: É prescritível a pretensão de ressarcimento ao erário fundada em decisão de Tribunal de Contas (Prescrição de 5 anos pelo art. 1º da Lei 9.873/99 e Dec. 20.910/32)
+- **Tema 445 STF (RE 636.553)**: TCU tem prazo de 5 anos para julgar a legalidade da aposentadoria/pensão inicial. Passados 5 anos sem julgamento, considera-se tacitamente registrada e exige contraditório!
+- **Julgamento de Contas de Prefeitos (RE 848.826)**: A Câmara Municipal tem competência EXCLUSIVA para julgar TODAS as contas do prefeito (governo e gestão). O parecer do Tribunal de Contas é meramente opinativo!
+- **ADPF 1011 STF**: A execução judicial de multas aplicadas por Tribunais de Contas Estaduais/Municipais cabe ao ente a que o Tribunal está vinculado (Fazenda Estadual/Municipal)
+- **Tema 220 STF (RE 684.612)**: Judiciário pode determinar implementação de políticas públicas em situações excepcionais sem violar a separação dos poderes quando houver omissão estatal grave
+
+## 🚨 8. Radar de Pegadinhas Frequentes (Cebraspe / FGV)
+### ⚠️ 8.1 TCU & Sustação de Contratos
+- 🚨 **Pegadinha Clássica**: Dizer que o TCU pode anular ou sustar contrato administrativo diretamente.
+- ✅ **Regra**: O TCU susta atos diretamente, mas CONTRATOS SÓ O CONGRESSO NACIONAL susta!
+### ⚠️ 8.2 Parecer Prévio vs. Julgamento Técnico
+- 🚨 **Pegadinha Clássica**: Dizer que o TCU julga as contas do Presidente da República.
+- ✅ **Regra**: Sobre contas do Presidente, o TCU emite PARECER PRÉVIO; quem julga é o CONGRESSO NACIONAL!
+### ⚠️ 8.3 Titularidade da Execução de Multas do TCU
+- 🚨 **Pegadinha Clássica**: Dizer que o próprio TCU ou seu Ministério Público ingressa com execução judicial da multa.
+- ✅ **Regra**: A execução das multas do TCU compete à Advocacia-Geral da União (AGU) perante a Justiça Federal!
+### ⚠️ 8.4 Limite de Atuação do Poder Judiciário
+- 🚨 **Pegadinha Clássica**: Afirmar que o Judiciário pode revogar ato discricionário por entender desproporcional.
+- ✅ **Regra**: Judiciário JAMAIS revoga ato do Executivo; ele ANULA por ilegalidade/inconstitucionalidade!
+
+  </script>
+
+  <script>
+    let mm = null;
+    let rootNode = null;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const markdown = document.getElementById('markdown-source').textContent;
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(markdown);
+      rootNode = root;
+
+      const svg = document.getElementById('mindmap');
+      const { Markmap } = window.markmap;
+      mm = Markmap.create(svg, {
+        color: (node) => {
+          const depthColors = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
+          return depthColors[node.depth % depthColors.length];
+        },
+        duration: 300,
+        nodeMinHeight: 20,
+        spacingHorizontal: 110,
+        spacingVertical: 12,
+        paddingX: 16,
+        autoFit: true,
+        initialExpandLevel: 2
+      }, root);
+
+      window.addEventListener('resize', () => { mm.fit(); });
+    });
+
+    function resetZoom() { if (mm) mm.fit(); }
+
+    function setFold(node, fold) {
+      if (node.children && node.children.length > 0) {
+        node.payload = node.payload || {};
+        node.payload.fold = fold;
+        node.children.forEach(child => setFold(child, fold));
+      }
+    }
+
+    function expandAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 0);
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+
+    function collapseAll() {
+      if (!mm || !rootNode) return;
+      setFold(rootNode, 1);
+      if (rootNode.children) {
+        rootNode.children.forEach(child => {
+          if (child.payload) child.payload.fold = 1;
+        });
+      }
+      mm.renderData(rootNode);
+      mm.fit();
+    }
+  </script>
+</body>
+</html>
