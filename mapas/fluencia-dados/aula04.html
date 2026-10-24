@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluência em Dados: Aula 04 - Bancos de Dados Relacionais & SQL Completo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #080b11;
+      /* Malha Tech Obsidian Canvas */
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 55%),
+        radial-gradient(circle at 90% 85%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(rgba(255, 255, 255, 0.075) 1.2px, transparent 1.2px);
+      background-size: 100% 100%, 100% 100%, 28px 28px;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #f1f5f9;
+      user-select: none;
+    }
+
+    #mindmap {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* OBSIDIAN CANVAS CARDS & NODES */
+    .markmap-node line {
+      display: none !important;
+    }
+
+    .markmap-foreign {
+      overflow: visible !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    .markmap-foreign > div {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      border-radius: 10px;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+      line-height: 1.45;
+    }
+
+    /* CARD NÍVEL 0: EPICENTRO / ROOT */
+    .markmap-node[data-depth="0"] .markmap-foreign > div {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.92));
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      border-radius: 14px;
+      padding: 10px 22px;
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+      box-shadow: 
+        0 0 25px rgba(56, 189, 248, 0.22),
+        0 12px 30px -5px rgba(0, 0, 0, 0.7);
+    }
+
+    /* CARD NÍVEL 1: EIXOS TEMÁTICOS (OBSIDIAN BOARD CARDS) */
+    .markmap-node[data-depth="1"] .markmap-foreign > div {
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-left: 4px solid #38bdf8;
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #f8fafc;
+      white-space: nowrap;
+      box-shadow: 
+        0 4px 18px -2px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      gap: 8px;
+    }
+    .markmap-node[data-depth="1"]:hover .markmap-foreign > div {
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 0 20px rgba(56, 189, 248, 0.28),
+        0 10px 25px -4px rgba(0, 0, 0, 0.7);
+    }
+
+    .markmap-node[data-depth="1"]:nth-of-type(6n+1) .markmap-foreign > div { border-left-color: #38bdf8; }
+    .markmap-node[data-depth="1"]:nth-of-type(6n+2) .markmap-foreign > div { border-left-color: #818cf8; }
+    .markmap-node[data-depth="1"]:nth-of-type(6n+3) .markmap-foreign > div { border-left-color: #c084fc; }
+    .markmap-node[data-depth="1"]:nth-of-type(6n+4) .markmap-foreign > div { border-left-color: #34d399; }
+    .markmap-node[data-depth="1"]:nth-of-type(6n+5) .markmap-foreign > div { border-left-color: #fbbf24; }
+    .markmap-node[data-depth="1"]:nth-of-type(6n+6) .markmap-foreign > div { border-left-color: #fb7185; }
+
+    /* CARD NÍVEL 2: SUBTÓPICOS */
+    .markmap-node[data-depth="2"] .markmap-foreign > div {
+      background: rgba(30, 41, 59, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 6px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #f1f5f9;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+    .markmap-node[data-depth="2"]:hover .markmap-foreign > div {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    /* CARD NÍVEL 3+: BULLETS / DETALHAMENTOS */
+    .markmap-node[data-depth="3"] .markmap-foreign > div,
+    .markmap-node[data-depth="4"] .markmap-foreign > div,
+    .markmap-node[data-depth="5"] .markmap-foreign > div {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 7px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 400;
+      color: #cbd5e1;
+      line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .markmap-node[data-depth="3"]:hover .markmap-foreign > div,
+    .markmap-node[data-depth="4"]:hover .markmap-foreign > div {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #f1f5f9;
+    }
+
+    .search-highlight .markmap-foreign > div {
+      border-color: #fbbf24 !important;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.7) !important;
+      transform: scale(1.05) !important;
+      background: rgba(251, 191, 36, 0.18) !important;
+      color: #ffffff !important;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      margin: 0 3px;
+      vertical-align: middle;
+      line-height: 1.3;
+    }
+    .tag-banca {
+      background: rgba(244, 63, 94, 0.18);
+      border: 1px solid rgba(251, 113, 133, 0.45);
+      color: #fda4af;
+    }
+    .tag-lei {
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(129, 140, 248, 0.45);
+      color: #c7d2fe;
+    }
+    .tag-tribunal {
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      color: #6ee7b7;
+    }
+    .tag-alerta {
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      color: #fde68a;
+    }
+
+    .markmap-foreign strong, .markmap-foreign b {
+      color: #38bdf8 !important;
+      font-weight: 700 !important;
+    }
+    .markmap-foreign em, .markmap-foreign i {
+      color: #fbbf24 !important;
+      font-style: normal !important;
+    }
+    .markmap-foreign code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #f43f5e !important;
+      font-size: 11.5px;
+    }
+
+    .markmap-link {
+      fill: none !important;
+      stroke: #38bdf8 !important;
+      stroke-width: 2.2px !important;
+      stroke-opacity: 0.7 !important;
+      stroke-linecap: round !important;
+      transition: all 0.2s ease;
+    }
+    .markmap-link:hover {
+      stroke-opacity: 1 !important;
+      stroke-width: 3.2px !important;
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
+    }
+
+    .markmap-node circle {
+      cursor: pointer !important;
+      r: 6.5px !important;
+      transform: translateY(-4px);
+      stroke-width: 2.5px !important;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .markmap-node circle:not([fill="#fff"]):not([fill="rgb(255, 255, 255)"]):not([fill="white"]) {
+      fill: #0ea5e9 !important;
+      stroke: #ffffff !important;
+      filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.85)) !important;
+    }
+
+    .markmap-node circle[fill="#fff"],
+    .markmap-node circle[fill="rgb(255, 255, 255)"],
+    .markmap-node circle[fill="white"] {
+      fill: #080b11 !important;
+      stroke: #64748b !important;
+      filter: none !important;
+    }
+
+    .markmap-node circle:hover {
+      r: 9px !important;
+      fill: #38bdf8 !important;
+      stroke: #ffffff !important;
+      filter: drop-shadow(0 0 14px #38bdf8) !important;
+    }
+
+    .canvas-header {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 7px 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+    }
+    .canvas-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: 0.2px;
+    }
+    .canvas-tag {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 4px 8px;
+      gap: 6px;
+      margin-left: 6px;
+      transition: all 0.2s ease;
+    }
+    .search-box:focus-within {
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f8fafc;
+      font-family: inherit;
+      font-size: 12px;
+      width: 170px;
+    }
+    .search-box input::placeholder {
+      color: #64748b;
+    }
+    .clear-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 11px;
+      display: none;
+    }
+    .clear-btn:hover {
+      color: #f8fafc;
+    }
+
+    .canvas-hint {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #e2e8f0;
+    }
+
+    .canvas-hud {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 6px 10px;
+      box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.8),
+        0 0 1px rgba(255, 255, 255, 0.3);
+    }
+    .hud-btn {
+      background: transparent;
+      color: #94a3b8;
+      font-family: inherit;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 13px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hud-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .hud-btn.active, .hud-btn:active {
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+    }
+    .hud-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 0 4px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="canvas-header">
+    <div class="status-indicator"></div>
+    <span class="canvas-title">Fluência em Dados: Aula 04 - Bancos de Dados Relacionais & SQL Completo</span>
+    <span class="canvas-tag">Obsidian Canvas</span>
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" id="searchInput" placeholder="Filtrar tópicos..." oninput="handleSearch(this.value)">
+      <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+
+  <div class="canvas-hint">
+    <span>Navegação:</span>
+    <span class="kbd">Scroll</span> Zoom
+    <span class="kbd">Arrastar</span> Mover
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <!-- Floating Dock -->
+  <div class="canvas-hud">
+    <button class="hud-btn" onclick="fitView()">
+      <span>🎯</span> Centralizar
+    </button>
+    <div class="hud-divider"></div>
+    <button class="hud-btn" onclick="setLevel(1)">
+      <span>📌</span> Eixos
+    </button>
+    <button class="hud-btn" onclick="setLevel(2)">
+      <span>📂</span> Tópicos
+    </button>
+    <button class="hud-btn" onclick="expandAll()">
+      <span>⚡</span> Expandir Tudo
+    </button>
+    <div class="hud-divider"></div>
+    <button class="hud-btn" onclick="collapseAll()">
+      <span>📁</span> Recolher
+    </button>
+  </div>
+
+  <script>
+    let mmInstance;
+    let rawMarkdown = `# 🗄️ Fluência em Dados: Aula 04 - Bancos de Dados Relacionais & SQL Completo
+## 📐 Eixo 1: Modelo Relacional e Álgebra Relacional
+- **Modelo Relacional (Codd, 1970)**: Relações (tabelas), tuplas (linhas), atributos (colunas)
+- **Chaves**: Primária (PK, unívoca e não nula), Estrangeira (FK, garante integridade referencial)
+- **Integridades**: Integridade de Entidade (PK nunca é nula) e Integridade Referencial (FK existe ou é nula)
+- **Operações da Álgebra**: Seleção σ (linhas), Projeção π (colunas), Junção ⋈, União, Interseção, Diferença, Produto Cartesiano
+
+## 📝 Eixo 2: Famílias de Comandos SQL
+- **DDL (Data Definition)**: CREATE, ALTER, DROP, TRUNCATE (limpeza ultrarrápida, não registra log linha a linha)
+- **DML (Data Manipulation)**: INSERT, UPDATE, DELETE (permite rollback de transação aberta)
+- **DCL (Data Control)**: GRANT (conceder direitos), REVOKE (revogar direitos)
+- **DTL / TCL (Transaction Control)**: COMMIT (efetivar), ROLLBACK (desfazer), SAVEPOINT (ponto intermediário)
+
+## 🔍 Eixo 3: DQL Avançado e Ordem de Processamento
+- **Ordem Lógica de Execução**: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> DISTINCT -> ORDER BY -> LIMIT
+- **WHERE vs HAVING**: WHERE filtra linhas antes do agrupamento; HAVING filtra grupos consolidados pós-agregação
+- **Tipos de Junção**: INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
+- **CTEs (Common Table Expressions)**: Cláusula WITH nome_cte AS (SELECT...) para modularidade analítica
+
+## 🪟 Eixo 4: Window Functions (Funções Analíticas de Janela)
+- **Sintaxe OVER()**: FUNCAO() OVER (PARTITION BY col ORDER BY col) calcula métricas sem colapsar linhas!
+- **Funções de Ranking**: ROW_NUMBER() (sequencial 1,2,3), RANK() (empata e pula posições: 1,2,2,4), DENSE_RANK() (empata sem pular: 1,2,2,3)
+- **Funções de Deslocamento**: LEAD(col, n) busca n linhas à frente; LAG(col, n) busca n linhas atrás
+
+## 🎯 Eixo 5: Radar de Pegadinhas Cebraspe / FGV
+- **Lógica Tri-Valente de NULL**: Comparações com = NULL resultam UNKNOWN; use sempre IS NULL ou IS NOT NULL!
+- **Agregações e NULL**: SUM, AVG, MIN, MAX ignoram nulos; COUNT(*) conta todas as linhas incluindo nulos
+- **TRUNCATE vs DELETE**: TRUNCATE é DDL rápido sem rollback comum; DELETE é DML linha a linha com log`;
+
+    function enrichMarkdownTags(text) {
+      return text
+        .replace(/\b(Cebraspe|CESPE)\b/g, '<span class="tag tag-banca">🎯 $1</span>')
+        .replace(/\b(FGV|FCC|VUNESP)\b/g, '<span class="tag tag-banca">📋 $1</span>')
+        .replace(/\b(LGPD|Lei\s*13\.709|Marco Civil)\b/g, '<span class="tag tag-lei">📜 $1</span>')
+        .replace(/\b(DAMA|DMBOK|NIST)\b/g, '<span class="tag tag-tribunal">🏛️ $1</span>')
+        .replace(/\b(Radar de Pegadinhas|Pegadinha)\b/g, '<span class="tag tag-alerta">⚠️ $1</span>');
+    }
+
+    const processedMarkdown = enrichMarkdownTags(rawMarkdown);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const { Transformer } = window.markmap;
+      const transformer = new Transformer();
+      const { root } = transformer.transform(processedMarkdown);
+      const { Markmap } = window.markmap;
+      
+      mmInstance = Markmap.create('#mindmap', {
+        duration: 350,
+        maxWidth: 700,
+        spacingVertical: 32,
+        spacingHorizontal: 140,
+        paddingX: 18,
+        color: (node) => {
+          const colors = ['#38bdf8', '#818cf8', '#c084fc', '#34d399', '#fbbf24', '#fb7185', '#a78bfa'];
+          return colors[node.state.depth % colors.length];
+        }
+      }, root);
+
+      setTimeout(() => {
+        setLevel(1);
+      }, 150);
+    });
+
+    function fitView() {
+      if (mmInstance) mmInstance.fit();
+    }
+
+    function setLevel(targetLevel) {
+      if (!mmInstance) return;
+      function foldByLevel(node, depth = 0) {
+        if (node.children) {
+          node.payload = { ...node.payload, fold: depth >= targetLevel ? 1 : 0 };
+          node.children.forEach(c => foldByLevel(c, depth + 1));
+        }
+      }
+      foldByLevel(mmInstance.state.data);
+      mmInstance.renderData();
+      mmInstance.fit();
+    }
+
+    function expandAll() {
+      if (!mmInstance) return;
+      function expand(node) {
+        if (node.children) {
+          node.payload = { ...node.payload, fold: 0 };
+          node.children.forEach(expand);
+        }
+      }
+      expand(mmInstance.state.data);
+      mmInstance.renderData();
+      mmInstance.fit();
+    }
+
+    function collapseAll() {
+      if (!mmInstance) return;
+      function collapse(node, depth = 0) {
+        if (node.children) {
+          node.payload = { ...node.payload, fold: depth >= 1 ? 1 : 0 };
+          node.children.forEach(c => collapse(c, depth + 1));
+        }
+      }
+      collapse(mmInstance.state.data);
+      mmInstance.renderData();
+      mmInstance.fit();
+    }
+
+    function handleSearch(val) {
+      const query = val.trim().toLowerCase();
+      const clearBtn = document.getElementById('clearBtn');
+      clearBtn.style.display = query ? 'inline-block' : 'none';
+
+      const nodes = document.querySelectorAll('.markmap-node');
+      if (!query) {
+        nodes.forEach(n => {
+          n.style.opacity = '1';
+          n.classList.remove('search-highlight');
+        });
+        return;
+      }
+
+      nodes.forEach(n => {
+        const text = n.textContent.toLowerCase();
+        if (text.includes(query)) {
+          n.style.opacity = '1';
+          n.classList.add('search-highlight');
+        } else {
+          n.style.opacity = '0.22';
+          n.classList.remove('search-highlight');
+        }
+      });
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      handleSearch('');
+      input.focus();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey && e.key.toLowerCase() === 'f') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+        e.preventDefault();
+        const input = document.getElementById('searchInput');
+        input.focus();
+        input.select();
+      } else if (e.key === 'Escape') {
+        clearSearch();
+      }
+    });
+  </script>
+</body>
+</html>
